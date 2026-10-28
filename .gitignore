@@ -45,3 +45,5 @@ next-env.d.ts
 .antigravity/
 .copilot/
 *agent*.md
+# Local documentation
+PORTFOLIO_CONTEXT.md
