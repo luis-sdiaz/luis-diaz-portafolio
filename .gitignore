@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# AI assistant artifacts & local agent caches
+.claude/
+.codex/
+.antigravity/
+.copilot/
+*agent*.md
