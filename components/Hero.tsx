@@ -2,7 +2,7 @@
 
 import React from "react";
 import { toast } from "sonner";
-import { Download, ArrowRight } from "lucide-react";
+import { Download, ArrowRight, Terminal, Cpu, Layers } from "lucide-react";
 
 export default function Hero() {
   const handleDownloadCv = () => {
@@ -69,6 +69,21 @@ export default function Hero() {
                 <span>Ver proyectos</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
+            </div>
+
+            <div className="pt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-400">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+                <span>5° Semestre de Ingeniería</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Hardware IoT &amp; Embebidos</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+                <Layers className="w-3.5 h-3.5 text-sky-400" />
+                <span>Clean Architecture</span>
+              </div>
             </div>
           </div>
           <div className="lg:col-span-5 flex items-center justify-center">
