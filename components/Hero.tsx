@@ -86,8 +86,27 @@ export default function Hero() {
               </div>
             </div>
           </div>
+
           <div className="lg:col-span-5 flex items-center justify-center">
-            {/* Contenedor visual */}
+            <div className="relative flex items-center justify-center w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 rounded-full border border-cyan-500/20 bg-gradient-to-tr from-cyan-500/10 via-transparent to-indigo-500/10 backdrop-blur-md animate-pulse"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -inset-3 rounded-full border border-dashed border-zinc-700/50"
+              />
+              <div className="relative z-10 flex flex-col items-center justify-center w-52 h-52 sm:w-60 sm:h-60 lg:w-64 lg:h-64 rounded-full border border-zinc-700/60 bg-zinc-900/90 shadow-2xl backdrop-blur-xl overflow-hidden group select-none">
+                <div className="absolute inset-0 bg-radial from-cyan-500/10 to-transparent pointer-events-none" />
+                <span className="text-5xl sm:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-zinc-100 via-zinc-300 to-zinc-500 group-hover:scale-105 transition-transform duration-300">
+                  LD
+                </span>
+                <span className="mt-1 text-[11px] font-mono tracking-widest uppercase text-cyan-400 font-semibold">
+                  Software Eng.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
