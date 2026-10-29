@@ -48,6 +48,16 @@ const QUICK_FACTS: QuickFact[] = [
   },
 ];
 
+const HIGHLIGHTED_SKILLS: SkillChip[] = [
+  { name: 'TypeScript', category: 'core', level: 'Avanzado' },
+  { name: 'Next.js 16', category: 'framework', level: 'Modern Web' },
+  { name: 'Tailwind CSS', category: 'framework', level: 'Responsive UI' },
+  { name: 'React', category: 'framework', level: 'Component Architecture' },
+  { name: 'PostgreSQL', category: 'database', level: 'Relational DB' },
+  { name: 'Tauri 2', category: 'framework', level: 'Cross-platform Desktop' },
+  { name: 'ESP32 / IoT', category: 'hardware', level: 'Embedded Systems' },
+];
+
 export default function About() {
   return (
     <section
@@ -131,6 +141,22 @@ export default function About() {
                   </div>
                 );
               })}
+            </div>
+            <div className="space-y-3 pt-4 border-t border-zinc-800/80">
+              <span className="text-xs uppercase font-mono tracking-wider text-zinc-400 block">
+                Stack tecnológico de enfoque principal
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {HIGHLIGHTED_SKILLS.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900/90 text-zinc-200 border border-zinc-700/70"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
