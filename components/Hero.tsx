@@ -33,6 +33,12 @@ export default function Hero() {
                 Estudiante de Ingeniería de Software | Full-Stack &amp; IoT Developer
               </p>
             </div>
+
+            <p className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">
+              Enfocado en el diseño y construcción de arquitecturas digitales
+              escalables, aplicaciones web de alto rendimiento e integración de
+              sistemas embebidos IoT con hardware real.
+            </p>
           </div>
           <div className="lg:col-span-5 flex items-center justify-center">
             {/* Contenedor visual */}
