@@ -14,6 +14,15 @@ export default function Projects() {
           Sistemas construidos con foco en rendimiento, arquitecturas distribuidas, hardware integrado y tipado seguro.
         </p>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {PROJECTS.map((project) => (
+          <article key={project.id} className="rounded-2xl bg-zinc-900/50 border border-zinc-800 p-6">
+            <h3 className="text-xl font-bold text-zinc-100">{project.title}</h3>
+            <p className="mt-3 text-sm text-zinc-400">{project.description}</p>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
