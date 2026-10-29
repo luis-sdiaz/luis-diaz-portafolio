@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { MapPin, GraduationCap, Cpu, Terminal, Code2, Layers } from 'lucide-react';
+import { MapPin, GraduationCap, Cpu, Terminal, Code2, Layers, Sparkles } from 'lucide-react';
 
 interface QuickFact {
   id: string;
@@ -101,9 +101,22 @@ export default function About() {
         className="space-y-16"
       >
         <motion.div variants={itemVariants} className="text-center space-y-4">
-          <h2 id="about-title" className="text-3xl font-bold text-white">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <Sparkles className="w-3.5 h-3.5" />
             Perfil Profesional
+          </div>
+          <h2
+            id="about-title"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
+          >
+            Trayectoria, vocación y{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+              pensamiento ingenieril
+            </span>
           </h2>
+          <p className="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400">
+            Conectando el software de alto rendimiento con sistemas físicos y necesidades reales.
+          </p>
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <motion.div variants={itemVariants} className="lg:col-span-5 flex justify-center">
@@ -144,15 +157,17 @@ export default function About() {
             </div>
           </motion.div>
           <motion.div variants={itemVariants} className="lg:col-span-7 space-y-6">
-            <h3 className="text-2xl font-semibold text-zinc-100">
-              Soluciones digitales fundamentadas en rigor, arquitectura y propósito.
-            </h3>
-            <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
-              Soy Luis Sebastián Díaz, estudiante de 5° semestre de Ingeniería de Software en Pasto, Colombia. 
-              Me especializo en diseñar arquitecturas web modulares y en integrar microcontroladores IoT mediante 
-              sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con 
-              acabados glassmorphism y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.
-            </p>
+            <div className="space-y-4">
+              <h3 className="text-2xl sm:text-3xl font-semibold text-zinc-100">
+                Soluciones digitales fundamentadas en rigor, arquitectura y propósito.
+              </h3>
+              <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
+                Soy Luis Sebastián Díaz, estudiante de 5° semestre de Ingeniería de Software en Pasto, Colombia. 
+                Me especializo en diseñar arquitecturas web modulares y en integrar microcontroladores IoT mediante 
+                sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con 
+                acabados glassmorphism y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.
+              </p>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
               {QUICK_FACTS.map((fact) => {
                 const Icon = fact.icon;
