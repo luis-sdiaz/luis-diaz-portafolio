@@ -1,8 +1,17 @@
 "use client";
 
 import React from "react";
+import { toast } from "sonner";
+import { Download } from "lucide-react";
 
 export default function Hero() {
+  const handleDownloadCv = () => {
+    toast.success("cv.pdf descargado", {
+      description: "Hoja de vida descargada correctamente.",
+      duration: 4000,
+    });
+  };
+
   return (
     <section
       id="inicio"
@@ -39,6 +48,19 @@ export default function Hero() {
               escalables, aplicaciones web de alto rendimiento e integración de
               sistemas embebidos IoT con hardware real.
             </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
+              <a
+                href="/cv.pdf"
+                download="Luis_Sebastian_Diaz_CV.pdf"
+                onClick={handleDownloadCv}
+                aria-label="Descargar currículum vitae en formato PDF"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:brightness-110 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+              >
+                <Download className="w-4 h-4" />
+                <span>Descargar CV</span>
+              </a>
+            </div>
           </div>
           <div className="lg:col-span-5 flex items-center justify-center">
             {/* Contenedor visual */}
