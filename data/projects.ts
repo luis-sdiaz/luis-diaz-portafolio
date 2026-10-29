@@ -1,4 +1,4 @@
-export type ProjectCategory = 'all' | 'desktop-iot' | 'fullstack-web';
+export type ProjectCategory = "all" | "desktop-iot" | "fullstack-web";
 
 export interface Project {
   id: string;
@@ -18,46 +18,76 @@ export interface CategoryFilter {
 }
 
 export const PROJECT_CATEGORIES: CategoryFilter[] = [
-  { id: 'all', label: 'Todos' },
-  { id: 'desktop-iot', label: 'Desktop & IoT' },
-  { id: 'fullstack-web', label: 'Full-Stack Web' }
+  { id: "all", label: "Todos" },
+  { id: "desktop-iot", label: "Desktop & IoT" },
+  { id: "fullstack-web", label: "Full-Stack Web" },
 ];
 
 export const PROJECTS: Project[] = [
   {
-    id: 'ecoplaza-iot-desktop',
-    title: 'EcoPlaza IoT & Desktop',
+    id: "ecoplaza-iot-desktop",
+    title: "EcoPlaza IoT & Desktop",
     description:
-      'Sistema integral de pesaje y trazabilidad de residuos sólidos en puntos de acopio. Conexión serial directa con microcontroladores ESP32 y sensores ultrasónicos, sincronización distribuida en tiempo real y persistencia local de alta resiliencia.',
-    tags: ['Tauri 2', 'Rust', 'ESP32', 'React', 'TypeScript', 'PostgreSQL'],
-    githubUrl: 'https://github.com/luisdiaz/ecoplaza',
-    liveUrl: 'https://ecoplaza.luis-diaz.dev',
-    category: 'desktop-iot',
-    metrics: '< 15ms latencia en sensado',
-    featured: true
+      "Sistema integral de pesaje y trazabilidad de residuos sólidos en centros de acopio. Conexión serial directa con microcontroladores ESP32 y sensores ultrasónicos, sincronización en tiempo real y persistencia local de alta resiliencia.",
+    tags: ["Tauri 2", "Rust", "ESP32", "React", "TypeScript", "PostgreSQL"],
+    githubUrl: "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform",
+    liveUrl: "https://ecoplaza.luis-diaz.dev",
+    category: "desktop-iot",
+    metrics: "< 15ms latencia en sensado",
+    featured: true,
   },
   {
-    id: 'solidary-vote-engine',
-    title: 'Solidary Vote Engine',
+    id: "visual-trace-mobile",
+    title: "VisualTrace Mobile",
     description:
-      'Plataforma de gobernanza democrática y votaciones transparentes para cooperativas y fondos de empleados. Algoritmos criptográficos de verificación de sufragio con cómputo distribuido sin revelación del voto individual.',
-    tags: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Criptografía', 'PostgreSQL'],
-    githubUrl: 'https://github.com/luisdiaz/solidary-vote',
-    liveUrl: 'https://vote.luis-diaz.dev',
-    category: 'fullstack-web',
-    metrics: '100% trazabilidad criptográfica',
-    featured: true
+      "Aplicación móvil para auditoría visual, inspección y captura de datos en campo. Diseñada bajo arquitectura offline-first con sincronización asíncrona, validación estricta de esquemas y renderizado fluido.",
+    tags: [
+      "React Native",
+      "TypeScript",
+      "Mobile UX",
+      "Tailwind CSS",
+      "REST APIs",
+    ],
+    githubUrl: "https://github.com/luis-sdiaz/visual-trace-mobile",
+    liveUrl: "https://github.com/luis-sdiaz/visual-trace-mobile",
+    category: "fullstack-web",
+    metrics: "Arquitectura offline-first",
+    featured: true,
   },
   {
-    id: 'dev-audio-streamer',
-    title: 'Dev Audio Streamer',
+    id: "ridewake-platform",
+    title: "RideWake",
     description:
-      'Motor de procesamiento y streaming de audio de baja latencia en el navegador. Implementación de Web Audio API para análisis espectral en tiempo real, buffers circulares dinámicos y reproducción de audio posicional multicanal.',
-    tags: ['TypeScript', 'Web Audio API', 'React', 'Canvas 2D', 'Node.js'],
-    githubUrl: 'https://github.com/luisdiaz/dev-audio-streamer',
-    liveUrl: 'https://audio.luis-diaz.dev',
-    category: 'fullstack-web',
-    metrics: '60 FPS render espectral',
-    featured: false
-  }
+      "Plataforma reactiva para geolocalización, análisis de trayectorias y alertas de asistencia en movilidad. Algoritmos de seguimiento continuo y despacho optimizados para eficiencia de batería y bajo consumo.",
+    tags: [
+      "TypeScript",
+      "Next.js 16",
+      "Geolocalización",
+      "Tailwind CSS",
+      "PostgreSQL",
+    ],
+    githubUrl: "https://github.com/luis-sdiaz/ridewake-ai-wearos",
+    liveUrl: "https://github.com/luis-sdiaz/ridewake",
+    category: "fullstack-web",
+    metrics: "Tracking reactivo continuo",
+    featured: false,
+  },
+  {
+    id: "lullaby-3d-game",
+    title: "Lullaby 3D",
+    description:
+      "Videojuego 3D interactivo desarrollado en colaboración de ingeniería. Implementación de bucle desacoplado de renderizado, físicas tridimensionales dinámicas, shaders ambientales y máquina de estados finitos.",
+    tags: [
+      "TypeScript",
+      "Three.js / WebGL",
+      "Físicas 3D",
+      "State Machines",
+      "Game Loop",
+    ],
+    githubUrl: "https://github.com/AlePython-byte/LULLABY",
+    liveUrl: "https://github.com/AlePython-byte/LULLABY",
+    category: "desktop-iot",
+    metrics: "60 FPS render 3D estable",
+    featured: true,
+  },
 ];
