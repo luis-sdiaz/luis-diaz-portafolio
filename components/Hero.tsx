@@ -54,6 +54,15 @@ export default function Hero() {
       aria-label="Sección de bienvenida y presentación profesional"
       className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden py-16 md:py-24"
     >
+      {/* Luces de fondo y atmósfera vítrea */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
+      >
+        <div className="h-[360px] w-[360px] md:h-[500px] md:w-[500px] rounded-full bg-cyan-500/10 blur-[120px]" />
+        <div className="h-[280px] w-[280px] md:h-[400px] md:w-[400px] rounded-full bg-indigo-500/10 blur-[100px] -translate-y-12 translate-x-20" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           variants={containerVariants}
