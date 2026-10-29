@@ -2,7 +2,7 @@
 
 import React from "react";
 import { toast } from "sonner";
-import { Download } from "lucide-react";
+import { Download, ArrowRight } from "lucide-react";
 
 export default function Hero() {
   const handleDownloadCv = () => {
@@ -59,6 +59,15 @@ export default function Hero() {
               >
                 <Download className="w-4 h-4" />
                 <span>Descargar CV</span>
+              </a>
+
+              <a
+                href="#proyectos"
+                aria-label="Navegar a la sección de proyectos desarrollados"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-zinc-700/80 bg-zinc-900/60 hover:bg-zinc-800/80 text-zinc-200 hover:text-white text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+              >
+                <span>Ver proyectos</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
