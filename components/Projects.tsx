@@ -1,6 +1,16 @@
-import { PROJECTS, PROJECT_CATEGORIES } from "@/data/projects";
+"use client";
+
+import { useState, useMemo } from "react";
+import { PROJECTS, PROJECT_CATEGORIES, ProjectCategory } from "@/data/projects";
 
 export default function Projects() {
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all");
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "all") return PROJECTS;
+    return PROJECTS.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
+
   return (
     <section id="proyectos" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
       <div className="text-center max-w-3xl mx-auto mb-16">
@@ -15,8 +25,24 @@ export default function Projects() {
         </p>
       </div>
 
+      <div className="flex justify-center mb-12">
+        <div className="inline-flex p-1.5 rounded-2xl bg-zinc-900 border border-zinc-800">
+          {PROJECT_CATEGORIES.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveCategory(tab.id)}
+              className={`px-4 py-2 text-xs sm:text-sm font-medium rounded-xl transition-colors ${
+                activeCategory === tab.id ? "bg-zinc-800 text-zinc-100" : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {PROJECTS.map((project) => (
+        {filteredProjects.map((project) => (
           <article key={project.id} className="rounded-2xl bg-zinc-900/50 border border-zinc-800 p-6">
             <h3 className="text-xl font-bold text-zinc-100">{project.title}</h3>
             <p className="mt-3 text-sm text-zinc-400">{project.description}</p>
