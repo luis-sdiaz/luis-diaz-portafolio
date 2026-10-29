@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion, type Variants } from 'framer-motion';
 import { MapPin, GraduationCap, Cpu, Terminal, Code2, Layers } from 'lucide-react';
 
 interface QuickFact {
@@ -58,6 +59,29 @@ const HIGHLIGHTED_SKILLS: SkillChip[] = [
   { name: 'ESP32 / IoT', category: 'hardware', level: 'Embedded Systems' },
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 export default function About() {
   return (
     <section
@@ -69,14 +93,20 @@ export default function About() {
         aria-hidden="true"
         className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-tr from-emerald-500/10 via-cyan-500/10 to-transparent blur-3xl -z-10"
       />
-      <div className="space-y-16">
-        <div className="text-center space-y-4">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-60px' }}
+        className="space-y-16"
+      >
+        <motion.div variants={itemVariants} className="text-center space-y-4">
           <h2 id="about-title" className="text-3xl font-bold text-white">
             Perfil Profesional
           </h2>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-5 flex justify-center">
+          <motion.div variants={itemVariants} className="lg:col-span-5 flex justify-center">
             <div className="relative group w-full max-w-md">
               <div
                 aria-hidden="true"
@@ -112,8 +142,8 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="lg:col-span-7 space-y-6">
+          </motion.div>
+          <motion.div variants={itemVariants} className="lg:col-span-7 space-y-6">
             <h3 className="text-2xl font-semibold text-zinc-100">
               Soluciones digitales fundamentadas en rigor, arquitectura y propósito.
             </h3>
@@ -158,9 +188,9 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
