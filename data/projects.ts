@@ -35,5 +35,29 @@ export const PROJECTS: Project[] = [
     category: 'desktop-iot',
     metrics: '< 15ms latencia en sensado',
     featured: true
+  },
+  {
+    id: 'solidary-vote-engine',
+    title: 'Solidary Vote Engine',
+    description:
+      'Plataforma de gobernanza democrática y votaciones transparentes para cooperativas y fondos de empleados. Algoritmos criptográficos de verificación de sufragio con cómputo distribuido sin revelación del voto individual.',
+    tags: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Criptografía', 'PostgreSQL'],
+    githubUrl: 'https://github.com/luisdiaz/solidary-vote',
+    liveUrl: 'https://vote.luis-diaz.dev',
+    category: 'fullstack-web',
+    metrics: '100% trazabilidad criptográfica',
+    featured: true
+  },
+  {
+    id: 'dev-audio-streamer',
+    title: 'Dev Audio Streamer',
+    description:
+      'Motor de procesamiento y streaming de audio de baja latencia en el navegador. Implementación de Web Audio API para análisis espectral en tiempo real, buffers circulares dinámicos y reproducción de audio posicional multicanal.',
+    tags: ['TypeScript', 'Web Audio API', 'React', 'Canvas 2D', 'Node.js'],
+    githubUrl: 'https://github.com/luisdiaz/dev-audio-streamer',
+    liveUrl: 'https://audio.luis-diaz.dev',
+    category: 'fullstack-web',
+    metrics: '60 FPS render espectral',
+    featured: false
   }
 ];
