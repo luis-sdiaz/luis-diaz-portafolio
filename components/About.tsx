@@ -157,9 +157,11 @@ export default function About() {
               {QUICK_FACTS.map((fact) => {
                 const Icon = fact.icon;
                 return (
-                  <div
+                  <motion.div
                     key={fact.id}
-                    className="flex items-start gap-3.5 p-3.5 rounded-xl bg-zinc-900/50 border border-zinc-800/80"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    className="flex items-start gap-3.5 p-3.5 rounded-xl bg-zinc-900/50 border border-zinc-800/80 hover:border-zinc-700/80 transition-all duration-200"
                   >
                     <div className={`p-2 rounded-lg bg-gradient-to-br border shadow-sm ${fact.accent}`}>
                       <Icon className="w-4 h-4" />
@@ -168,7 +170,7 @@ export default function About() {
                       <span className="text-xs text-zinc-400 font-medium block">{fact.label}</span>
                       <span className="text-sm font-semibold text-zinc-200 block">{fact.value}</span>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -178,13 +180,14 @@ export default function About() {
               </span>
               <div className="flex flex-wrap gap-2">
                 {HIGHLIGHTED_SKILLS.map((skill) => (
-                  <span
+                  <motion.span
                     key={skill.name}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900/90 text-zinc-200 border border-zinc-700/70"
+                    whileHover={{ y: -2 }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900/90 text-zinc-200 border border-zinc-700/70 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300 transition-colors cursor-default shadow-sm"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                     {skill.name}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
