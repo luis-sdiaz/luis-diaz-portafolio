@@ -1,8 +1,44 @@
 "use client";
 
 import React from "react";
+import { motion, type Variants } from "framer-motion";
 import { toast } from "sonner";
 import { Download, ArrowRight, Terminal, Cpu, Layers, Sparkles } from "lucide-react";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+const floatingBadgeVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
 export default function Hero() {
   const handleDownloadCv = () => {
@@ -19,19 +55,26 @@ export default function Hero() {
       className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden py-16 md:py-24"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+        >
           <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/70 backdrop-blur-md shadow-sm">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
-              <span className="text-xs font-medium tracking-wide text-zinc-300">
-                Disponible para nuevos retos tecnológicos
-              </span>
-            </div>
+            <motion.div variants={itemVariants}>
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/70 backdrop-blur-md shadow-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                </span>
+                <span className="text-xs font-medium tracking-wide text-zinc-300">
+                  Disponible para nuevos retos tecnológicos
+                </span>
+              </div>
+            </motion.div>
 
-            <div className="space-y-3">
+            <motion.div variants={itemVariants} className="space-y-3">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-100">
                 Hola, soy{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400">
@@ -41,15 +84,21 @@ export default function Hero() {
               <p className="text-lg sm:text-xl font-semibold text-zinc-300 tracking-normal">
                 Estudiante de Ingeniería de Software | Full-Stack &amp; IoT Developer
               </p>
-            </div>
+            </motion.div>
 
-            <p className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">
-              Enfocado en el design y construcción de arquitecturas digitales
+            <motion.p
+              variants={itemVariants}
+              className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed"
+            >
+              Enfocado en el diseño y construcción de arquitecturas digitales
               escalables, aplicaciones web de alto rendimiento e integración de
               sistemas embebidos IoT con hardware real.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto"
+            >
               <a
                 href="/cv.pdf"
                 download="Luis_Sebastian_Diaz_CV.pdf"
@@ -69,9 +118,12 @@ export default function Hero() {
                 <span>Ver proyectos</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
-            </div>
+            </motion.div>
 
-            <div className="pt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-400">
+            <motion.div
+              variants={itemVariants}
+              className="pt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-400"
+            >
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800/80 bg-zinc-900/40">
                 <Terminal className="w-3.5 h-3.5 text-cyan-400" />
                 <span>5° Semestre de Ingeniería</span>
@@ -84,11 +136,14 @@ export default function Hero() {
                 <Layers className="w-3.5 h-3.5 text-sky-400" />
                 <span>Clean Architecture</span>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="lg:col-span-5 flex items-center justify-center">
-            <div className="relative flex items-center justify-center w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+            <motion.div
+              variants={itemVariants}
+              className="relative flex items-center justify-center w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80"
+            >
               <div
                 aria-hidden="true"
                 className="absolute inset-0 rounded-full border border-cyan-500/20 bg-gradient-to-tr from-cyan-500/10 via-transparent to-indigo-500/10 backdrop-blur-md animate-pulse"
@@ -107,18 +162,24 @@ export default function Hero() {
                 </span>
               </div>
 
-              <div className="absolute -top-3 -right-2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-[11px] font-medium text-zinc-200 shadow-xl backdrop-blur-md">
+              <motion.div
+                variants={floatingBadgeVariants}
+                className="absolute -top-3 -right-2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-[11px] font-medium text-zinc-200 shadow-xl backdrop-blur-md"
+              >
                 <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Next.js 16</span>
-              </div>
+              </motion.div>
 
-              <div className="absolute -bottom-2 -left-2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-[11px] font-medium text-zinc-200 shadow-xl backdrop-blur-md">
+              <motion.div
+                variants={floatingBadgeVariants}
+                className="absolute -bottom-2 -left-2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-[11px] font-medium text-zinc-200 shadow-xl backdrop-blur-md"
+              >
                 <Cpu className="w-3.5 h-3.5 text-indigo-400" />
                 <span>ESP32 &amp; IoT</span>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
