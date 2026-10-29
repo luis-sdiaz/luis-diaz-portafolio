@@ -2,7 +2,7 @@
 
 import React from "react";
 import { toast } from "sonner";
-import { Download, ArrowRight, Terminal, Cpu, Layers } from "lucide-react";
+import { Download, ArrowRight, Terminal, Cpu, Layers, Sparkles } from "lucide-react";
 
 export default function Hero() {
   const handleDownloadCv = () => {
@@ -44,7 +44,7 @@ export default function Hero() {
             </div>
 
             <p className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">
-              Enfocado en el diseño y construcción de arquitecturas digitales
+              Enfocado en el design y construcción de arquitecturas digitales
               escalables, aplicaciones web de alto rendimiento e integración de
               sistemas embebidos IoT con hardware real.
             </p>
@@ -105,6 +105,16 @@ export default function Hero() {
                 <span className="mt-1 text-[11px] font-mono tracking-widest uppercase text-cyan-400 font-semibold">
                   Software Eng.
                 </span>
+              </div>
+
+              <div className="absolute -top-3 -right-2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-[11px] font-medium text-zinc-200 shadow-xl backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Next.js 16</span>
+              </div>
+
+              <div className="absolute -bottom-2 -left-2 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-[11px] font-medium text-zinc-200 shadow-xl backdrop-blur-md">
+                <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+                <span>ESP32 &amp; IoT</span>
               </div>
             </div>
           </div>
