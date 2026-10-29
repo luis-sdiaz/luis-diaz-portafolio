@@ -2,7 +2,7 @@ import { ArrowUpRight, FileDown } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto flex max-w-5xl flex-col items-center justify-center px-4 pt-20 text-center">
+    <section id="inicio" className="relative mx-auto flex max-w-5xl flex-col items-center justify-center px-4 pt-20 text-center">
       <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
         <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
         Ingeniería de Software • 5º Semestre
