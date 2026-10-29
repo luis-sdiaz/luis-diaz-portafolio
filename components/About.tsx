@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Code2, Layers } from 'lucide-react';
+import { MapPin, GraduationCap, Cpu, Terminal, Code2, Layers } from 'lucide-react';
 
 interface QuickFact {
   id: string;
@@ -16,6 +16,37 @@ interface SkillChip {
   category: 'core' | 'framework' | 'database' | 'hardware';
   level: string;
 }
+
+const QUICK_FACTS: QuickFact[] = [
+  {
+    id: 'location',
+    label: 'Ubicación',
+    value: 'Pasto, Nariño, Colombia',
+    icon: MapPin,
+    accent: 'from-emerald-500/20 to-emerald-500/5 text-emerald-400 border-emerald-500/30',
+  },
+  {
+    id: 'education',
+    label: 'Formación',
+    value: '5° Semestre — Ing. de Software',
+    icon: GraduationCap,
+    accent: 'from-cyan-500/20 to-cyan-500/5 text-cyan-400 border-cyan-500/30',
+  },
+  {
+    id: 'focus',
+    label: 'Enfoque Técnico',
+    value: 'Web Escalable & Hardware IoT',
+    icon: Cpu,
+    accent: 'from-indigo-500/20 to-indigo-500/5 text-indigo-400 border-indigo-500/30',
+  },
+  {
+    id: 'status',
+    label: 'Disponibilidad',
+    value: 'Desarrollo de Soluciones de Impacto',
+    icon: Terminal,
+    accent: 'from-teal-500/20 to-teal-500/5 text-teal-400 border-teal-500/30',
+  },
+];
 
 export default function About() {
   return (
@@ -82,6 +113,25 @@ export default function About() {
               sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con 
               acabados glassmorphism y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.
             </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              {QUICK_FACTS.map((fact) => {
+                const Icon = fact.icon;
+                return (
+                  <div
+                    key={fact.id}
+                    className="flex items-start gap-3.5 p-3.5 rounded-xl bg-zinc-900/50 border border-zinc-800/80"
+                  >
+                    <div className={`p-2 rounded-lg bg-gradient-to-br border shadow-sm ${fact.accent}`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-xs text-zinc-400 font-medium block">{fact.label}</span>
+                      <span className="text-sm font-semibold text-zinc-200 block">{fact.value}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
