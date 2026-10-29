@@ -35,6 +35,31 @@ export default function Navbar() {
         >
           LD
         </a>
+
+        <ul className="hidden items-center gap-6 text-sm font-medium text-zinc-400 md:flex">
+          {navigationItems.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                className="transition-colors hover:text-zinc-100"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-3">
+          <a
+            href="/cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-2 rounded-lg bg-emerald-500 px-3 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-emerald-400 md:inline-flex"
+          >
+            <FileDown className="h-4 w-4" />
+            Ver CV
+          </a>
+        </div>
       </nav>
 
       <motion.div
