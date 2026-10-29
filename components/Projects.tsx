@@ -17,7 +17,7 @@ function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="mx-auto max-w-5xl px-4 py-12">
+    <section id="proyectos" className="mx-auto max-w-5xl px-4 py-12">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-emerald-400">
         Portafolio
       </h2>
