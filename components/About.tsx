@@ -11,7 +11,7 @@ const profileHighlights: ProfileHighlight[] = [
 
 export default function About() {
   return (
-    <section id="about" className="mx-auto max-w-5xl px-4 py-12">
+    <section id="sobre-mi" className="mx-auto max-w-5xl px-4 py-12">
       <div className="glass-panel rounded-2xl p-8 md:p-10">
         <h2 className="text-xs font-semibold uppercase tracking-widest text-emerald-400">
           Trayectoria
