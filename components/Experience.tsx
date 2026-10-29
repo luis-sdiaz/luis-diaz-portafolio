@@ -26,7 +26,7 @@ const experienceHistory: ExperienceItem[] = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="mx-auto max-w-5xl px-4 py-12">
+    <section id="experiencia" className="mx-auto max-w-5xl px-4 py-12">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-emerald-400">
         Trayectoria
       </h2>
