@@ -18,6 +18,7 @@ const navigationItems: NavItem[] = [
 ];
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -59,6 +60,16 @@ export default function Navbar() {
             <FileDown className="h-4 w-4" />
             Ver CV
           </a>
+          <button
+            type="button"
+            className="rounded-lg p-2 text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-zinc-100 md:hidden"
+            aria-expanded={isOpen}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsOpen((open) => !open)}
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </nav>
 
