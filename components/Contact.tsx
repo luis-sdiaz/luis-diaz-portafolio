@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion, type Variants, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  type Variants,
+  AnimatePresence,
+} from "framer-motion";
 import { toast, Toaster } from "sonner";
 import {
   Mail,
@@ -14,6 +19,7 @@ import {
   Loader2,
   type LucideIcon,
 } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 interface ContactFormData {
   name: string;
@@ -121,7 +127,7 @@ const itemVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -143,6 +149,7 @@ const formTransitionVariants: Variants = {
 };
 
 export default function Contact() {
+  const shouldReduceMotion = useReducedMotion();
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -181,7 +188,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8"
+      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 overflow-hidden"
       aria-labelledby="contact-heading"
     >
       <Toaster position="bottom-right" theme="dark" richColors />
@@ -189,86 +196,92 @@ export default function Contact() {
       <div className="mx-auto max-w-3xl text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400">
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-          Contacto
+          <span>Contacto</span>
         </span>
         <h2
           id="contact-heading"
-          className="mt-5 text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl"
+          className="mt-5 text-3xl font-extrabold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl"
         >
-          Hablemos de tu próximo proyecto
+          Hablemos de tu{" "}
+          <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            próximo proyecto
+          </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-zinc-400">
+        <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
           ¿Tienes una idea en mente, una oportunidad laboral o necesitas asesoría en desarrollo web, software de escritorio o IoT? Escríbeme y construyamos soluciones de alto impacto.
         </p>
       </div>
 
-      <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
+        {/* Columna de Canales Directos */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: false, margin: "-60px" }}
           className="flex flex-col justify-between space-y-6 lg:col-span-5"
         >
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-zinc-100">
+            <h3 className="text-xl font-bold tracking-tight text-zinc-100">
               Canales directos
             </h3>
             <p className="text-sm leading-relaxed text-zinc-400">
-              Prefieres una comunicación más ágil o consultar mis repositorios? Puedes contactarme a través de cualquiera de estos canales o revisar mi actividad profesional en línea.
+              ¿Prefieres una comunicación más ágil o consultar mis repositorios? Puedes contactarme a través de cualquiera de estos canales o revisar mi actividad profesional en línea.
             </p>
           </div>
 
           <div className="space-y-4">
-            {directChannels.map((channel) => {
+            {directChannels.map((channel, idx) => {
               const Icon = channel.icon;
               const isExternal = channel.href.startsWith("http");
 
               return (
-                <motion.a
+                <a
                   key={channel.id}
                   href={channel.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  variants={itemVariants}
-                  whileHover={{ y: -3 }}
-                  className="group flex items-center justify-between rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-5 backdrop-blur-md transition-all duration-300 hover:border-emerald-500/40 hover:bg-zinc-900/80 hover:shadow-lg hover:shadow-emerald-500/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                  className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-2xl"
                   aria-label={`${channel.title}: ${channel.value}${isExternal ? " (se abre en una nueva pestaña)" : ""}`}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-colors duration-300 group-hover:border-emerald-500/40 group-hover:bg-emerald-500/20">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-zinc-400">
-                          {channel.title}
-                        </span>
-                        {channel.badge && (
-                          <span className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
-                            {channel.badge}
+                  <SpotlightCard
+                    delay={idx * 0.08}
+                    className="p-5"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-colors duration-300 group-hover:border-emerald-500/40 group-hover:bg-emerald-500/20">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-medium text-zinc-400">
+                              {channel.title}
+                            </span>
+                            {channel.badge && (
+                              <span className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                                {channel.badge}
+                              </span>
+                            )}
+                          </div>
+                          <span className="mt-0.5 block text-sm font-semibold text-zinc-200 transition-colors group-hover:text-emerald-400">
+                            {channel.value}
                           </span>
-                        )}
+                        </div>
                       </div>
-                      <span className="mt-0.5 block text-sm font-medium text-zinc-200 transition-colors group-hover:text-emerald-400">
-                        {channel.value}
-                      </span>
-                    </div>
-                  </div>
 
-                  <ArrowUpRight
-                    className="h-4 w-4 text-zinc-500 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-emerald-400"
-                    aria-hidden="true"
-                  />
-                </motion.a>
+                      <ArrowUpRight
+                        className="h-4 w-4 text-zinc-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-emerald-400"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </SpotlightCard>
+                </a>
               );
             })}
           </div>
 
-          <motion.div
-            variants={itemVariants}
-            className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-5 backdrop-blur-md"
-          >
+          <SpotlightCard className="p-5">
             <div className="flex items-center gap-3">
               <span className="relative flex h-3 w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -281,17 +294,18 @@ export default function Contact() {
             <p className="mt-2 text-xs leading-relaxed text-zinc-400">
               Respondo usualmente en menos de 24 horas. Disponible para colaborar en proyectos innovadores y nuevos retos tecnológicos.
             </p>
-          </motion.div>
+          </SpotlightCard>
         </motion.div>
 
+        {/* Contenedor del Formulario en SpotlightCard de gran formato */}
         <motion.div
           variants={itemVariants}
-          initial="hidden"
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: false, margin: "-60px" }}
           className="lg:col-span-7"
         >
-          <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-6 backdrop-blur-md sm:p-8">
+          <SpotlightCard className="p-6 sm:p-8">
             <AnimatePresence mode="wait">
               {!isSuccess ? (
                 <motion.form
@@ -309,7 +323,10 @@ export default function Contact() {
                         htmlFor="name"
                         className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
                       >
-                        Nombre completo <span className="text-emerald-400" aria-hidden="true">*</span>
+                        Nombre completo{" "}
+                        <span className="text-emerald-400" aria-hidden="true">
+                          *
+                        </span>
                       </label>
                       <input
                         type="text"
@@ -320,7 +337,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Ej. Carlos Pérez"
                         autoComplete="name"
-                        className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-colors focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                       />
                     </div>
 
@@ -329,7 +346,10 @@ export default function Contact() {
                         htmlFor="email"
                         className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
                       >
-                        Correo electrónico <span className="text-emerald-400" aria-hidden="true">*</span>
+                        Correo electrónico{" "}
+                        <span className="text-emerald-400" aria-hidden="true">
+                          *
+                        </span>
                       </label>
                       <input
                         type="email"
@@ -340,7 +360,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="ejemplo@correo.com"
                         autoComplete="email"
-                        className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-colors focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                       />
                     </div>
                   </div>
@@ -350,7 +370,10 @@ export default function Contact() {
                       htmlFor="subject"
                       className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
                     >
-                      Asunto <span className="text-emerald-400" aria-hidden="true">*</span>
+                      Asunto{" "}
+                      <span className="text-emerald-400" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"
@@ -360,7 +383,7 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="Ej. Propuesta de proyecto / Consultoría"
-                      className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-colors focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
                   </div>
 
@@ -369,7 +392,10 @@ export default function Contact() {
                       htmlFor="message"
                       className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
                     >
-                      Mensaje <span className="text-emerald-400" aria-hidden="true">*</span>
+                      Mensaje{" "}
+                      <span className="text-emerald-400" aria-hidden="true">
+                        *
+                      </span>
                     </label>
                     <textarea
                       id="message"
@@ -379,24 +405,34 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Describe tu proyecto, requerimientos técnicos o consulta..."
-                      className="w-full resize-y rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-colors focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full resize-y rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
                     />
                   </div>
 
+                  {/* Botón con efecto de barrido de luz (shimmer) */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    className="group relative overflow-hidden w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-zinc-950 font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                   >
+                    {/* Shimmer sweep */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-full top-0 block -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-all duration-700 group-hover:inset-full group-hover:opacity-100"
+                    />
+
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                        <span>Enviando mensaje...</span>
+                        <Loader2
+                          className="h-4 w-4 animate-spin relative z-10"
+                          aria-hidden="true"
+                        />
+                        <span className="relative z-10">Enviando mensaje...</span>
                       </>
                     ) : (
                       <>
-                        <Send className="h-4 w-4" aria-hidden="true" />
-                        <span>Enviar mensaje</span>
+                        <Send className="h-4 w-4 relative z-10" aria-hidden="true" />
+                        <span className="relative z-10">Enviar mensaje</span>
                       </>
                     )}
                   </button>
@@ -423,7 +459,7 @@ export default function Contact() {
                     <CheckCircle2 className="h-8 w-8" aria-hidden="true" />
                   </motion.div>
 
-                  <h3 className="mt-6 text-2xl font-semibold text-zinc-100">
+                  <h3 className="mt-6 text-2xl font-bold tracking-tight text-zinc-100">
                     ¡Mensaje recibido!
                   </h3>
 
@@ -443,7 +479,7 @@ export default function Contact() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </SpotlightCard>
         </motion.div>
       </div>
     </section>
