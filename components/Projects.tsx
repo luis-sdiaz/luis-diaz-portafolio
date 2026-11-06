@@ -20,6 +20,7 @@ import {
   type ProjectCategory,
   type Project,
 } from "@/data/projects";
+import { ScrambleText } from "@/components/ui/scramble-text";
 
 function GithubIcon({ className = "w-4 h-4 shrink-0" }: { className?: string }) {
   return (
@@ -133,9 +134,9 @@ export default function Projects() {
           <span>Sistemas Distribuidos & Hardware</span>
         </div>
         <h2 className="text-3xl font-extrabold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl">
-          Proyectos de{" "}
+          <ScrambleText text="Proyectos de " trigger="view" />
           <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-            Ingeniería
+            <ScrambleText text="Ingeniería" trigger="view" />
           </span>
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
