@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import "./globals.css";
 
 const inter = Inter({
@@ -55,11 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth scroll-pt-20" suppressHydrationWarning>
+    <html lang="es" className="scroll-pt-20" suppressHydrationWarning>
       <body
         className={`${inter.variable} min-h-screen bg-[#09090b] font-sans text-zinc-100 antialiased`}
       >
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
