@@ -1,7 +1,15 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { Briefcase, Calendar, GraduationCap } from "lucide-react";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
+import { Briefcase, Calendar, GraduationCap, Sparkles } from "lucide-react";
+import { ScrambleText } from "@/components/ui/scramble-text";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 type ExperienceType = "academica" | "laboral";
 
@@ -15,7 +23,7 @@ interface ExperienceItem {
   skills: string[];
 }
 
-const academicExperiences: ExperienceItem[] = [
+const academicExperiences: readonly ExperienceItem[] = [
   {
     id: "ucc-ingenieria",
     type: "academica",
@@ -84,7 +92,7 @@ const academicExperiences: ExperienceItem[] = [
   },
 ];
 
-const workExperiences: ExperienceItem[] = [
+const workExperiences: readonly ExperienceItem[] = [
   {
     id: "ecoplaza-lead",
     type: "laboral",
@@ -128,142 +136,194 @@ const workExperiences: ExperienceItem[] = [
   },
 ];
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 24,
-  },
+const sectionHeaderVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: "easeOut",
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
 
 function ExperienceTimeline({
   items,
+  direction = "left",
 }: {
-  items: ExperienceItem[];
+  items: readonly ExperienceItem[];
+  direction?: "left" | "right";
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
+
   return (
-    <motion.ol
-      className="relative ml-4 space-y-8 border-l-2 border-zinc-800"
-      variants={containerVariants}
-    >
-      {items.map((item) => (
-        <motion.li key={item.id} className="relative pl-8" variants={itemVariants}>
-          <span
-            className="absolute -left-[25px] top-6 h-4 w-4 rounded-full border-2 border-emerald-500 bg-zinc-950 shadow-[0_0_12px_rgba(16,185,129,0.35)]"
-            aria-hidden="true"
-          />
-          <motion.article
-            className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-6 backdrop-blur-md transition-colors hover:border-emerald-500/40"
-            whileHover={{ y: -4 }}
-          >
-            <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-              <Calendar
-                className="h-4 w-4 text-emerald-400"
-                aria-hidden="true"
-              />
-              <time>{item.period}</time>
-            </div>
-            <h4 className="mt-4 text-lg font-semibold leading-snug text-zinc-100">
-              {item.title}
-            </h4>
-            <p className="mt-2 text-sm font-medium text-emerald-400">
-              {item.organization}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-zinc-300">
-              {item.description}
-            </p>
-            <ul className="mt-5 flex flex-wrap gap-2" aria-label="Competencias">
-              {item.skills.map((skill) => (
-                <li
-                  key={skill}
-                  className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400"
+    <div ref={containerRef} className="relative pl-6 sm:pl-8">
+      {/* Guía base inactiva */}
+      <div
+        className="absolute left-2.5 sm:left-3.5 top-3 bottom-3 w-[2px] bg-zinc-800/80 rounded-full"
+        aria-hidden="true"
+      />
+
+      {/* Laser Tracing Timeline animado reactivo al scroll con punta brillante */}
+      <motion.div
+        style={{
+          scaleY: shouldReduceMotion ? 1 : scrollYProgress,
+          transformOrigin: "top",
+        }}
+        className="absolute left-2.5 sm:left-3.5 top-3 bottom-3 w-[2px] rounded-full bg-gradient-to-b from-emerald-400 via-teal-400 to-cyan-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+        aria-hidden="true"
+      >
+        {/* Núcleo brillante en la punta del haz de luz */}
+        <div
+          className="absolute bottom-0 -left-[3px] h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_20px_#10b981]"
+          aria-hidden="true"
+        />
+      </motion.div>
+
+      <ol className="space-y-8">
+        {items.map((item, index) => (
+          <li key={item.id} className="group relative pl-6 sm:pl-8">
+            {/* Nodo circular reactivo con pulso esmeralda continuo */}
+            <span
+              className="absolute -left-[19px] sm:-left-[23px] top-5 h-4 w-4 rounded-full border-2 border-emerald-400 bg-zinc-950 shadow-[0_0_15px_rgba(16,185,129,0.5)] transition-transform duration-300 group-hover:scale-125"
+              aria-hidden="true"
+            >
+              <span className="absolute inset-0 rounded-full bg-emerald-400 opacity-75 animate-ping" />
+              <span className="relative block h-full w-full rounded-full bg-emerald-500" />
+            </span>
+
+            {/* Tarjeta Spotlight con entrada lateral al hacer scroll */}
+            <motion.div
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : {
+                      opacity: 0,
+                      x: direction === "left" ? -30 : 30,
+                      filter: "blur(6px)",
+                    }
+              }
+              whileInView={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, x: 0, filter: "blur(0px)" }
+              }
+              viewport={{ once: false, margin: "-80px" }}
+              transition={{
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1],
+                delay: index * 0.05,
+              }}
+            >
+              <SpotlightCard className="p-6">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
+                  <Calendar
+                    className="h-4 w-4 text-emerald-400"
+                    aria-hidden="true"
+                  />
+                  <time>{item.period}</time>
+                </div>
+
+                <h4 className="mt-3.5 text-lg font-bold leading-snug text-zinc-100 transition-colors group-hover:text-white">
+                  {item.title}
+                </h4>
+
+                <p className="mt-1.5 text-sm font-medium text-emerald-400">
+                  {item.organization}
+                </p>
+
+                <p className="mt-3.5 text-sm leading-relaxed text-zinc-300">
+                  {item.description}
+                </p>
+
+                <ul
+                  className="mt-5 flex flex-wrap gap-2"
+                  aria-label="Competencias técnicas aplicadas"
                 >
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </motion.article>
-        </motion.li>
-      ))}
-    </motion.ol>
+                  {item.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-300 transition-colors hover:border-emerald-500/40 hover:bg-emerald-500/20"
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </SpotlightCard>
+            </motion.div>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
 export default function Experience() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       id="experiencia"
-      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8"
+      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 overflow-hidden"
       aria-labelledby="experience-heading"
     >
-      <div className="mx-auto max-w-3xl text-center">
-        <span className="inline-flex rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400">
-          Trayectoria
-        </span>
+      <motion.div
+        variants={sectionHeaderVariants}
+        initial={shouldReduceMotion ? false : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        className="mx-auto max-w-3xl text-center"
+      >
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+          <span>Trayectoria</span>
+        </div>
         <h2
           id="experience-heading"
-          className="mt-5 text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl"
+          className="mt-5 text-3xl font-extrabold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl"
         >
-          Experiencia académica y laboral
+          <ScrambleText text="Experiencia & " trigger="view" />
+          <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            <ScrambleText text="Trayectoria" trigger="view" />
+          </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-zinc-400">
-          Un recorrido por la formación, los proyectos y las experiencias que
-          han consolidado mi perfil técnico.
+        <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
+          Un recorrido continuo por la formación ingenieril, el desarrollo de
+          sistemas embebidos y el software de producción.
         </p>
-      </div>
+      </motion.div>
 
       <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          <div className="mb-8 flex items-center gap-3">
-            <GraduationCap
-              className="h-6 w-6 text-emerald-400"
-              aria-hidden="true"
-            />
-            <h3 className="text-xl font-semibold text-zinc-100">
+        <div>
+          <div className="mb-8 flex items-center gap-3 pl-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-sm">
+              <GraduationCap className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <h3 className="text-xl font-bold tracking-tight text-zinc-100">
               Formación Académica
             </h3>
           </div>
-          <ExperienceTimeline items={academicExperiences} />
-        </motion.div>
+          <ExperienceTimeline items={academicExperiences} direction="left" />
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          <div className="mb-8 flex items-center gap-3">
-            <Briefcase
-              className="h-6 w-6 text-emerald-400"
-              aria-hidden="true"
-            />
-            <h3 className="text-xl font-semibold text-zinc-100">
+        <div>
+          <div className="mb-8 flex items-center gap-3 pl-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-sm">
+              <Briefcase className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <h3 className="text-xl font-bold tracking-tight text-zinc-100">
               Experiencia Laboral y Proyectos
             </h3>
           </div>
-          <ExperienceTimeline items={workExperiences} />
-        </motion.div>
+          <ExperienceTimeline items={workExperiences} direction="right" />
+        </div>
       </div>
     </section>
   );
