@@ -21,6 +21,7 @@ import {
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { ScrambleText } from "@/components/ui/scramble-text";
 import { ParticleNetwork } from "@/components/ui/particle-network";
+import { useTranslations } from "next-intl";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -69,6 +70,7 @@ const badgeItemVariants: Variants = {
 };
 
 export default function Hero() {
+  const t = useTranslations("Hero");
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -81,8 +83,8 @@ export default function Hero() {
   const opacityParallax = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
 
   const handleDownloadCv = () => {
-    toast.success("cv.pdf descargado", {
-      description: "Hoja de vida descargada correctamente.",
+    toast.success(t("toast.title"), {
+      description: t("toast.description"),
       duration: 4000,
     });
   };
@@ -91,7 +93,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="inicio"
-      aria-label="Sección de bienvenida y presentación profesional"
+      aria-label={t("welcome")}
       className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden"
     >
       <BackgroundLines
@@ -129,21 +131,21 @@ export default function Hero() {
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
                   </span>
                   <span className="text-xs font-medium tracking-wide text-muted-foreground">
-                    Disponible para nuevos retos tecnológicos
+                    {t("availability")}
                   </span>
                 </div>
               </motion.div>
 
               <motion.div variants={itemVariants} className="space-y-3">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
-                  Hola, soy{" "}
+                  {t("greeting")}{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500">
                     Luis Sebastián Díaz
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl font-semibold text-muted-foreground tracking-normal">
                   <ScrambleText
-                    text="Estudiante de Ingeniería de Software | Full-Stack & IoT Developer"
+                    text={t("subtitle")}
                     trigger="view"
                   />
                 </p>
@@ -153,9 +155,7 @@ export default function Hero() {
                 variants={itemVariants}
                 className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed"
               >
-                Enfocado en el diseño y construcción de arquitecturas digitales
-                escalables, aplicaciones web de alto rendimiento e integración de
-                sistemas embebidos IoT con hardware real.
+                {t("description")}
               </motion.p>
 
               {/* Botones de Acción */}
@@ -167,19 +167,19 @@ export default function Hero() {
                   href="/cv.pdf"
                   download="Luis_Sebastian_Diaz_CV.pdf"
                   onClick={handleDownloadCv}
-                  aria-label="Descargar currículum vitae en formato PDF"
+                  aria-label={t("downloadCvLabel")}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-sm shadow-md hover:bg-accent-action-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Descargar CV</span>
+                  <span>{t("downloadCv")}</span>
                 </a>
 
                 <a
                   href="#proyectos"
-                  aria-label="Navegar a la sección de proyectos desarrollados"
+                  aria-label={t("projectsLabel")}
                   className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border bg-surface hover:border-accent/50 hover:bg-accent-muted text-foreground text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
-                  <span>Ver proyectos</span>
+                  <span>{t("projects")}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
               </motion.div>
@@ -197,7 +197,7 @@ export default function Hero() {
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Terminal className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>5° Semestre de Ingeniería</span>
+                  <span>{t("semester")}</span>
                 </motion.div>
 
                 <motion.div
@@ -206,7 +206,7 @@ export default function Hero() {
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Cpu className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>Tauri 2 + ESP32 IoT</span>
+                  <span>{t("stack")}</span>
                 </motion.div>
 
                 <motion.div
@@ -215,7 +215,7 @@ export default function Hero() {
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Layers className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>Next.js 16 + React 19</span>
+                  <span>{t("frameworks")}</span>
                 </motion.div>
               </motion.div>
             </div>
@@ -251,7 +251,7 @@ export default function Hero() {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-30" />
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
                     </span>
-                    <span>CORE DE ARQUITECTURA DISTRIBUIDA</span>
+                    <span>{t("distributedArchitecture")}</span>
                   </div>
 
                   {/* Lienzo de Nodos IoT */}

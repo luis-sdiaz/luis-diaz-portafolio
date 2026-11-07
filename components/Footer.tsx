@@ -10,14 +10,15 @@ import {
   MapPin,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface FooterLink {
-  label: string;
+  labelKey: string;
   href: string;
 }
 
 interface SocialChannel {
-  name: string;
+  nameKey: string;
   href: string;
   icon: LucideIcon | React.ComponentType<{ className?: string }>;
   isExternal?: boolean;
@@ -61,29 +62,29 @@ function LinkedinIcon({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 const quickLinks: readonly FooterLink[] = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Testimonios", href: "#testimonios" },
-  { label: "Experiencia", href: "#experiencia" },
-  { label: "Contacto", href: "#contacto" },
+  { labelKey: "links.home", href: "#inicio" },
+  { labelKey: "links.about", href: "#sobre-mi" },
+  { labelKey: "links.projects", href: "#proyectos" },
+  { labelKey: "links.testimonials", href: "#testimonios" },
+  { labelKey: "links.experience", href: "#experiencia" },
+  { labelKey: "links.contact", href: "#contacto" },
 ];
 
 const socialChannels: readonly SocialChannel[] = [
   {
-    name: "GitHub",
+    nameKey: "GitHub",
     href: "https://github.com/luis-sdiaz",
     icon: GithubIcon,
     isExternal: true,
   },
   {
-    name: "LinkedIn",
+    nameKey: "LinkedIn",
     href: "https://linkedin.com/in/luis-sdiaz",
     icon: LinkedinIcon,
     isExternal: true,
   },
   {
-    name: "Correo Electrónico",
+    nameKey: "emailLabel",
     href: "mailto:contacto@luis-diaz.dev",
     icon: Mail,
     isExternal: false,
@@ -91,6 +92,7 @@ const socialChannels: readonly SocialChannel[] = [
 ];
 
 export default function Footer() {
+  const t = useTranslations("Footer");
   const [year, setYear] = useState<number>(2026);
 
   useEffect(() => {
@@ -119,7 +121,7 @@ export default function Footer() {
               <a
                 href="#inicio"
                 className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted font-mono text-base font-bold text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                aria-label="Ir a la sección de inicio"
+                aria-label={t("homeAriaLabel")}
               >
                 LD
               </a>
@@ -128,28 +130,27 @@ export default function Footer() {
                   Luis Sebastián Díaz
                 </span>
                 <span className="block text-xs font-mono tracking-wider text-muted-foreground">
-                  SOFTWARE ENGINEER
+                  {t("role")}
                 </span>
               </div>
             </div>
 
             <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Estudiante de Ingeniería de Software enfocado en soluciones Full-Stack,
-              escritorio nativo e IoT.
+              {t("bio")}
             </p>
 
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <MapPin className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
-              <span>Pasto, Nariño, Colombia</span>
+              <span>{t("location")}</span>
             </div>
           </div>
 
           {/* Columna 2: Enlaces Rápidos */}
           <div className="md:col-span-4">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Enlaces rápidos
+              {t("quickLinksTitle")}
             </h3>
-            <ul className="mt-4 grid grid-cols-2 gap-2.5 text-sm" aria-label="Navegación del pie de página">
+            <ul className="mt-4 grid grid-cols-2 gap-2.5 text-sm" aria-label={t("quickLinksAriaLabel")}>
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <motion.a
@@ -157,7 +158,7 @@ export default function Footer() {
                     whileHover={{ x: 3 }}
                     className="inline-block py-1 text-muted-foreground transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring rounded"
                   >
-                    {link.label}
+                    {t(link.labelKey as Parameters<typeof t>[0])}
                   </motion.a>
                 </li>
               ))}
@@ -167,21 +168,28 @@ export default function Footer() {
           {/* Columna 3: Conéctate y Volver Arriba */}
           <div className="space-y-4 md:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Conéctate
+              {t("connectTitle")}
             </h3>
-            <div className="flex items-center gap-3" aria-label="Canales sociales y de contacto">
+            <div className="flex items-center gap-3" aria-label={t("socialAriaLabel")}>
               {socialChannels.map((channel) => {
                 const IconComponent = channel.icon;
+                // For fixed names like GitHub/LinkedIn, use them directly; for email use translated label
+                const channelName = channel.nameKey === "emailLabel"
+                  ? t("emailLabel")
+                  : channel.nameKey;
+                const ariaLabel = channel.isExternal
+                  ? `${channelName} ${t("externalTab")}`
+                  : channelName;
                 return (
                   <motion.a
-                    key={channel.name}
+                    key={channel.nameKey}
                     href={channel.href}
                     target={channel.isExternal ? "_blank" : undefined}
                     rel={channel.isExternal ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                    aria-label={`${channel.name}${channel.isExternal ? " (se abre en una nueva pestaña)" : ""}`}
+                    aria-label={ariaLabel}
                   >
                     <IconComponent className="h-4 w-4" />
                   </motion.a>
@@ -196,10 +204,10 @@ export default function Footer() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2.5 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
-                aria-label="Volver al inicio de la página"
+                aria-label={t("scrollTopAriaLabel")}
               >
                 <ArrowUp className="h-4 w-4 text-foreground" aria-hidden="true" />
-                <span>Volver arriba</span>
+                <span>{t("scrollTopButton")}</span>
               </motion.button>
             </div>
           </div>
@@ -207,9 +215,9 @@ export default function Footer() {
 
         {/* Barra inferior de créditos */}
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {year} Luis Sebastián Díaz. Todos los derechos reservados.</p>
+          <p>{t("copyright", { year })}</p>
           <div className="flex items-center gap-2 text-muted-foreground">
-            <span>Hecho con Next.js + Tailwind CSS</span>
+            <span>{t("builtWith")}</span>
             <Heart className="h-3.5 w-3.5 text-muted-foreground fill-muted-foreground/20" aria-hidden="true" />
             <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           </div>

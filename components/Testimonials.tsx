@@ -10,8 +10,9 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-interface Testimonial {
+interface TestimonialItem {
   id: string;
   name: string;
   role: string;
@@ -22,48 +23,26 @@ interface Testimonial {
   avatar: string;
 }
 
-const testimonials: readonly Testimonial[] = [
-  {
-    id: "docente-ingenieria",
-    name: "Ing. Docente de Arquitectura de Software",
-    role: "Facultad de Ingeniería — UCC Pasto",
-    relation: "Evaluador Académico Principal",
-    projectTag: "ARQUITECTURA DE SOFTWARE & PATRONES",
-    text: "Luis ha demostrado criterio arquitectónico riguroso, disciplina y capacidad para resolver problemas complejos con código limpio, tipado estricto y patrones sólidos.",
-    rating: 5,
-    avatar: "AS",
-  },
-  {
-    id: "colega-frontend",
-    name: "Alejandro M.",
-    role: "Co-desarrollador de Ingeniería",
-    relation: "Proyecto Lullaby 3D & Sistemas",
-    projectTag: "FULL-STACK & MOTOR 3D INTERACTIVO",
-    text: "Su enfoque en la experiencia de usuario, microinteracciones a 60 FPS y solidez de componentes en Next.js y Tauri aporta un valor inmenso a cualquier equipo técnico.",
-    rating: 5,
-    avatar: "AM",
-  },
-  {
-    id: "evaluador-iot",
-    name: "Comité de Proyectos de Hardware",
-    role: "Jurado Evaluador de Ingeniería",
-    relation: "Sistemas Embebidos & Telemetría IoT",
-    projectTag: "ECOPLAZA IOT & HARDWARE ESP32",
-    text: "Presentó una arquitectura IoT sobresaliente en EcoPlaza: integración serial fluida con ESP32, baja latencia y persistencia de alta resiliencia orientada a producción.",
-    rating: 5,
-    avatar: "CP",
-  },
-  {
-    id: "operaciones-logistica",
-    name: "Líder de Procesos & Trazabilidad",
-    role: "Supervisión de Flujos Sistematizados",
-    relation: "Trazabilidad de Cadena Operativa",
-    projectTag: "GESTIÓN DE DATOS & RESILIENCIA LOCAL",
-    text: "Estructuró bases de datos relacionales y algoritmos de pesaje continuo con gran robustez, eliminando cuellos de botella de entrada y automatizando reportes críticos.",
-    rating: 5,
-    avatar: "LP",
-  },
-];
+const TESTIMONIAL_IDS = [
+  "docente-ingenieria",
+  "colega-frontend",
+  "evaluador-iot",
+  "operaciones-logistica",
+] as const;
+
+const TESTIMONIAL_RATINGS: Record<string, number> = {
+  "docente-ingenieria": 5,
+  "colega-frontend": 5,
+  "evaluador-iot": 5,
+  "operaciones-logistica": 5,
+};
+
+const TESTIMONIAL_AVATARS: Record<string, string> = {
+  "docente-ingenieria": "AS",
+  "colega-frontend": "AM",
+  "evaluador-iot": "CP",
+  "operaciones-logistica": "LP",
+};
 
 const slideVariants: Variants = {
   enter: (direction: number) => ({
@@ -92,19 +71,31 @@ const slideVariants: Variants = {
 };
 
 export default function Testimonials() {
+  const t = useTranslations("Testimonials");
   const shouldReduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
+  const testimonials: TestimonialItem[] = TESTIMONIAL_IDS.map((id) => ({
+    id,
+    name: t(`items.${id}.name`),
+    role: t(`items.${id}.role`),
+    relation: t(`items.${id}.relation`),
+    projectTag: t(`items.${id}.projectTag`),
+    text: t(`items.${id}.text`),
+    rating: TESTIMONIAL_RATINGS[id],
+    avatar: TESTIMONIAL_AVATARS[id],
+  }));
+
   const handleNext = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   const handlePrev = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   const current = testimonials[currentIndex];
 
@@ -117,19 +108,19 @@ export default function Testimonials() {
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
-          <span>Recomendaciones</span>
+          <span>{t("sectionLabel")}</span>
         </div>
         <h2
           id="testimonials-heading"
           className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
         >
-          La experiencia de{" "}
+          {t("titlePart1")}{" "}
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-            trabajar juntos
+            {t("titlePart2")}
           </span>
         </h2>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Referencias técnicas y académicas de profesionales que han colaborado en proyectos de software y sistemas embebidos.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -158,10 +149,10 @@ export default function Testimonials() {
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-surface-muted font-mono text-[11px] text-foreground font-medium">
                       <CheckCircle2 className="w-3.5 h-3.5 text-foreground" />
-                      <span>Verificado</span>
+                      <span>{t("verified")}</span>
                     </div>
 
-                    <div className="flex gap-1" aria-label="Calificación de 5 estrellas">
+                    <div className="flex gap-1" aria-label={t("ratingAriaLabel", { count: current.rating })}>
                       {Array.from({ length: current.rating }, (_, i) => (
                         <Star
                           key={i}
@@ -175,7 +166,7 @@ export default function Testimonials() {
 
                 {/* Texto testimonial */}
                 <p className="mt-7 text-base sm:text-lg leading-relaxed text-foreground font-normal">
-                  “{current.text}”
+                  &ldquo;{current.text}&rdquo;
                 </p>
 
                 {/* Pie de autoría con avatar */}
@@ -203,12 +194,12 @@ export default function Testimonials() {
         {/* Controles de Navegación del Carrusel */}
         <div className="mt-8 flex items-center justify-between px-2">
           {/* Paginación con Píldoras Interactivas */}
-          <div className="flex items-center gap-2" role="tablist" aria-label="Navegación de testimonios">
-            {testimonials.map((t, idx) => {
+          <div className="flex items-center gap-2" role="tablist" aria-label={t("navigationAriaLabel")}>
+            {testimonials.map((testimonial, idx) => {
               const isActive = idx === currentIndex;
               return (
                 <button
-                  key={t.id}
+                  key={testimonial.id}
                   type="button"
                   role="tab"
                   aria-selected={isActive}
@@ -221,7 +212,7 @@ export default function Testimonials() {
                       ? "w-8 bg-accent shadow-sm"
                       : "w-2 bg-border hover:bg-muted-foreground"
                   }`}
-                  aria-label={`Ir al testimonio de ${t.name}`}
+                  aria-label={t("goToTestimonial", { name: testimonial.name })}
                 />
               );
             })}
@@ -240,7 +231,7 @@ export default function Testimonials() {
                 type="button"
                 onClick={handlePrev}
                 className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-muted hover:border-accent/50 hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                aria-label="Testimonio anterior"
+                aria-label={t("previousTestimonial")}
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -249,7 +240,7 @@ export default function Testimonials() {
                 type="button"
                 onClick={handleNext}
                 className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-muted hover:border-accent/50 hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                aria-label="Siguiente testimonio"
+                aria-label={t("nextTestimonial")}
               >
                 <ChevronRight className="h-5 w-5" />
               </button>

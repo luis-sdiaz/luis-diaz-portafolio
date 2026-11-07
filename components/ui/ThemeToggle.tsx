@@ -3,6 +3,7 @@
 import React, { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export interface ThemeToggleProps {
   className?: string;
@@ -19,6 +20,7 @@ function useMounted() {
 }
 
 export function ThemeToggle({ className = "" }: ThemeToggleProps) {
+  const t = useTranslations("ThemeToggle");
   const { theme, setTheme, resolvedTheme } = useTheme();
   const mounted = useMounted();
 
@@ -30,10 +32,10 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
   };
 
   const label = !mounted
-    ? "Alternar tema visual"
+    ? t("toggleTheme")
     : isDark
-    ? "Cambiar a modo claro"
-    : "Cambiar a modo oscuro";
+    ? t("switchToLight")
+    : t("switchToDark");
 
   return (
     <button

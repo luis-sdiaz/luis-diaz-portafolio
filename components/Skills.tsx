@@ -4,54 +4,50 @@ import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Layout, Cpu, Database, ShieldCheck, Sparkles } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-
-interface SkillCategory {
-  title: string;
-  icon: React.ComponentType<{ className?: string }>;
-  skills: string[];
-}
-
-const skillCategories: SkillCategory[] = [
-  {
-    title: "Frontend & UI",
-    icon: Layout,
-    skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-  },
-  {
-    title: "Desktop & IoT",
-    icon: Cpu,
-    skills: ["Tauri 2", "ESP32", "Arduino Uno", "C++ / Firmware"],
-  },
-  {
-    title: "Backend & Datos",
-    icon: Database,
-    skills: ["Node.js", "PostgreSQL", "Supabase", "REST APIs"],
-  },
-  {
-    title: "Calidad & Entorno",
-    icon: ShieldCheck,
-    skills: ["Vitest", "Testing Library", "Git", "PowerShell", "ESLint"],
-  },
-];
+import { useTranslations } from "next-intl";
 
 export default function Skills() {
+  const t = useTranslations("Skills");
   const shouldReduceMotion = useReducedMotion();
+
+  const skillCategories = [
+    {
+      titleKey: "categories.frontend",
+      icon: Layout,
+      skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    },
+    {
+      titleKey: "categories.desktop",
+      icon: Cpu,
+      skills: ["Tauri 2", "ESP32", "Arduino Uno", "C++ / Firmware"],
+    },
+    {
+      titleKey: "categories.backend",
+      icon: Database,
+      skills: ["Node.js", "PostgreSQL", "Supabase", "REST APIs"],
+    },
+    {
+      titleKey: "categories.quality",
+      icon: ShieldCheck,
+      skills: ["Vitest", "Testing Library", "Git", "PowerShell", "ESLint"],
+    },
+  ];
 
   return (
     <section id="skills" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-          <span>Capacidades Técnicas</span>
+          <span>{t("sectionLabel")}</span>
         </div>
         <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          Stack de{" "}
+          {t("title")}{" "}
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-            Ingeniería
+            {t("titleHighlight")}
           </span>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Ecosistema tecnológico modular enfocado en rendimiento, robustez de tipos y conectividad hardware.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -60,7 +56,7 @@ export default function Skills() {
           const Icon = category.icon;
           return (
             <SpotlightCard
-              key={category.title}
+              key={category.titleKey}
               delay={idx * 0.1}
               className="p-6"
             >
@@ -77,10 +73,10 @@ export default function Skills() {
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-foreground transition-colors">
-                      {category.title}
+                      {t(category.titleKey as Parameters<typeof t>[0])}
                     </h3>
                     <span className="font-mono text-[10px] text-muted-foreground">
-                      {category.skills.length} Tecnologías activas
+                      {category.skills.length} {t("activeTechnologies")}
                     </span>
                   </div>
                 </div>

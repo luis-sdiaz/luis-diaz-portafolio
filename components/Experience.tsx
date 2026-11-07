@@ -10,6 +10,7 @@ import {
 import { Briefcase, Calendar, GraduationCap, Sparkles } from "lucide-react";
 import { ScrambleText } from "@/components/ui/scramble-text";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { useTranslations } from "next-intl";
 
 type ExperienceType = "academica" | "laboral";
 
@@ -22,119 +23,6 @@ interface ExperienceItem {
   description: string;
   skills: string[];
 }
-
-const academicExperiences: readonly ExperienceItem[] = [
-  {
-    id: "ucc-ingenieria",
-    type: "academica",
-    title: "Ingeniería de Software (5° Semestre)",
-    organization: "Universidad Cooperativa de Colombia (UCC Pasto)",
-    period: "2026 – En curso",
-    description:
-      "Formación en arquitectura de software, metodologías ágiles, patrones de diseño, desarrollo full-stack y aseguramiento de calidad.",
-    skills: [
-      "Arquitectura de Software",
-      "Patrones de Diseño",
-      "Testing",
-      "Bases de Datos",
-    ],
-  },
-  {
-    id: "educative-java",
-    type: "academica",
-    title: "Learn Java from Scratch",
-    organization: "Educative",
-    period: "2026",
-    description:
-      "Dominio de programación orientada a objetos (POO), encapsulamiento, polimorfismo, colecciones y algoritmia tipada en Java.",
-    skills: ["Java", "POO", "Algoritmos", "Estructuras de Datos"],
-  },
-  {
-    id: "sena-python",
-    type: "academica",
-    title: "Variables y Estructuras de Control en Python (48h)",
-    organization: "SENA",
-    period: "2025",
-    description:
-      "Implementación de algoritmia aplicada, lógica de control de flujo de ejecución y automatización de procesos estructurados.",
-    skills: [
-      "Python",
-      "Lógica de Programación",
-      "Algoritmos",
-      "Automatización",
-    ],
-  },
-  {
-    id: "sena-calidad",
-    type: "academica",
-    title:
-      "Aplicación de la Calidad del Software en el Proceso de Desarrollo (40h)",
-    organization: "SENA",
-    period: "2024",
-    description:
-      "Modelado de pruebas unitarias y de integración, aseguramiento de calidad (QA), métricas de software y ciclo de vida (SDLC).",
-    skills: ["Calidad de Software", "QA & Testing", "Métricas", "SDLC"],
-  },
-  {
-    id: "sena-logistica",
-    type: "academica",
-    title: "Técnico en Integración de Operaciones Logísticas",
-    organization: "SENA",
-    period: "Formación Previa",
-    description:
-      "Optimización de procesos operativos, control sistematizado de inventarios y trazabilidad de cadenas de suministro; base para arquitectura de software logístico.",
-    skills: [
-      "Gestión de Procesos",
-      "Control de Inventarios",
-      "Trazabilidad",
-      "Logística",
-    ],
-  },
-];
-
-const workExperiences: readonly ExperienceItem[] = [
-  {
-    id: "ecoplaza-lead",
-    type: "laboral",
-    title: "Líder Técnico & Desarrollador Desktop / IoT",
-    organization: "EcoPlaza",
-    period: "2026 – Presente",
-    description:
-      "Dirección de arquitectura nativa en Tauri 2 con Rust y React; sincronización de telemetría IoT con microcontroladores ESP32 y sensores ultrasónicos para optimización de rutas de recolección.",
-    skills: ["Tauri 2", "Rust", "React", "TypeScript", "ESP32 / IoT"],
-  },
-  {
-    id: "freelance-frontend",
-    type: "laboral",
-    title: "Desarrollador Frontend Freelance",
-    organization: "Desarrollo Web Independiente",
-    period: "2025",
-    description:
-      "Construcción de interfaces web interactivas y responsivas con Next.js, TypeScript y Tailwind CSS, implementando accesibilidad WCAG y optimización de rendimiento.",
-    skills: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Framer Motion",
-      "WCAG",
-    ],
-  },
-  {
-    id: "fatima-logistica",
-    type: "laboral",
-    title: "Practicante en Compras y Apoyo Logístico",
-    organization: "Clínica Nuestra Señora de Fátima S.A.",
-    period: "2024",
-    description:
-      "Gestión y trazabilidad de suministros médicos, optimización de adquisiciones hospitalarias y control sistematizado de flujos de inventario en etapa productiva certificada.",
-    skills: [
-      "Gestión Hospitalaria",
-      "Flujos Operativos",
-      "Control de Inventarios",
-      "Datos Externos",
-    ],
-  },
-];
 
 const sectionHeaderVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -151,9 +39,11 @@ const sectionHeaderVariants: Variants = {
 function ExperienceTimeline({
   items,
   direction = "left",
+  skillsAriaLabel,
 }: {
   items: readonly ExperienceItem[];
   direction?: "left" | "right";
+  skillsAriaLabel: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -244,7 +134,7 @@ function ExperienceTimeline({
 
                 <ul
                   className="mt-5 flex flex-wrap gap-2"
-                  aria-label="Competencias técnicas aplicadas"
+                  aria-label={skillsAriaLabel}
                 >
                   {item.skills.map((skill) => (
                     <li
@@ -265,7 +155,86 @@ function ExperienceTimeline({
 }
 
 export default function Experience() {
+  const t = useTranslations("Experience");
   const shouldReduceMotion = useReducedMotion();
+
+  const academicExperiences: readonly ExperienceItem[] = [
+    {
+      id: "ucc-ingenieria",
+      type: "academica",
+      title: t("academic.ucc-ingenieria.title"),
+      organization: t("academic.ucc-ingenieria.organization"),
+      period: t("academic.ucc-ingenieria.period"),
+      description: t("academic.ucc-ingenieria.description"),
+      skills: (t.raw("academic.ucc-ingenieria.skills") as string[]),
+    },
+    {
+      id: "educative-java",
+      type: "academica",
+      title: t("academic.educative-java.title"),
+      organization: t("academic.educative-java.organization"),
+      period: t("academic.educative-java.period"),
+      description: t("academic.educative-java.description"),
+      skills: (t.raw("academic.educative-java.skills") as string[]),
+    },
+    {
+      id: "sena-python",
+      type: "academica",
+      title: t("academic.sena-python.title"),
+      organization: t("academic.sena-python.organization"),
+      period: t("academic.sena-python.period"),
+      description: t("academic.sena-python.description"),
+      skills: (t.raw("academic.sena-python.skills") as string[]),
+    },
+    {
+      id: "sena-calidad",
+      type: "academica",
+      title: t("academic.sena-calidad.title"),
+      organization: t("academic.sena-calidad.organization"),
+      period: t("academic.sena-calidad.period"),
+      description: t("academic.sena-calidad.description"),
+      skills: (t.raw("academic.sena-calidad.skills") as string[]),
+    },
+    {
+      id: "sena-logistica",
+      type: "academica",
+      title: t("academic.sena-logistica.title"),
+      organization: t("academic.sena-logistica.organization"),
+      period: t("academic.sena-logistica.period"),
+      description: t("academic.sena-logistica.description"),
+      skills: (t.raw("academic.sena-logistica.skills") as string[]),
+    },
+  ];
+
+  const workExperiences: readonly ExperienceItem[] = [
+    {
+      id: "ecoplaza-lead",
+      type: "laboral",
+      title: t("work.ecoplaza-lead.title"),
+      organization: t("work.ecoplaza-lead.organization"),
+      period: t("work.ecoplaza-lead.period"),
+      description: t("work.ecoplaza-lead.description"),
+      skills: (t.raw("work.ecoplaza-lead.skills") as string[]),
+    },
+    {
+      id: "freelance-frontend",
+      type: "laboral",
+      title: t("work.freelance-frontend.title"),
+      organization: t("work.freelance-frontend.organization"),
+      period: t("work.freelance-frontend.period"),
+      description: t("work.freelance-frontend.description"),
+      skills: (t.raw("work.freelance-frontend.skills") as string[]),
+    },
+    {
+      id: "fatima-logistica",
+      type: "laboral",
+      title: t("work.fatima-logistica.title"),
+      organization: t("work.fatima-logistica.organization"),
+      period: t("work.fatima-logistica.period"),
+      description: t("work.fatima-logistica.description"),
+      skills: (t.raw("work.fatima-logistica.skills") as string[]),
+    },
+  ];
 
   return (
     <section
@@ -282,20 +251,19 @@ export default function Experience() {
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
-          <span>Trayectoria</span>
+          <span>{t("sectionLabel")}</span>
         </div>
         <h2
           id="experience-heading"
           className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
         >
-          <ScrambleText text="Experiencia & " trigger="view" />
+          <ScrambleText text={t("titlePart1")} trigger="view" />
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-            <ScrambleText text="Trayectoria" trigger="view" />
+            <ScrambleText text={t("titlePart2")} trigger="view" />
           </span>
         </h2>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Un recorrido continuo por la formación ingenieril, el desarrollo de
-          sistemas embebidos y el software de producción.
+          {t("subtitle")}
         </p>
       </motion.div>
 
@@ -306,10 +274,14 @@ export default function Experience() {
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </div>
             <h3 className="text-xl font-bold tracking-tight text-foreground">
-              Formación Académica
+              {t("educationTitle")}
             </h3>
           </div>
-          <ExperienceTimeline items={academicExperiences} direction="left" />
+          <ExperienceTimeline
+            items={academicExperiences}
+            direction="left"
+            skillsAriaLabel={t("skillsAriaLabel")}
+          />
         </div>
 
         <div>
@@ -318,10 +290,14 @@ export default function Experience() {
               <Briefcase className="h-5 w-5" aria-hidden="true" />
             </div>
             <h3 className="text-xl font-bold tracking-tight text-foreground">
-              Experiencia Laboral y Proyectos
+              {t("workTitle")}
             </h3>
           </div>
-          <ExperienceTimeline items={workExperiences} direction="right" />
+          <ExperienceTimeline
+            items={workExperiences}
+            direction="right"
+            skillsAriaLabel={t("skillsAriaLabel")}
+          />
         </div>
       </div>
     </section>

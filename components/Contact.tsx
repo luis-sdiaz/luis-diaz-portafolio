@@ -21,6 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { useTranslations } from "next-intl";
 
 interface ContactFormData {
   name: string;
@@ -31,11 +32,11 @@ interface ContactFormData {
 
 interface DirectChannel {
   id: string;
-  title: string;
+  titleKey: string;
   value: string;
   href: string;
   icon: LucideIcon | React.ComponentType<{ className?: string }>;
-  badge?: string;
+  badgeKey: string;
 }
 
 function GithubIcon({ className = "h-5 w-5" }: { className?: string }) {
@@ -78,35 +79,35 @@ function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
 const directChannels: readonly DirectChannel[] = [
   {
     id: "email",
-    title: "Correo Electrónico",
+    titleKey: "channels.email.title",
     value: "contacto@luis-diaz.dev",
     href: "mailto:contacto@luis-diaz.dev",
     icon: Mail,
-    badge: "Principal",
+    badgeKey: "channels.email.badge",
   },
   {
     id: "github",
-    title: "GitHub",
+    titleKey: "channels.github.title",
     value: "github.com/luis-sdiaz",
     href: "https://github.com/luis-sdiaz",
     icon: GithubIcon,
-    badge: "Código abierto",
+    badgeKey: "channels.github.badge",
   },
   {
     id: "linkedin",
-    title: "LinkedIn",
+    titleKey: "channels.linkedin.title",
     value: "linkedin.com/in/luis-sdiaz",
     href: "https://linkedin.com/in/luis-sdiaz",
     icon: LinkedinIcon,
-    badge: "Perfil profesional",
+    badgeKey: "channels.linkedin.badge",
   },
   {
     id: "whatsapp",
-    title: "WhatsApp",
+    titleKey: "channels.whatsapp.title",
     value: "+57 (300) 000-0000",
     href: "https://wa.me/573000000000?text=Hola%20Luis%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar",
     icon: MessageCircle,
-    badge: "Chat directo",
+    badgeKey: "channels.whatsapp.badge",
   },
 ];
 
@@ -150,6 +151,7 @@ const formTransitionVariants: Variants = {
 };
 
 export default function Contact() {
+  const t = useTranslations("Contact");
   const shouldReduceMotion = useReducedMotion();
   const { resolvedTheme } = useTheme();
 
@@ -175,8 +177,8 @@ export default function Contact() {
 
     await new Promise((resolve) => setTimeout(resolve, 600));
 
-    toast.success("¡Mensaje enviado con éxito!", {
-      description: "Me pondré en contacto contigo a la brevedad.",
+    toast.success(t("toast.title"), {
+      description: t("toast.description"),
     });
 
     setIsSubmitting(false);
@@ -203,19 +205,19 @@ export default function Contact() {
       <div className="mx-auto max-w-3xl text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-          <span>Contacto</span>
+          <span>{t("sectionLabel")}</span>
         </span>
         <h2
           id="contact-heading"
           className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
         >
-          Hablemos de tu{" "}
+          {t("titlePart1")}{" "}
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-            próximo proyecto
+            {t("titlePart2")}
           </span>
         </h2>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          ¿Tienes una idea en mente, una oportunidad laboral o necesitas asesoría en desarrollo web, software de escritorio o IoT? Escríbeme y construyamos soluciones de alto impacto.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -230,10 +232,10 @@ export default function Contact() {
         >
           <div className="space-y-4">
             <h3 className="text-xl font-bold tracking-tight text-foreground">
-              Canales directos
+              {t("directChannelsTitle")}
             </h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              ¿Prefieres una comunicación más ágil o consultar mis repositorios? Puedes contactarme a través de cualquiera de estos canales o revisar mi actividad profesional en línea.
+              {t("directChannelsSubtitle")}
             </p>
           </div>
 
@@ -257,13 +259,11 @@ export default function Contact() {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-semibold text-foreground">
-                          {channel.title}
+                          {t(channel.titleKey as Parameters<typeof t>[0])}
                         </span>
-                        {channel.badge && (
-                          <span className="rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
-                            {channel.badge}
-                          </span>
-                        )}
+                        <span className="rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
+                          {t(channel.badgeKey as Parameters<typeof t>[0])}
+                        </span>
                       </div>
                       <p className="mt-0.5 font-mono text-xs text-muted-foreground">
                         {channel.value}
@@ -300,10 +300,10 @@ export default function Contact() {
                 >
                   <div className="space-y-1">
                     <h3 className="text-xl font-bold tracking-tight text-foreground">
-                      Enviar un mensaje
+                      {t("formTitle")}
                     </h3>
                     <p className="text-xs text-muted-foreground">
-                      Completa los campos a continuación y te responderé en breve.
+                      {t("formSubtitle")}
                     </p>
                   </div>
 
@@ -313,9 +313,9 @@ export default function Contact() {
                         htmlFor="name"
                         className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                       >
-                        Nombre completo{" "}
+                        {t("nameLabel")}{" "}
                         <span className="text-accent" aria-hidden="true">
-                          *
+                          {t("requiredField")}
                         </span>
                       </label>
                       <input
@@ -325,7 +325,7 @@ export default function Contact() {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Ej. Alexander von Humboldt"
+                        placeholder={t("namePlaceholder")}
                         className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                       />
                     </div>
@@ -335,9 +335,9 @@ export default function Contact() {
                         htmlFor="email"
                         className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                       >
-                        Correo electrónico{" "}
+                        {t("emailLabel")}{" "}
                         <span className="text-accent" aria-hidden="true">
-                          *
+                          {t("requiredField")}
                         </span>
                       </label>
                       <input
@@ -347,7 +347,7 @@ export default function Contact() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="tu-correo@empresa.com"
+                        placeholder={t("emailPlaceholder")}
                         className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                       />
                     </div>
@@ -358,7 +358,7 @@ export default function Contact() {
                       htmlFor="subject"
                       className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                     >
-                      Asunto
+                      {t("subjectLabel")}
                     </label>
                     <input
                       id="subject"
@@ -366,7 +366,7 @@ export default function Contact() {
                       type="text"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Consulta de arquitectura, proyecto o propuesta laboral"
+                      placeholder={t("subjectPlaceholder")}
                       className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                     />
                   </div>
@@ -376,9 +376,9 @@ export default function Contact() {
                       htmlFor="message"
                       className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                     >
-                      Mensaje{" "}
+                      {t("messageLabel")}{" "}
                       <span className="text-accent" aria-hidden="true">
-                        *
+                        {t("requiredField")}
                       </span>
                     </label>
                     <textarea
@@ -388,7 +388,7 @@ export default function Contact() {
                       rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Describe tu proyecto, requerimientos técnicos o consulta..."
+                      placeholder={t("messagePlaceholder")}
                       className="w-full resize-y rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                     />
                   </div>
@@ -405,12 +405,12 @@ export default function Contact() {
                           className="h-4 w-4 animate-spin relative z-10"
                           aria-hidden="true"
                         />
-                        <span className="relative z-10">Enviando mensaje...</span>
+                        <span className="relative z-10">{t("sendingButton")}</span>
                       </>
                     ) : (
                       <>
                         <Send className="h-4 w-4 relative z-10" aria-hidden="true" />
-                        <span className="relative z-10">Enviar mensaje</span>
+                        <span className="relative z-10">{t("submitButton")}</span>
                       </>
                     )}
                   </button>
@@ -438,12 +438,11 @@ export default function Contact() {
                   </motion.div>
 
                   <h3 className="mt-6 text-2xl font-bold tracking-tight text-foreground">
-                    ¡Mensaje recibido!
+                    {t("successTitle")}
                   </h3>
 
                   <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                    Gracias por ponerte en contacto. Tu mensaje ha sido recibido
-                    con éxito y me pondré en contacto contigo a la brevedad.
+                    {t("successMessage")}
                   </p>
 
                   <button
@@ -452,7 +451,7 @@ export default function Contact() {
                     className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                   >
                     <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                    <span>Enviar otro mensaje</span>
+                    <span>{t("sendAnotherButton")}</span>
                   </button>
                 </motion.div>
               )}

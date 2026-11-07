@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Play, Pause, RotateCcw, Copy, Check, Terminal, FileCode2, Activity } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface LogEntry {
   id: string;
@@ -65,7 +66,31 @@ const ARCHITECTURE_CONFIG = `{
   }
 }`;
 
+const STREAM_SAMPLES: Array<{ level: LogEntry["level"]; message: string }> = [
+  {
+    level: "METRIC",
+    message: "Sensor HC-SR04 telemetry update: 17.8 cm | FillRate: +0.4%/min",
+  },
+  {
+    level: "HARDWARE",
+    message: "HX711 differential read: 43.10kg | Vibration filter: ACTIVE",
+  },
+  {
+    level: "SYNC",
+    message: "Sync daemon: Cloud PostgreSQL mirror ACK received (lat: 12ms)",
+  },
+  {
+    level: "INFO",
+    message: "Health check OK: Heap memory 14.8MB RSS | Zero frame drops",
+  },
+  {
+    level: "HARDWARE",
+    message: "ESP32 heartbeat keepalive (uptime: 14h 22m 04s, RSSI: -48dBm)",
+  },
+];
+
 export function InteractiveTerminal() {
+  const t = useTranslations("Terminal");
   const [activeTab, setActiveTab] = useState<"daemon" | "config">("daemon");
   const [logs, setLogs] = useState<LogEntry[]>(INITIAL_LOGS);
   const [isStreaming, setIsStreaming] = useState(true);
@@ -76,31 +101,8 @@ export function InteractiveTerminal() {
   useEffect(() => {
     if (!isStreaming || activeTab !== "daemon") return;
 
-    const samples: Array<{ level: LogEntry["level"]; message: string }> = [
-      {
-        level: "METRIC",
-        message: "Sensor HC-SR04 telemetry update: 17.8 cm | FillRate: +0.4%/min",
-      },
-      {
-        level: "HARDWARE",
-        message: "HX711 differential read: 43.10kg | Vibration filter: ACTIVE",
-      },
-      {
-        level: "SYNC",
-        message: "Sync daemon: Cloud PostgreSQL mirror ACK received (lat: 12ms)",
-      },
-      {
-        level: "INFO",
-        message: "Health check OK: Heap memory 14.8MB RSS | Zero frame drops",
-      },
-      {
-        level: "HARDWARE",
-        message: "ESP32 heartbeat keepalive (uptime: 14h 22m 04s, RSSI: -48dBm)",
-      },
-    ];
-
     const interval = setInterval(() => {
-      const sample = samples[Math.floor(Math.random() * samples.length)];
+      const sample = STREAM_SAMPLES[Math.floor(Math.random() * STREAM_SAMPLES.length)];
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(
         now.getMinutes()
@@ -168,7 +170,7 @@ export function InteractiveTerminal() {
             }`}
           >
             <Activity className="h-3 w-3 text-emerald-400" />
-            <span>Telemetría</span>
+            <span>{t("telemetryTab")}</span>
           </button>
           <button
             type="button"
@@ -180,7 +182,7 @@ export function InteractiveTerminal() {
             }`}
           >
             <FileCode2 className="h-3 w-3 text-cyan-400" />
-            <span>Arquitectura</span>
+            <span>{t("architectureTab")}</span>
           </button>
         </div>
 
@@ -192,8 +194,8 @@ export function InteractiveTerminal() {
                 type="button"
                 onClick={() => setIsStreaming(!isStreaming)}
                 className="p-1 rounded text-zinc-400 hover:text-white hover:bg-zinc-800/80 transition-colors cursor-pointer"
-                aria-label={isStreaming ? "Pausar streaming" : "Reanudar streaming"}
-                title={isStreaming ? "Pausar" : "Reanudar"}
+                aria-label={isStreaming ? t("pauseStreaming") : t("resumeStreaming")}
+                title={isStreaming ? t("pause") : t("resume")}
               >
                 {isStreaming ? (
                   <Pause className="h-3.5 w-3.5 text-zinc-300" />
@@ -205,8 +207,8 @@ export function InteractiveTerminal() {
                 type="button"
                 onClick={handleResetLogs}
                 className="p-1 rounded text-zinc-400 hover:text-white hover:bg-zinc-800/80 transition-colors cursor-pointer"
-                aria-label="Reiniciar logs"
-                title="Reiniciar consola"
+                aria-label={t("resetLogs")}
+                title={t("resetConsole")}
               >
                 <RotateCcw className="h-3.5 w-3.5" />
               </button>
@@ -216,17 +218,17 @@ export function InteractiveTerminal() {
               type="button"
               onClick={handleCopyConfig}
               className="flex items-center gap-1 px-2 py-1 rounded text-[11px] text-zinc-300 hover:text-white bg-zinc-800/60 hover:bg-zinc-800 transition-colors cursor-pointer"
-              aria-label="Copiar JSON de arquitectura"
+              aria-label={t("copyJson")}
             >
               {isCopied ? (
                 <>
                   <Check className="h-3 w-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copiado</span>
+                  <span className="text-emerald-400">{t("copied")}</span>
                 </>
               ) : (
                 <>
                   <Copy className="h-3 w-3" />
-                  <span>Copiar</span>
+                  <span>{t("copy")}</span>
                 </>
               )}
             </button>

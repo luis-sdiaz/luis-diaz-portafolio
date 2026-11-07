@@ -16,11 +16,11 @@ import {
 } from "lucide-react";
 import {
   PROJECTS,
-  PROJECT_CATEGORIES,
   type ProjectCategory,
   type Project,
 } from "@/data/projects";
 import { ScrambleText } from "@/components/ui/scramble-text";
+import { useTranslations } from "next-intl";
 
 function GithubIcon({ className = "w-4 h-4 shrink-0" }: { className?: string }) {
   return (
@@ -72,6 +72,7 @@ function getReducedMotionServerSnapshot(): boolean {
 }
 
 export default function Projects() {
+  const t = useTranslations("Projects");
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all");
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -80,6 +81,12 @@ export default function Projects() {
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   );
+
+  const projectCategories = [
+    { id: "all" as ProjectCategory, label: t("filterAll") },
+    { id: "desktop-iot" as ProjectCategory, label: t("filterDesktop") },
+    { id: "fullstack-web" as ProjectCategory, label: t("filterWeb") },
+  ];
 
   const filteredProjects: Project[] = useMemo(() => {
     if (activeCategory === "all") return PROJECTS;
@@ -119,11 +126,17 @@ export default function Projects() {
     [handlePrev, handleNext]
   );
 
+  const getCategoryLabel = (category: ProjectCategory) => {
+    return category === "desktop-iot"
+      ? t("categoryDesktop")
+      : t("categoryWeb");
+  };
+
   return (
     <section
       id="proyectos"
       className="relative mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8 overflow-hidden"
-      aria-label="Proyectos de Ingeniería de Software"
+      aria-label={t("sectionAriaLabel")}
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
@@ -131,16 +144,16 @@ export default function Projects() {
       <div className="mx-auto max-w-3xl text-center">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
-          <span>Sistemas Distribuidos & Hardware</span>
+          <span>{t("sectionLabel")}</span>
         </div>
         <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-          <ScrambleText text="Proyectos de " trigger="view" />
+          <ScrambleText text={t("titlePart1")} trigger="view" />
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-            <ScrambleText text="Ingeniería" trigger="view" />
+            <ScrambleText text={t("titlePart2")} trigger="view" />
           </span>
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Sistemas construidos con foco en rendimiento, arquitecturas distribuidas, hardware integrado y tipado seguro.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -149,9 +162,9 @@ export default function Projects() {
         <nav
           className="inline-flex rounded-2xl border border-border bg-surface p-1.5 shadow-md backdrop-blur-md"
           role="tablist"
-          aria-label="Filtrar proyectos por categoría"
+          aria-label={t("filterLabel")}
         >
-          {PROJECT_CATEGORIES.map((tab) => {
+          {projectCategories.map((tab) => {
             const isActive = activeCategory === tab.id;
             return (
               <button
@@ -232,6 +245,8 @@ export default function Projects() {
 
           const isCurrent = diff === 0;
           const ProjectIcon = getProjectIcon(project.id);
+          const description = t(`descriptions.${project.id}` as Parameters<typeof t>[0]);
+          const metric = t(`metrics.${project.id}` as Parameters<typeof t>[0]);
 
           return (
             <div
@@ -254,7 +269,7 @@ export default function Projects() {
               }}
               role="button"
               tabIndex={0}
-              aria-label={`Seleccionar proyecto: ${project.title}`}
+              aria-label={t("selectProject", { title: project.title })}
               aria-pressed={isCurrent}
             >
               {/* Acento superior de brillo monocromático en la tarjeta */}
@@ -281,16 +296,14 @@ export default function Projects() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                   </span>
-                  <span>En producción</span>
+                  <span>{t("inProduction")}</span>
                 </span>
               </div>
 
               {/* Categoría, Título y Métrica Técnica */}
               <div className="my-auto py-2">
                 <span className="inline-block rounded-md border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-                  {project.category === "desktop-iot"
-                    ? "Desktop & IoT"
-                    : "Full-Stack Web"}
+                  {getCategoryLabel(project.category)}
                 </span>
 
                 <h3 className="mt-1.5 text-xl font-bold tracking-tight text-foreground line-clamp-1">
@@ -299,11 +312,11 @@ export default function Projects() {
 
                 <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground">
                   <Activity className="h-3.5 w-3.5 text-foreground shrink-0" aria-hidden="true" />
-                  <span className="truncate">{project.metrics}</span>
+                  <span className="truncate">{metric}</span>
                 </div>
 
                 <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground line-clamp-2 sm:line-clamp-3">
-                  {project.description}
+                  {description}
                 </p>
 
                 {/* Chips de Tecnologías */}
@@ -325,23 +338,23 @@ export default function Projects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Ver código fuente de ${project.title} en GitHub`}
+                  aria-label={t("viewSourceCode", { title: project.title })}
                   onClick={(e) => e.stopPropagation()}
                   className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
                   <GithubIcon className="w-3.5 h-3.5 shrink-0" />
-                  <span>Código</span>
+                  <span>{t("codeButton")}</span>
                 </a>
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Ver demo en vivo de ${project.title}`}
+                  aria-label={t("viewLiveDemo", { title: project.title })}
                   onClick={(e) => e.stopPropagation()}
                   className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
                   <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-                  <span>Demo</span>
+                  <span>{t("demoButton")}</span>
                 </a>
               </div>
             </div>
@@ -355,12 +368,12 @@ export default function Projects() {
           type="button"
           onClick={handlePrev}
           className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
-          aria-label="Proyecto anterior"
+          aria-label={t("previousProject")}
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </button>
 
-        <div className="flex items-center gap-2" role="tablist" aria-label="Seleccionar diapositiva">
+        <div className="flex items-center gap-2" role="tablist" aria-label={t("selectSlide")}>
           {filteredProjects.map((_, dotIdx) => (
             <button
               key={dotIdx}
@@ -373,7 +386,7 @@ export default function Projects() {
                 ? "w-8 bg-accent shadow-sm"
                   : "w-2 bg-border hover:bg-muted-foreground"
               }`}
-              aria-label={`Ir al proyecto ${dotIdx + 1}`}
+              aria-label={t("goToProject", { number: dotIdx + 1 })}
             />
           ))}
         </div>
@@ -382,7 +395,7 @@ export default function Projects() {
           type="button"
           onClick={handleNext}
           className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
-          aria-label="Siguiente proyecto"
+          aria-label={t("nextProject")}
         >
           <ChevronRight className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -393,6 +406,8 @@ export default function Projects() {
         {filteredProjects.map((project, idx) => {
           const isSelected = idx === safeActiveIndex;
           const ProjectIcon = getProjectIcon(project.id);
+          const description = t(`descriptions.${project.id}` as Parameters<typeof t>[0]);
+          const metric = t(`metrics.${project.id}` as Parameters<typeof t>[0]);
 
           return (
             <article
@@ -414,26 +429,24 @@ export default function Projects() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                   </span>
-                  <span>En producción</span>
+                  <span>{t("inProduction")}</span>
                 </span>
               </div>
 
               {/* Detalles */}
               <div className="my-4">
                 <span className="inline-block rounded-md border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-                  {project.category === "desktop-iot"
-                    ? "Desktop & IoT"
-                    : "Full-Stack Web"}
+                  {getCategoryLabel(project.category)}
                 </span>
                 <h3 className="mt-2 text-xl font-bold tracking-tight text-foreground">
                   {project.title}
                 </h3>
                 <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground">
                   <Activity className="h-3.5 w-3.5 text-foreground shrink-0" aria-hidden="true" />
-                  <span className="truncate">{project.metrics}</span>
+                  <span className="truncate">{metric}</span>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {project.description}
+                  {description}
                 </p>
 
                 <div className="mt-4 flex flex-wrap gap-1.5">
@@ -454,21 +467,21 @@ export default function Projects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Ver código fuente de ${project.title} en GitHub`}
+                  aria-label={t("viewSourceCode", { title: project.title })}
                   className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs sm:text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover"
                 >
                   <GithubIcon className="w-4 h-4 shrink-0 text-foreground" />
-                  <span>Código</span>
+                  <span>{t("codeButton")}</span>
                 </a>
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Ver demo en vivo de ${project.title}`}
+                  aria-label={t("viewLiveDemo", { title: project.title })}
                   className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs sm:text-sm font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm"
                 >
                   <ExternalLink className="w-4 h-4 shrink-0 text-background" aria-hidden="true" />
-                  <span>Demo</span>
+                  <span>{t("demoButton")}</span>
                 </a>
               </div>
             </article>

@@ -12,40 +12,7 @@ import {
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { InteractiveTerminal } from "@/components/ui/interactive-terminal";
 import { InfiniteMarquee } from "@/components/ui/infinite-marquee";
-
-interface QuickFact {
-  id: string;
-  label: string;
-  value: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const QUICK_FACTS: readonly QuickFact[] = [
-  {
-    id: "location",
-    label: "Ubicación",
-    value: "Pasto, Nariño, Colombia",
-    icon: MapPin,
-  },
-  {
-    id: "education",
-    label: "Formación",
-    value: "5° Semestre — Ing. de Software",
-    icon: GraduationCap,
-  },
-  {
-    id: "focus",
-    label: "Enfoque Técnico",
-    value: "Web Escalable & Hardware IoT",
-    icon: Cpu,
-  },
-  {
-    id: "status",
-    label: "Disponibilidad",
-    value: "Desarrollo de Soluciones de Impacto",
-    icon: Terminal,
-  },
-];
+import { useTranslations } from "next-intl";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -72,7 +39,35 @@ const itemVariants: Variants = {
 };
 
 export default function About() {
+  const t = useTranslations("About");
   const shouldReduceMotion = useReducedMotion();
+
+  const quickFacts = [
+    {
+      id: "location",
+      label: t("facts.locationLabel"),
+      value: t("facts.locationValue"),
+      icon: MapPin,
+    },
+    {
+      id: "education",
+      label: t("facts.educationLabel"),
+      value: t("facts.educationValue"),
+      icon: GraduationCap,
+    },
+    {
+      id: "focus",
+      label: t("facts.focusLabel"),
+      value: t("facts.focusValue"),
+      icon: Cpu,
+    },
+    {
+      id: "status",
+      label: t("facts.statusLabel"),
+      value: t("facts.statusValue"),
+      icon: Terminal,
+    },
+  ];
 
   return (
     <section
@@ -96,21 +91,21 @@ export default function About() {
         <motion.div variants={itemVariants} className="space-y-4 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
-            <span>Perfil Profesional</span>
+            <span>{t("sectionLabel")}</span>
           </div>
 
           <h2
             id="about-title"
             className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
-            Trayectoria, vocación y{" "}
+            {t("title")}{" "}
             <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-              pensamiento ingenieril
+              {t("titleHighlight")}
             </span>
           </h2>
 
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Conectando el software de alto rendimiento con sistemas físicos y necesidades reales.
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -128,19 +123,16 @@ export default function About() {
           >
             <div className="space-y-4">
               <h3 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                Soluciones digitales fundamentadas en rigor, arquitectura y propósito.
+                {t("bioTitle")}
               </h3>
               <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Soy Luis Sebastián Díaz, estudiante de 5° semestre de Ingeniería de Software en Pasto, Colombia.
-                Me especializo en diseñar arquitecturas web modulares y en integrar microcontroladores IoT mediante
-                sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con
-                acabados de precisión y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.
+                {t("bio")}
               </p>
             </div>
 
             {/* Quick Facts con SpotlightCard y Entrada Escalonada */}
             <div className="grid grid-cols-1 gap-3.5 pt-2 sm:grid-cols-2">
-              {QUICK_FACTS.map((fact, idx) => {
+              {quickFacts.map((fact, idx) => {
                 const Icon = fact.icon;
                 return (
                   <SpotlightCard
@@ -176,10 +168,10 @@ export default function About() {
         <motion.div variants={itemVariants} className="pt-6 border-t border-border">
           <div className="text-center mb-6">
             <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">
-              Ecosistema Tecnológico de Producción
+              {t("ecosystemTitle")}
             </span>
             <p className="mt-1 text-sm text-muted-foreground">
-              Despliegue continuo de librerías, protocolos embebidos y frameworks modernos
+              {t("ecosystemSubtitle")}
             </p>
           </div>
 
