@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FileDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface NavItem {
   label: string;
@@ -29,22 +30,22 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-800/60 bg-[#09090b]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-surface/80 backdrop-blur-md transition-colors duration-250">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
         <a
           href="#inicio"
-          className="text-lg font-bold tracking-tight text-zinc-100 transition-colors hover:text-emerald-400"
+          className="text-lg font-bold tracking-tight text-foreground transition-opacity hover:opacity-75"
           aria-label="Ir al inicio"
         >
           LD
         </a>
 
-        <ul className="hidden items-center gap-6 text-sm font-medium text-zinc-400 md:flex">
+        <ul className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
           {navigationItems.map((item) => (
             <li key={item.href}>
               <a
                 href={item.href}
-                className="transition-colors hover:text-zinc-100"
+                className="transition-colors hover:text-foreground"
               >
                 {item.label}
               </a>
@@ -52,19 +53,22 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <ThemeToggle />
+
           <a
             href="/cv.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-lg bg-emerald-500 px-3 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-emerald-400 md:inline-flex"
+            className="hidden items-center gap-2 rounded-xl bg-foreground px-3.5 py-2 text-xs font-semibold text-background transition-opacity hover:opacity-90 shadow-sm md:inline-flex"
           >
             <FileDown className="h-4 w-4" />
-            Ver CV
+            <span>Ver CV</span>
           </a>
+
           <button
             type="button"
-            className="rounded-lg p-2 text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-zinc-100 md:hidden"
+            className="rounded-xl p-2 text-muted-foreground transition-colors hover:bg-surface-muted hover:text-foreground md:hidden"
             aria-expanded={isOpen}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
             aria-controls="mobile-navigation"
@@ -79,34 +83,34 @@ export default function Navbar() {
         {isOpen && (
           <motion.div
             id="mobile-navigation"
-            className="border-t border-neutral-800/60 px-4 pb-4 md:hidden"
+            className="border-t border-border bg-surface/95 px-4 pb-4 backdrop-blur-md md:hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ul className="mx-auto flex max-w-6xl flex-col gap-1 pt-3 text-sm font-medium text-zinc-300">
+            <ul className="mx-auto flex max-w-6xl flex-col gap-1 pt-3 text-sm font-medium text-foreground">
               {navigationItems.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="block rounded-lg px-3 py-2 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+                    className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-surface-muted hover:text-foreground"
                     onClick={closeMenu}
                   >
                     {item.label}
                   </a>
                 </li>
               ))}
-              <li>
+              <li className="pt-2 flex items-center justify-between gap-2 border-t border-border mt-1">
                 <a
                   href="/cv.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-emerald-500 px-3 py-2 text-xs font-semibold text-zinc-950 transition hover:bg-emerald-400"
+                  className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-foreground px-3 py-2.5 text-xs font-semibold text-background transition-opacity hover:opacity-90 shadow-sm"
                   onClick={closeMenu}
                 >
                   <FileDown className="h-4 w-4" />
-                  Ver CV
+                  <span>Ver CV</span>
                 </a>
               </li>
             </ul>
@@ -115,7 +119,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <motion.div
-        className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-emerald-400"
+        className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-foreground"
         style={{ scaleX }}
         aria-hidden="true"
       />

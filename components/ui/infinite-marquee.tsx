@@ -23,29 +23,28 @@ export interface MarqueeItem {
   name: string;
   category: string;
   icon: LucideIcon | React.ComponentType<{ className?: string }>;
-  accent?: string;
 }
 
 export const ROW_1_TECH: readonly MarqueeItem[] = [
-  { name: "TypeScript 5", category: "Core", icon: Code2, accent: "text-emerald-400" },
-  { name: "Next.js 16", category: "Framework", icon: Globe, accent: "text-cyan-400" },
-  { name: "Rust", category: "Systems", icon: Flame, accent: "text-amber-400" },
-  { name: "Tauri 2", category: "Desktop", icon: Box, accent: "text-teal-400" },
-  { name: "ESP32 Firmware", category: "IoT", icon: Cpu, accent: "text-emerald-400" },
-  { name: "PostgreSQL", category: "Database", icon: Database, accent: "text-cyan-400" },
-  { name: "Tailwind CSS v4", category: "UI Engine", icon: Layers, accent: "text-teal-400" },
-  { name: "Framer Motion", category: "Animations", icon: Zap, accent: "text-emerald-400" },
+  { name: "TypeScript 5", category: "Core", icon: Code2 },
+  { name: "Next.js 16", category: "Framework", icon: Globe },
+  { name: "Rust", category: "Systems", icon: Flame },
+  { name: "Tauri 2", category: "Desktop", icon: Box },
+  { name: "ESP32 Firmware", category: "IoT", icon: Cpu },
+  { name: "PostgreSQL", category: "Database", icon: Database },
+  { name: "Tailwind CSS v4", category: "UI Engine", icon: Layers },
+  { name: "Framer Motion", category: "Animations", icon: Zap },
 ];
 
 export const ROW_2_TECH: readonly MarqueeItem[] = [
-  { name: "React 19", category: "Library", icon: Code2, accent: "text-cyan-400" },
-  { name: "Embedded C++", category: "Hardware", icon: Binary, accent: "text-emerald-400" },
-  { name: "UART / I2C Telemetry", category: "Protocols", icon: Terminal, accent: "text-teal-400" },
-  { name: "SQLite Edge Cache", category: "Storage", icon: Database, accent: "text-amber-400" },
-  { name: "Node.js Runtimes", category: "Backend", icon: Server, accent: "text-emerald-400" },
-  { name: "Vitest QA", category: "Testing", icon: ShieldCheck, accent: "text-cyan-400" },
-  { name: "Arduino Core", category: "IoT Hardware", icon: Cpu, accent: "text-teal-400" },
-  { name: "Cross-Platform UI", category: "Systems", icon: Smartphone, accent: "text-emerald-400" },
+  { name: "React 19", category: "Library", icon: Code2 },
+  { name: "Embedded C++", category: "Hardware", icon: Binary },
+  { name: "UART / I2C Telemetry", category: "Protocols", icon: Terminal },
+  { name: "SQLite Edge Cache", category: "Storage", icon: Database },
+  { name: "Node.js Runtimes", category: "Backend", icon: Server },
+  { name: "Vitest QA", category: "Testing", icon: ShieldCheck },
+  { name: "Arduino Core", category: "IoT Hardware", icon: Cpu },
+  { name: "Cross-Platform UI", category: "Systems", icon: Smartphone },
 ];
 
 function MarqueeRow({
@@ -60,7 +59,6 @@ function MarqueeRow({
   const shouldReduceMotion = useReducedMotion();
   const [isPaused, setIsPaused] = useState(false);
 
-  // Duplicamos los elementos para generar un ciclo continuo matemáticamente perfecto al -50%
   const duplicatedItems = [...items, ...items, ...items];
 
   return (
@@ -89,16 +87,16 @@ function MarqueeRow({
           return (
             <div
               key={`${item.name}-${index}`}
-              className="group relative flex items-center gap-3 rounded-xl border border-zinc-800/80 bg-zinc-900/70 px-4 py-2.5 backdrop-blur-md shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/60 hover:bg-emerald-950/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.22)] cursor-default"
+              className="group relative flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-2.5 backdrop-blur-md shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-border-hover hover:bg-surface-muted cursor-default"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-950/80 transition-colors duration-300 group-hover:border-emerald-500/40 group-hover:bg-emerald-500/10">
-                <Icon className={`h-4 w-4 ${item.accent ?? "text-emerald-400"}`} />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface-muted text-foreground transition-colors duration-300 group-hover:border-border-hover group-hover:bg-surface">
+                <Icon className="h-4 w-4 text-foreground" />
               </div>
               <div className="flex flex-col text-left">
-                <span className="font-mono text-xs font-bold text-zinc-200 transition-colors group-hover:text-white">
+                <span className="font-mono text-xs font-bold text-foreground transition-colors">
                   {item.name}
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-500 group-hover:text-emerald-400/90">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
                   {item.category}
                 </span>
               </div>
@@ -137,4 +135,3 @@ export function InfiniteMarquee({
 }
 
 export default InfiniteMarquee;
-

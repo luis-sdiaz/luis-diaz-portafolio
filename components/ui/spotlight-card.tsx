@@ -8,6 +8,7 @@ import {
   useReducedMotion,
   type HTMLMotionProps,
 } from "framer-motion";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 export interface SpotlightCardProps extends HTMLMotionProps<"div"> {
@@ -21,14 +22,16 @@ export function SpotlightCard({
   children,
   className,
   delay = 0,
-  spotlightColor = "rgba(16, 185, 129, 0.14)",
+  spotlightColor,
   ...props
 }: SpotlightCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -37,19 +40,34 @@ export function SpotlightCard({
     mouseY.set(e.clientY - top);
   };
 
+  const handleMouseLeave = () => {
+    mouseX.set(-1000);
+    mouseY.set(-1000);
+  };
+
+  const defaultSpotlight = isDark
+    ? "rgba(255, 255, 255, 0.05)"
+    : "rgba(0, 0, 0, 0.03)";
+
+  const defaultBorderSpotlight = isDark
+    ? "rgba(255, 255, 255, 0.22)"
+    : "rgba(0, 0, 0, 0.12)";
+
+  const activeSpotlight = spotlightColor || defaultSpotlight;
+
   const backgroundGradient = useMotionTemplate`
     radial-gradient(
-      600px circle at ${mouseX}px ${mouseY}px,
-      ${spotlightColor},
-      transparent 40%
+      500px circle at ${mouseX}px ${mouseY}px,
+      ${activeSpotlight},
+      transparent 50%
     )
   `;
 
   const borderGradient = useMotionTemplate`
     radial-gradient(
-      400px circle at ${mouseX}px ${mouseY}px,
-      rgba(16, 185, 129, 0.45),
-      transparent 60%
+      350px circle at ${mouseX}px ${mouseY}px,
+      ${defaultBorderSpotlight},
+      transparent 50%
     )
   `;
 
@@ -57,57 +75,39 @@ export function SpotlightCard({
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      initial={
-        shouldReduceMotion
-          ? { opacity: 0 }
-          : { opacity: 0, y: 35, scale: 0.97, filter: "blur(8px)" }
-      }
-      whileInView={
-        shouldReduceMotion
-          ? { opacity: 1 }
-          : { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
-      }
-      viewport={{ once: false, amount: 0.2, margin: "-40px" }}
+      onMouseLeave={handleMouseLeave}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
       transition={{
-        type: "spring",
-        stiffness: 110,
-        damping: 20,
+        duration: 0.5,
         delay,
+        ease: [0.16, 1, 0.3, 1],
       }}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/50 backdrop-blur-xl transition-colors duration-300 hover:border-emerald-500/30",
+        "group relative rounded-2xl border border-border bg-surface text-foreground shadow-sm transition-all duration-300 hover:shadow-md overflow-hidden",
         className
       )}
       {...props}
     >
-      {/* Resplandor radial de fondo */}
+      {/* Resplandor ambiental radial que sigue el cursor */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
         style={{ background: backgroundGradient }}
       />
 
-      {/* Iluminación de borde direccional estilo Linear/Vercel */}
+      {/* Iluminación de borde reactivo al cursor */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0"
-        style={{
-          background: borderGradient,
-          maskImage:
-            "linear-gradient(black, black) content-box, linear-gradient(black, black)",
-          WebkitMaskImage:
-            "linear-gradient(black, black) content-box, linear-gradient(black, black)",
-          maskComposite: "exclude",
-          WebkitMaskComposite: "xor",
-          padding: "1px",
-        }}
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10"
+        style={{ background: borderGradient }}
       />
 
-      {/* Capa de contenido */}
-      <div className="relative z-10 h-full w-full">{children}</div>
+      {/* Contenido de la tarjeta */}
+      <div className="relative z-20 h-full w-full">{children}</div>
     </motion.div>
   );
 }
 
 export default SpotlightCard;
-

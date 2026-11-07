@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
 
 interface Particle {
   x: number;
@@ -9,7 +10,7 @@ interface Particle {
   vy: number;
   radius: number;
   baseRadius: number;
-  color: string;
+  colorIndex: number;
   pulsePhase: number;
 }
 
@@ -26,12 +27,22 @@ export interface ParticleNetworkProps {
   maxDistance?: number;
 }
 
+const DARK_COLORS = ["#fafafa", "#e4e4e7", "#d4d4d8", "#a1a1aa"];
+const LIGHT_COLORS = ["#09090b", "#18181b", "#27272a", "#52525b"];
+
 export function ParticleNetwork({
   className = "w-full h-full",
   nodeCount = 48,
   maxDistance = 95,
 }: ParticleNetworkProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { resolvedTheme } = useTheme();
+  const isDarkRef = useRef<boolean>(resolvedTheme === "dark");
+
+  useEffect(() => {
+    isDarkRef.current = resolvedTheme === "dark";
+  }, [resolvedTheme]);
+
   const [metrics, setMetrics] = useState({
     activeNodes: nodeCount,
     linksCount: 0,
@@ -56,7 +67,6 @@ export function ParticleNetwork({
       isHovered: false,
     };
 
-    const colors = ["#10b981", "#34d399", "#06b6d4", "#2dd4bf"];
     const particles: Particle[] = [];
     const packets: DataPacket[] = [];
 
@@ -67,9 +77,9 @@ export function ParticleNetwork({
       height = rect.height;
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
+
       ctx.scale(dpr, dpr);
 
-      // Reubicar partículas dentro de los nuevos límites
       if (particles.length === 0) {
         for (let i = 0; i < nodeCount; i++) {
           const r = Math.random() * 2 + 1.8;
@@ -80,7 +90,7 @@ export function ParticleNetwork({
             vy: (Math.random() - 0.5) * 0.75,
             radius: r,
             baseRadius: r,
-            color: colors[Math.floor(Math.random() * colors.length)],
+            colorIndex: Math.floor(Math.random() * DARK_COLORS.length),
             pulsePhase: Math.random() * Math.PI * 2,
           });
         }
@@ -96,7 +106,6 @@ export function ParticleNetwork({
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
 
-    // Manejo de interacción de cursor
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
@@ -119,28 +128,23 @@ export function ParticleNetwork({
     const render = (time: number) => {
       ctx.clearRect(0, 0, width, height);
 
-      frameCount++;
-      if (time - lastMetricsUpdate > 1000) {
-        setMetrics((prev) => ({
-          ...prev,
-          fps: Math.round((frameCount * 1000) / (time - lastMetricsUpdate)),
-        }));
-        frameCount = 0;
-        lastMetricsUpdate = time;
-      }
+      const isDark = isDarkRef.current;
+      const palette = isDark ? DARK_COLORS : LIGHT_COLORS;
+      const lineBaseColor = isDark ? "255, 255, 255" : "9, 9, 11";
+      const packetColor = isDark ? "#ffffff" : "#09090b";
 
-      // Actualizar posiciones y física de partículas
+      frameCount++;
+
+      // Actualizar física de partículas
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
         p.x += p.vx;
         p.y += p.vy;
 
-        // Rebote en bordes con amortiguación
         if (p.x <= 0 || p.x >= width) p.vx *= -1;
         if (p.y <= 0 || p.y >= height) p.vy *= -1;
 
-        // Interacción elástica con el ratón
         if (mouse.isHovered) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
@@ -149,18 +153,16 @@ export function ParticleNetwork({
           if (dist < mouse.radius && dist > 0) {
             const force = (mouse.radius - dist) / mouse.radius;
             const angle = Math.atan2(dy, dx);
-            // Repulsión elástica suave
             p.x -= Math.cos(angle) * force * 3;
             p.y -= Math.sin(angle) * force * 3;
           }
         }
 
-        // Pulso sinusoidal
         p.pulsePhase += 0.04;
         p.radius = p.baseRadius + Math.sin(p.pulsePhase) * 0.6;
       }
 
-      // Trazado de conexiones entre nodos adyacentes
+      // Trazar conexiones
       let activeLinks = 0;
       const connectedPairs: [number, number][] = [];
 
@@ -180,13 +182,12 @@ export function ParticleNetwork({
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(16, 185, 129, ${alpha * 0.35})`;
+            ctx.strokeStyle = `rgba(${lineBaseColor}, ${alpha * (isDark ? 0.22 : 0.16)})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
 
-        // Conexión magnética al puntero del mouse
         if (mouse.isHovered) {
           const dx = mouse.x - particles[i].x;
           const dy = mouse.y - particles[i].y;
@@ -197,14 +198,14 @@ export function ParticleNetwork({
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = `rgba(6, 182, 212, ${alpha * 0.6})`;
+            ctx.strokeStyle = `rgba(${lineBaseColor}, ${alpha * (isDark ? 0.45 : 0.3)})`;
             ctx.lineWidth = 1.2;
             ctx.stroke();
           }
         }
       }
 
-      // Generar paquetes de datos flotantes entre nodos conectados
+      // Paquetes de datos
       if (connectedPairs.length > 0 && packets.length < 8 && Math.random() < 0.05) {
         const pair = connectedPairs[Math.floor(Math.random() * connectedPairs.length)];
         packets.push({
@@ -215,7 +216,6 @@ export function ParticleNetwork({
         });
       }
 
-      // Renderizar paquetes de datos
       for (let k = packets.length - 1; k >= 0; k--) {
         const pkt = packets[k];
         pkt.progress += pkt.speed;
@@ -237,38 +237,41 @@ export function ParticleNetwork({
 
         ctx.beginPath();
         ctx.arc(pktX, pktY, 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = "#38bdf8";
-        ctx.shadowColor = "#38bdf8";
-        ctx.shadowBlur = 8;
+        ctx.fillStyle = packetColor;
+        ctx.shadowColor = packetColor;
+        ctx.shadowBlur = isDark ? 6 : 2;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
 
-      // Dibujar los nodos
+      // Dibujar nodos
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
+        const color = palette[p.colorIndex % palette.length];
 
-        // Halo suave exterior
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = p.color === "#06b6d4" ? "rgba(6, 182, 212, 0.12)" : "rgba(16, 185, 129, 0.12)";
+        ctx.fillStyle = `rgba(${lineBaseColor}, ${isDark ? 0.08 : 0.05})`;
         ctx.fill();
 
-        // Núcleo del nodo
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 6;
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = isDark ? 5 : 2;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
 
-      if (time - lastMetricsUpdate > 500) {
-        setMetrics((prev) => ({
-          ...prev,
+      // Actualizar métricas una vez por segundo (evita re-renders en rAF)
+      if (time - lastMetricsUpdate > 1000) {
+        setMetrics({
+          activeNodes: particles.length,
           linksCount: activeLinks,
-        }));
+          fps: Math.round((frameCount * 1000) / (time - lastMetricsUpdate)),
+        });
+        frameCount = 0;
+        lastMetricsUpdate = time;
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -293,14 +296,14 @@ export function ParticleNetwork({
       />
 
       {/* Indicadores de telemetría superpuestos en tiempo real */}
-      <div className="pointer-events-none absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-zinc-400">
+      <div className="pointer-events-none absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
         <div className="flex items-center gap-2">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="flex h-2 w-2 rounded-full bg-foreground animate-pulse" />
           <span>NODOS: {metrics.activeNodes}</span>
-          <span className="text-zinc-600">|</span>
-          <span className="text-cyan-400">ENLACES: {metrics.linksCount}</span>
+          <span className="opacity-40">|</span>
+          <span className="text-foreground font-semibold">ENLACES: {metrics.linksCount}</span>
         </div>
-        <div className="flex items-center gap-1.5 text-zinc-500">
+        <div className="flex items-center gap-1.5 opacity-75">
           <span>TX: 115200 BAUD</span>
         </div>
       </div>
@@ -309,4 +312,3 @@ export function ParticleNetwork({
 }
 
 export default ParticleNetwork;
-

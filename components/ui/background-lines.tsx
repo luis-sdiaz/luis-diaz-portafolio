@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export interface BackgroundLinesProps {
@@ -34,7 +34,8 @@ export function BackgroundLines({
   className,
   svgOptions,
 }: BackgroundLinesProps) {
-  const duration = svgOptions?.duration ?? 10;
+  const duration = svgOptions?.duration ?? 12;
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <div
@@ -52,75 +53,45 @@ export function BackgroundLines({
         }}
       >
         <svg
-          className="h-full w-full"
-          width="100%"
-          height="100%"
+          className="w-full h-full absolute inset-0"
           viewBox="0 0 1440 900"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
         >
           <defs>
-            <filter id="emerald-glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-
-            <linearGradient id="emerald-line-1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#10b981" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#34d399" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#059669" stopOpacity="0.2" />
-            </linearGradient>
-
-            <linearGradient id="emerald-line-2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#059669" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#10b981" stopOpacity="0.75" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.2" />
-            </linearGradient>
-
-            <linearGradient id="emerald-line-3" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#34d399" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="#10b981" stopOpacity="0.2" />
+            <linearGradient id="monochrome-lines" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="var(--foreground)" stopOpacity="0.16" />
+              <stop offset="50%" stopColor="var(--muted-foreground)" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="var(--foreground)" stopOpacity="0.05" />
             </linearGradient>
           </defs>
-
-          {PATHS.map((path, idx) => {
-            const strokeUrl =
-              idx % 3 === 0
-                ? "url(#emerald-line-1)"
-                : idx % 3 === 1
-                ? "url(#emerald-line-2)"
-                : "url(#emerald-line-3)";
-
-            return (
-              <motion.path
-                key={path}
-                d={path}
-                stroke={strokeUrl}
-                strokeWidth={idx % 2 === 0 ? 2.5 : 2}
-                strokeLinecap="round"
-                filter="url(#emerald-glow)"
-                initial={{
-                  pathLength: 0,
-                  opacity: 0.35,
-                }}
-                animate={{
-                  pathLength: [0, 1],
-                  opacity: [0.35, 0.8, 0.4],
-                }}
-                transition={{
-                  duration: duration + (idx % 4) * 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: (idx % 5) * 0.4,
-                }}
-              />
-            );
-          })}
+          {PATHS.map((path, idx) => (
+            <motion.path
+              key={idx}
+              d={path}
+              stroke="url(#monochrome-lines)"
+              strokeWidth="1.2"
+              strokeDasharray="8 6"
+              initial={{ pathLength: 0.3, pathOffset: 0 }}
+              animate={
+                shouldReduceMotion
+                  ? { pathLength: 0.3, pathOffset: 0 }
+                  : {
+                      pathLength: [0.15, 0.45, 0.15],
+                      pathOffset: [0, 1],
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      duration: duration + (idx % 4) * 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }
+              }
+            />
+          ))}
         </svg>
       </div>
 
@@ -128,3 +99,5 @@ export function BackgroundLines({
     </div>
   );
 }
+
+export default BackgroundLines;
