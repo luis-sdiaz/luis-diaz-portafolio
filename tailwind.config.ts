@@ -19,6 +19,13 @@ const config = {
         accent: {
           DEFAULT: "var(--accent)",
           foreground: "var(--accent-foreground)",
+          hover: "var(--accent-hover)",
+          muted: "var(--accent-muted)",
+        },
+        "accent-action": {
+          DEFAULT: "var(--accent-action)",
+          foreground: "var(--accent-action-foreground)",
+          hover: "var(--accent-action-hover)",
         },
         focusRing: "var(--focus-ring)",
       },
