@@ -4,21 +4,23 @@ import { useState } from "react";
 import { FileDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { useTranslations } from "next-intl";
 
 interface NavItem {
   label: string;
   href: string;
 }
 
-const navigationItems: NavItem[] = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Experiencia", href: "#experiencia" },
-  { label: "Contacto", href: "#contacto" },
-];
-
 export default function Navbar() {
+  const t = useTranslations("Navbar");
+  const navigationItems: NavItem[] = [
+    { label: t("home"), href: "#inicio" },
+    { label: t("about"), href: "#sobre-mi" },
+    { label: t("projects"), href: "#proyectos" },
+    { label: t("experience"), href: "#experiencia" },
+    { label: t("contact"), href: "#contacto" },
+  ];
   const [isOpen, setIsOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -35,7 +37,7 @@ export default function Navbar() {
         <a
           href="#inicio"
           className="text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent"
-          aria-label="Ir al inicio"
+          aria-label={t("goHome")}
         >
           LD
         </a>
@@ -53,7 +55,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          <LanguageSwitcher onLocaleChange={closeMenu} />
           <ThemeToggle />
 
           <a
@@ -63,14 +66,14 @@ export default function Navbar() {
             className="hidden items-center gap-2 rounded-xl bg-accent-action px-3.5 py-2 text-xs font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm md:inline-flex"
           >
             <FileDown className="h-4 w-4" />
-            <span>Ver CV</span>
+            <span>{t("viewCv")}</span>
           </a>
 
           <button
             type="button"
             className="rounded-xl p-2 text-muted-foreground transition-colors hover:bg-surface-muted hover:text-foreground md:hidden"
             aria-expanded={isOpen}
-            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={isOpen ? t("closeMenu") : t("openMenu")}
             aria-controls="mobile-navigation"
             onClick={() => setIsOpen((open) => !open)}
           >
@@ -110,7 +113,7 @@ export default function Navbar() {
                   onClick={closeMenu}
                 >
                   <FileDown className="h-4 w-4" />
-                  <span>Ver CV</span>
+                  <span>{t("viewCv")}</span>
                 </a>
               </li>
             </ul>
