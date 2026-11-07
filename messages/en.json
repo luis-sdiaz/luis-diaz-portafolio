@@ -1,0 +1,311 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "about": "About me",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "goHome": "Go to home",
+    "viewCv": "View CV",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Hero": {
+    "welcome": "Professional introduction and welcome section",
+    "availability": "Available for new technology challenges",
+    "greeting": "Hi, I'm",
+    "subtitle": "Software Engineering Student | Full-Stack & IoT Developer",
+    "description": "Focused on designing and building scalable digital architectures, high-performance web applications, and IoT embedded systems integrated with real hardware.",
+    "downloadCv": "Download CV",
+    "downloadCvLabel": "Download curriculum vitae as a PDF",
+    "projects": "View projects",
+    "projectsLabel": "Navigate to the developed projects section",
+    "semester": "5th Semester Software Engineering",
+    "stack": "Tauri 2 + ESP32 IoT",
+    "frameworks": "Next.js 16 + React 19",
+    "architecture": "SUSTAINABLE CODE & ARCHITECTURE",
+    "distributedArchitecture": "DISTRIBUTED ARCHITECTURE CORE",
+    "toast": {
+      "title": "cv.pdf downloaded",
+      "description": "Curriculum vitae downloaded successfully."
+    }
+  },
+  "About": {
+    "sectionLabel": "Professional Profile",
+    "title": "Background, passion and",
+    "titleHighlight": "engineering mindset",
+    "subtitle": "Connecting high-performance software with physical systems and real-world needs.",
+    "bioTitle": "Digital solutions grounded in rigor, architecture and purpose.",
+    "bio": "I'm Luis Sebastián Díaz, a 5th-semester Software Engineering student based in Pasto, Colombia. I specialize in designing modular web architectures and integrating IoT microcontrollers through embedded systems like the ESP32. I apply strict quality standards, intuitive interfaces with precision-crafted UI, and end-to-end typed code to solve real problems with community impact.",
+    "facts": {
+      "locationLabel": "Location",
+      "locationValue": "Pasto, Nariño, Colombia",
+      "educationLabel": "Education",
+      "educationValue": "5th Semester — Software Eng.",
+      "focusLabel": "Technical Focus",
+      "focusValue": "Scalable Web & IoT Hardware",
+      "statusLabel": "Availability",
+      "statusValue": "Building High-Impact Solutions"
+    },
+    "ecosystemTitle": "Production Technology Ecosystem",
+    "ecosystemSubtitle": "Continuous deployment of libraries, embedded protocols and modern frameworks"
+  },
+  "Skills": {
+    "sectionLabel": "Technical Capabilities",
+    "title": "Engineering",
+    "titleHighlight": "Stack",
+    "subtitle": "Modular technology ecosystem focused on performance, type robustness and hardware connectivity.",
+    "activeTechnologies": "Active technologies",
+    "categories": {
+      "frontend": "Frontend & UI",
+      "desktop": "Desktop & IoT",
+      "backend": "Backend & Data",
+      "quality": "Quality & Dev Tools"
+    }
+  },
+  "Projects": {
+    "sectionLabel": "Distributed Systems & Hardware",
+    "titlePart1": "Engineering ",
+    "titlePart2": "Projects",
+    "subtitle": "Systems built with a focus on performance, distributed architectures, integrated hardware and type safety.",
+    "filterLabel": "Filter projects by category",
+    "filterAll": "All",
+    "filterDesktop": "Desktop & IoT",
+    "filterWeb": "Full-Stack Web",
+    "inProduction": "In production",
+    "categoryDesktop": "Desktop & IoT",
+    "categoryWeb": "Full-Stack Web",
+    "codeButton": "Code",
+    "demoButton": "Demo",
+    "selectProject": "Select project: {title}",
+    "viewSourceCode": "View source code for {title} on GitHub",
+    "viewLiveDemo": "View live demo of {title}",
+    "previousProject": "Previous project",
+    "nextProject": "Next project",
+    "selectSlide": "Select slide",
+    "goToProject": "Go to project {number}",
+    "sectionAriaLabel": "Software Engineering Projects",
+    "descriptions": {
+      "ecoplaza-iot-desktop": "Comprehensive solid waste weighing and traceability system for collection centers. Direct serial connection with ESP32 microcontrollers and ultrasonic sensors, real-time synchronization and highly resilient local persistence.",
+      "visual-trace-mobile": "Mobile application for visual auditing, field inspection and data capture. Designed with an offline-first architecture featuring asynchronous synchronization, strict schema validation and smooth rendering.",
+      "ridewake-platform": "Reactive platform for geolocation, trajectory analysis and mobility assistance alerts. Continuous tracking and dispatch algorithms optimized for battery efficiency and low power consumption.",
+      "lullaby-3d-game": "Interactive 3D video game developed through engineering collaboration. Implementation of decoupled render loop, dynamic 3D physics, ambient shaders and finite state machine."
+    },
+    "metrics": {
+      "ecoplaza-iot-desktop": "< 15ms sensing latency",
+      "visual-trace-mobile": "Offline-first architecture",
+      "ridewake-platform": "Continuous reactive tracking",
+      "lullaby-3d-game": "Stable 60 FPS 3D render"
+    }
+  },
+  "Experience": {
+    "sectionLabel": "Background",
+    "titlePart1": "Experience & ",
+    "titlePart2": "Background",
+    "subtitle": "A continuous journey through engineering education, embedded systems development and production software.",
+    "educationTitle": "Education",
+    "workTitle": "Work Experience & Projects",
+    "skillsAriaLabel": "Applied technical competencies",
+    "academic": {
+      "ucc-ingenieria": {
+        "title": "Software Engineering (5th Semester)",
+        "organization": "Universidad Cooperativa de Colombia (UCC Pasto)",
+        "period": "2026 – Ongoing",
+        "description": "Training in software architecture, agile methodologies, design patterns, full-stack development and quality assurance.",
+        "skills": ["Software Architecture", "Design Patterns", "Testing", "Databases"]
+      },
+      "educative-java": {
+        "title": "Learn Java from Scratch",
+        "organization": "Educative",
+        "period": "2026",
+        "description": "Mastery of object-oriented programming (OOP), encapsulation, polymorphism, collections and typed algorithmics in Java.",
+        "skills": ["Java", "OOP", "Algorithms", "Data Structures"]
+      },
+      "sena-python": {
+        "title": "Variables and Control Structures in Python (48h)",
+        "organization": "SENA",
+        "period": "2025",
+        "description": "Implementation of applied algorithmics, execution flow control logic and automation of structured processes.",
+        "skills": ["Python", "Programming Logic", "Algorithms", "Automation"]
+      },
+      "sena-calidad": {
+        "title": "Software Quality Application in the Development Process (40h)",
+        "organization": "SENA",
+        "period": "2024",
+        "description": "Modeling of unit and integration tests, quality assurance (QA), software metrics and software development lifecycle (SDLC).",
+        "skills": ["Software Quality", "QA & Testing", "Metrics", "SDLC"]
+      },
+      "sena-logistica": {
+        "title": "Technician in Logistics Operations Integration",
+        "organization": "SENA",
+        "period": "Prior Training",
+        "description": "Optimization of operational processes, systematized inventory control and supply chain traceability; foundation for logistics software architecture.",
+        "skills": ["Process Management", "Inventory Control", "Traceability", "Logistics"]
+      }
+    },
+    "work": {
+      "ecoplaza-lead": {
+        "title": "Technical Lead & Desktop / IoT Developer",
+        "organization": "EcoPlaza",
+        "period": "2026 – Present",
+        "description": "Leading native architecture in Tauri 2 with Rust and React; synchronizing IoT telemetry with ESP32 microcontrollers and ultrasonic sensors to optimize collection routes.",
+        "skills": ["Tauri 2", "Rust", "React", "TypeScript", "ESP32 / IoT"]
+      },
+      "freelance-frontend": {
+        "title": "Freelance Frontend Developer",
+        "organization": "Independent Web Development",
+        "period": "2025",
+        "description": "Building interactive and responsive web interfaces with Next.js, TypeScript and Tailwind CSS, implementing WCAG accessibility and performance optimization.",
+        "skills": ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "WCAG"]
+      },
+      "fatima-logistica": {
+        "title": "Procurement and Logistics Support Intern",
+        "organization": "Clínica Nuestra Señora de Fátima S.A.",
+        "period": "2024",
+        "description": "Management and traceability of medical supplies, optimization of hospital procurement and systematized control of inventory flows in a certified productive stage.",
+        "skills": ["Hospital Management", "Operational Flows", "Inventory Control", "External Data"]
+      }
+    }
+  },
+  "Testimonials": {
+    "sectionLabel": "Recommendations",
+    "titlePart1": "The experience of",
+    "titlePart2": "working together",
+    "subtitle": "Technical and academic references from professionals who have collaborated on software and embedded systems projects.",
+    "verified": "Verified",
+    "ratingAriaLabel": "Rating of {count} stars",
+    "navigationAriaLabel": "Testimonials navigation",
+    "goToTestimonial": "Go to testimonial by {name}",
+    "previousTestimonial": "Previous testimonial",
+    "nextTestimonial": "Next testimonial",
+    "items": {
+      "docente-ingenieria": {
+        "name": "Software Architecture Professor",
+        "role": "Faculty of Engineering — UCC Pasto",
+        "relation": "Lead Academic Evaluator",
+        "projectTag": "SOFTWARE ARCHITECTURE & PATTERNS",
+        "text": "Luis has demonstrated rigorous architectural judgment, discipline and the ability to solve complex problems with clean code, strict typing and solid patterns."
+      },
+      "colega-frontend": {
+        "name": "Alejandro M.",
+        "role": "Co-developer in Engineering",
+        "relation": "Lullaby 3D Project & Systems",
+        "projectTag": "FULL-STACK & INTERACTIVE 3D ENGINE",
+        "text": "His focus on user experience, 60 FPS micro-interactions and component solidity in Next.js and Tauri brings immense value to any technical team."
+      },
+      "evaluador-iot": {
+        "name": "Hardware Projects Committee",
+        "role": "Engineering Evaluation Panel",
+        "relation": "Embedded Systems & IoT Telemetry",
+        "projectTag": "ECOPLAZA IOT & ESP32 HARDWARE",
+        "text": "He presented an outstanding IoT architecture in EcoPlaza: seamless serial integration with ESP32, low latency and high-resilience persistence oriented toward production."
+      },
+      "operaciones-logistica": {
+        "name": "Process & Traceability Lead",
+        "role": "Supervision of Systematized Flows",
+        "relation": "Operational Chain Traceability",
+        "projectTag": "DATA MANAGEMENT & LOCAL RESILIENCE",
+        "text": "He structured relational databases and continuous weighing algorithms with great robustness, eliminating input bottlenecks and automating critical reports."
+      }
+    }
+  },
+  "Contact": {
+    "sectionLabel": "Contact",
+    "titlePart1": "Let's talk about your",
+    "titlePart2": "next project",
+    "subtitle": "Have an idea in mind, a job opportunity or need advice on web development, desktop software or IoT? Write to me and let's build high-impact solutions together.",
+    "directChannelsTitle": "Direct channels",
+    "directChannelsSubtitle": "Prefer a faster conversation or want to browse my repositories? You can reach me through any of these channels or check my professional activity online.",
+    "channels": {
+      "email": {
+        "title": "Email",
+        "badge": "Primary"
+      },
+      "github": {
+        "title": "GitHub",
+        "badge": "Open source"
+      },
+      "linkedin": {
+        "title": "LinkedIn",
+        "badge": "Professional profile"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "badge": "Direct chat"
+      }
+    },
+    "formTitle": "Send a message",
+    "formSubtitle": "Fill in the fields below and I'll get back to you shortly.",
+    "nameLabel": "Full name",
+    "namePlaceholder": "e.g. Alexander von Humboldt",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "your-email@company.com",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "Architecture inquiry, project or job proposal",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Describe your project, technical requirements or inquiry...",
+    "requiredField": "*",
+    "submitButton": "Send message",
+    "sendingButton": "Sending message...",
+    "successTitle": "Message received!",
+    "successMessage": "Thank you for getting in touch. Your message has been received successfully and I will contact you shortly.",
+    "sendAnotherButton": "Send another message",
+    "toast": {
+      "title": "Message sent successfully!",
+      "description": "I will get back to you shortly."
+    },
+    "externalTab": "(opens in a new tab)"
+  },
+  "Footer": {
+    "homeAriaLabel": "Go to home section",
+    "role": "SOFTWARE ENGINEER",
+    "bio": "Software Engineering student focused on Full-Stack, native desktop and IoT solutions.",
+    "location": "Pasto, Nariño, Colombia",
+    "quickLinksTitle": "Quick links",
+    "quickLinksAriaLabel": "Footer navigation",
+    "connectTitle": "Connect",
+    "socialAriaLabel": "Social and contact channels",
+    "emailLabel": "Email",
+    "scrollTopAriaLabel": "Back to top of page",
+    "scrollTopButton": "Back to top",
+    "copyright": "© {year} Luis Sebastián Díaz. All rights reserved.",
+    "builtWith": "Built with Next.js + Tailwind CSS",
+    "externalTab": "(opens in a new tab)",
+    "links": {
+      "home": "Home",
+      "about": "About me",
+      "projects": "Projects",
+      "testimonials": "Testimonials",
+      "experience": "Experience",
+      "contact": "Contact"
+    }
+  },
+  "Terminal": {
+    "telemetryTab": "Telemetry",
+    "architectureTab": "Architecture",
+    "pauseStreaming": "Pause streaming",
+    "resumeStreaming": "Resume streaming",
+    "pause": "Pause",
+    "resume": "Resume",
+    "resetLogs": "Reset logs",
+    "resetConsole": "Reset console",
+    "copyJson": "Copy architecture JSON",
+    "copied": "Copied",
+    "copy": "Copy"
+  },
+  "ThemeToggle": {
+    "toggleTheme": "Toggle visual theme",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "LanguageSwitcher": {
+    "label": "Language selector",
+    "switchTo": "Switch to {locale}",
+    "es": "Spanish",
+    "en": "English",
+    "current": "Current language: {locale}"
+  },
+  "Common": {
+    "openInNewTab": "(opens in a new tab)"
+  }
+}

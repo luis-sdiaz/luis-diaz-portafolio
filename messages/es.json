@@ -1,0 +1,311 @@
+{
+  "Navbar": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto",
+    "goHome": "Ir al inicio",
+    "viewCv": "Ver CV",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "Hero": {
+    "welcome": "Sección de bienvenida y presentación profesional",
+    "availability": "Disponible para nuevos retos tecnológicos",
+    "greeting": "Hola, soy",
+    "subtitle": "Estudiante de Ingeniería de Software | Full-Stack & IoT Developer",
+    "description": "Enfocado en el diseño y construcción de arquitecturas digitales escalables, aplicaciones web de alto rendimiento e integración de sistemas embebidos IoT con hardware real.",
+    "downloadCv": "Descargar CV",
+    "downloadCvLabel": "Descargar currículum vitae en formato PDF",
+    "projects": "Ver proyectos",
+    "projectsLabel": "Navegar a la sección de proyectos desarrollados",
+    "semester": "5° Semestre de Ingeniería",
+    "stack": "Tauri 2 + ESP32 IoT",
+    "frameworks": "Next.js 16 + React 19",
+    "architecture": "CÓDIGO & ARQUITECTURA SOSTENIBLE",
+    "distributedArchitecture": "CORE DE ARQUITECTURA DISTRIBUIDA",
+    "toast": {
+      "title": "cv.pdf descargado",
+      "description": "Hoja de vida descargada correctamente."
+    }
+  },
+  "About": {
+    "sectionLabel": "Perfil Profesional",
+    "title": "Trayectoria, vocación y",
+    "titleHighlight": "pensamiento ingenieril",
+    "subtitle": "Conectando el software de alto rendimiento con sistemas físicos y necesidades reales.",
+    "bioTitle": "Soluciones digitales fundamentadas en rigor, arquitectura y propósito.",
+    "bio": "Soy Luis Sebastián Díaz, estudiante de 5° semestre de Ingeniería de Software en Pasto, Colombia. Me especializo en diseñar arquitecturas web modulares y en integrar microcontroladores IoT mediante sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con acabados de precisión y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.",
+    "facts": {
+      "locationLabel": "Ubicación",
+      "locationValue": "Pasto, Nariño, Colombia",
+      "educationLabel": "Formación",
+      "educationValue": "5° Semestre — Ing. de Software",
+      "focusLabel": "Enfoque Técnico",
+      "focusValue": "Web Escalable & Hardware IoT",
+      "statusLabel": "Disponibilidad",
+      "statusValue": "Desarrollo de Soluciones de Impacto"
+    },
+    "ecosystemTitle": "Ecosistema Tecnológico de Producción",
+    "ecosystemSubtitle": "Despliegue continuo de librerías, protocolos embebidos y frameworks modernos"
+  },
+  "Skills": {
+    "sectionLabel": "Capacidades Técnicas",
+    "title": "Stack de",
+    "titleHighlight": "Ingeniería",
+    "subtitle": "Ecosistema tecnológico modular enfocado en rendimiento, robustez de tipos y conectividad hardware.",
+    "activeTechnologies": "Tecnologías activas",
+    "categories": {
+      "frontend": "Frontend & UI",
+      "desktop": "Desktop & IoT",
+      "backend": "Backend & Datos",
+      "quality": "Calidad & Entorno"
+    }
+  },
+  "Projects": {
+    "sectionLabel": "Sistemas Distribuidos & Hardware",
+    "titlePart1": "Proyectos de ",
+    "titlePart2": "Ingeniería",
+    "subtitle": "Sistemas construidos con foco en rendimiento, arquitecturas distribuidas, hardware integrado y tipado seguro.",
+    "filterLabel": "Filtrar proyectos por categoría",
+    "filterAll": "Todos",
+    "filterDesktop": "Desktop & IoT",
+    "filterWeb": "Full-Stack Web",
+    "inProduction": "En producción",
+    "categoryDesktop": "Desktop & IoT",
+    "categoryWeb": "Full-Stack Web",
+    "codeButton": "Código",
+    "demoButton": "Demo",
+    "selectProject": "Seleccionar proyecto: {title}",
+    "viewSourceCode": "Ver código fuente de {title} en GitHub",
+    "viewLiveDemo": "Ver demo en vivo de {title}",
+    "previousProject": "Proyecto anterior",
+    "nextProject": "Siguiente proyecto",
+    "selectSlide": "Seleccionar diapositiva",
+    "goToProject": "Ir al proyecto {number}",
+    "sectionAriaLabel": "Proyectos de Ingeniería de Software",
+    "descriptions": {
+      "ecoplaza-iot-desktop": "Sistema integral de pesaje y trazabilidad de residuos sólidos en centros de acopio. Conexión serial directa con microcontroladores ESP32 y sensores ultrasónicos, sincronización en tiempo real y persistencia local de alta resiliencia.",
+      "visual-trace-mobile": "Aplicación móvil para auditoría visual, inspección y captura de datos en campo. Diseñada bajo arquitectura offline-first con sincronización asíncrona, validación estricta de esquemas y renderizado fluido.",
+      "ridewake-platform": "Plataforma reactiva para geolocalización, análisis de trayectorias y alertas de asistencia en movilidad. Algoritmos de seguimiento continuo y despacho optimizados para eficiencia de batería y bajo consumo.",
+      "lullaby-3d-game": "Videojuego 3D interactivo desarrollado en colaboración de ingeniería. Implementación de bucle desacoplado de renderizado, físicas tridimensionales dinámicas, shaders ambientales y máquina de estados finitos."
+    },
+    "metrics": {
+      "ecoplaza-iot-desktop": "< 15ms latencia en sensado",
+      "visual-trace-mobile": "Arquitectura offline-first",
+      "ridewake-platform": "Tracking reactivo continuo",
+      "lullaby-3d-game": "60 FPS render 3D estable"
+    }
+  },
+  "Experience": {
+    "sectionLabel": "Trayectoria",
+    "titlePart1": "Experiencia & ",
+    "titlePart2": "Trayectoria",
+    "subtitle": "Un recorrido continuo por la formación ingenieril, el desarrollo de sistemas embebidos y el software de producción.",
+    "educationTitle": "Formación Académica",
+    "workTitle": "Experiencia Laboral y Proyectos",
+    "skillsAriaLabel": "Competencias técnicas aplicadas",
+    "academic": {
+      "ucc-ingenieria": {
+        "title": "Ingeniería de Software (5° Semestre)",
+        "organization": "Universidad Cooperativa de Colombia (UCC Pasto)",
+        "period": "2026 – En curso",
+        "description": "Formación en arquitectura de software, metodologías ágiles, patrones de diseño, desarrollo full-stack y aseguramiento de calidad.",
+        "skills": ["Arquitectura de Software", "Patrones de Diseño", "Testing", "Bases de Datos"]
+      },
+      "educative-java": {
+        "title": "Learn Java from Scratch",
+        "organization": "Educative",
+        "period": "2026",
+        "description": "Dominio de programación orientada a objetos (POO), encapsulamiento, polimorfismo, colecciones y algoritmia tipada en Java.",
+        "skills": ["Java", "POO", "Algoritmos", "Estructuras de Datos"]
+      },
+      "sena-python": {
+        "title": "Variables y Estructuras de Control en Python (48h)",
+        "organization": "SENA",
+        "period": "2025",
+        "description": "Implementación de algoritmia aplicada, lógica de control de flujo de ejecución y automatización de procesos estructurados.",
+        "skills": ["Python", "Lógica de Programación", "Algoritmos", "Automatización"]
+      },
+      "sena-calidad": {
+        "title": "Aplicación de la Calidad del Software en el Proceso de Desarrollo (40h)",
+        "organization": "SENA",
+        "period": "2024",
+        "description": "Modelado de pruebas unitarias y de integración, aseguramiento de calidad (QA), métricas de software y ciclo de vida (SDLC).",
+        "skills": ["Calidad de Software", "QA & Testing", "Métricas", "SDLC"]
+      },
+      "sena-logistica": {
+        "title": "Técnico en Integración de Operaciones Logísticas",
+        "organization": "SENA",
+        "period": "Formación Previa",
+        "description": "Optimización de procesos operativos, control sistematizado de inventarios y trazabilidad de cadenas de suministro; base para arquitectura de software logístico.",
+        "skills": ["Gestión de Procesos", "Control de Inventarios", "Trazabilidad", "Logística"]
+      }
+    },
+    "work": {
+      "ecoplaza-lead": {
+        "title": "Líder Técnico & Desarrollador Desktop / IoT",
+        "organization": "EcoPlaza",
+        "period": "2026 – Presente",
+        "description": "Dirección de arquitectura nativa en Tauri 2 con Rust y React; sincronización de telemetría IoT con microcontroladores ESP32 y sensores ultrasónicos para optimización de rutas de recolección.",
+        "skills": ["Tauri 2", "Rust", "React", "TypeScript", "ESP32 / IoT"]
+      },
+      "freelance-frontend": {
+        "title": "Desarrollador Frontend Freelance",
+        "organization": "Desarrollo Web Independiente",
+        "period": "2025",
+        "description": "Construcción de interfaces web interactivas y responsivas con Next.js, TypeScript y Tailwind CSS, implementando accesibilidad WCAG y optimización de rendimiento.",
+        "skills": ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "WCAG"]
+      },
+      "fatima-logistica": {
+        "title": "Practicante en Compras y Apoyo Logístico",
+        "organization": "Clínica Nuestra Señora de Fátima S.A.",
+        "period": "2024",
+        "description": "Gestión y trazabilidad de suministros médicos, optimización de adquisiciones hospitalarias y control sistematizado de flujos de inventario en etapa productiva certificada.",
+        "skills": ["Gestión Hospitalaria", "Flujos Operativos", "Control de Inventarios", "Datos Externos"]
+      }
+    }
+  },
+  "Testimonials": {
+    "sectionLabel": "Recomendaciones",
+    "titlePart1": "La experiencia de",
+    "titlePart2": "trabajar juntos",
+    "subtitle": "Referencias técnicas y académicas de profesionales que han colaborado en proyectos de software y sistemas embebidos.",
+    "verified": "Verificado",
+    "ratingAriaLabel": "Calificación de {count} estrellas",
+    "navigationAriaLabel": "Navegación de testimonios",
+    "goToTestimonial": "Ir al testimonio de {name}",
+    "previousTestimonial": "Testimonio anterior",
+    "nextTestimonial": "Siguiente testimonio",
+    "items": {
+      "docente-ingenieria": {
+        "name": "Ing. Docente de Arquitectura de Software",
+        "role": "Facultad de Ingeniería — UCC Pasto",
+        "relation": "Evaluador Académico Principal",
+        "projectTag": "ARQUITECTURA DE SOFTWARE & PATRONES",
+        "text": "Luis ha demostrado criterio arquitectónico riguroso, disciplina y capacidad para resolver problemas complejos con código limpio, tipado estricto y patrones sólidos."
+      },
+      "colega-frontend": {
+        "name": "Alejandro M.",
+        "role": "Co-desarrollador de Ingeniería",
+        "relation": "Proyecto Lullaby 3D & Sistemas",
+        "projectTag": "FULL-STACK & MOTOR 3D INTERACTIVO",
+        "text": "Su enfoque en la experiencia de usuario, microinteracciones a 60 FPS y solidez de componentes en Next.js y Tauri aporta un valor inmenso a cualquier equipo técnico."
+      },
+      "evaluador-iot": {
+        "name": "Comité de Proyectos de Hardware",
+        "role": "Jurado Evaluador de Ingeniería",
+        "relation": "Sistemas Embebidos & Telemetría IoT",
+        "projectTag": "ECOPLAZA IOT & HARDWARE ESP32",
+        "text": "Presentó una arquitectura IoT sobresaliente en EcoPlaza: integración serial fluida con ESP32, baja latencia y persistencia de alta resiliencia orientada a producción."
+      },
+      "operaciones-logistica": {
+        "name": "Líder de Procesos & Trazabilidad",
+        "role": "Supervisión de Flujos Sistematizados",
+        "relation": "Trazabilidad de Cadena Operativa",
+        "projectTag": "GESTIÓN DE DATOS & RESILIENCIA LOCAL",
+        "text": "Estructuró bases de datos relacionales y algoritmos de pesaje continuo con gran robustez, eliminando cuellos de botella de entrada y automatizando reportes críticos."
+      }
+    }
+  },
+  "Contact": {
+    "sectionLabel": "Contacto",
+    "titlePart1": "Hablemos de tu",
+    "titlePart2": "próximo proyecto",
+    "subtitle": "¿Tienes una idea en mente, una oportunidad laboral o necesitas asesoría en desarrollo web, software de escritorio o IoT? Escríbeme y construyamos soluciones de alto impacto.",
+    "directChannelsTitle": "Canales directos",
+    "directChannelsSubtitle": "¿Prefieres una comunicación más ágil o consultar mis repositorios? Puedes contactarme a través de cualquiera de estos canales o revisar mi actividad profesional en línea.",
+    "channels": {
+      "email": {
+        "title": "Correo Electrónico",
+        "badge": "Principal"
+      },
+      "github": {
+        "title": "GitHub",
+        "badge": "Código abierto"
+      },
+      "linkedin": {
+        "title": "LinkedIn",
+        "badge": "Perfil profesional"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "badge": "Chat directo"
+      }
+    },
+    "formTitle": "Enviar un mensaje",
+    "formSubtitle": "Completa los campos a continuación y te responderé en breve.",
+    "nameLabel": "Nombre completo",
+    "namePlaceholder": "Ej. Alexander von Humboldt",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu-correo@empresa.com",
+    "subjectLabel": "Asunto",
+    "subjectPlaceholder": "Consulta de arquitectura, proyecto o propuesta laboral",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Describe tu proyecto, requerimientos técnicos o consulta...",
+    "requiredField": "*",
+    "submitButton": "Enviar mensaje",
+    "sendingButton": "Enviando mensaje...",
+    "successTitle": "¡Mensaje recibido!",
+    "successMessage": "Gracias por ponerte en contacto. Tu mensaje ha sido recibido con éxito y me pondré en contacto contigo a la brevedad.",
+    "sendAnotherButton": "Enviar otro mensaje",
+    "toast": {
+      "title": "¡Mensaje enviado con éxito!",
+      "description": "Me pondré en contacto contigo a la brevedad."
+    },
+    "externalTab": "(se abre en una nueva pestaña)"
+  },
+  "Footer": {
+    "homeAriaLabel": "Ir a la sección de inicio",
+    "role": "SOFTWARE ENGINEER",
+    "bio": "Estudiante de Ingeniería de Software enfocado en soluciones Full-Stack, escritorio nativo e IoT.",
+    "location": "Pasto, Nariño, Colombia",
+    "quickLinksTitle": "Enlaces rápidos",
+    "quickLinksAriaLabel": "Navegación del pie de página",
+    "connectTitle": "Conéctate",
+    "socialAriaLabel": "Canales sociales y de contacto",
+    "emailLabel": "Correo Electrónico",
+    "scrollTopAriaLabel": "Volver al inicio de la página",
+    "scrollTopButton": "Volver arriba",
+    "copyright": "© {year} Luis Sebastián Díaz. Todos los derechos reservados.",
+    "builtWith": "Hecho con Next.js + Tailwind CSS",
+    "externalTab": "(se abre en una nueva pestaña)",
+    "links": {
+      "home": "Inicio",
+      "about": "Sobre mí",
+      "projects": "Proyectos",
+      "testimonials": "Testimonios",
+      "experience": "Experiencia",
+      "contact": "Contacto"
+    }
+  },
+  "Terminal": {
+    "telemetryTab": "Telemetría",
+    "architectureTab": "Arquitectura",
+    "pauseStreaming": "Pausar streaming",
+    "resumeStreaming": "Reanudar streaming",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "resetLogs": "Reiniciar logs",
+    "resetConsole": "Reiniciar consola",
+    "copyJson": "Copiar JSON de arquitectura",
+    "copied": "Copiado",
+    "copy": "Copiar"
+  },
+  "ThemeToggle": {
+    "toggleTheme": "Alternar tema visual",
+    "switchToLight": "Cambiar a modo claro",
+    "switchToDark": "Cambiar a modo oscuro"
+  },
+  "LanguageSwitcher": {
+    "label": "Selector de idioma",
+    "switchTo": "Cambiar a {locale}",
+    "es": "Español",
+    "en": "Inglés",
+    "current": "Idioma actual: {locale}"
+  },
+  "Common": {
+    "openInNewTab": "(se abre en una nueva pestaña)"
+  }
+}
