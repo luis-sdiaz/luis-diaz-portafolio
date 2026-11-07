@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen bg-[#09090b] text-zinc-100 selection:bg-emerald-500/20 selection:text-emerald-400">
+    <div className="relative min-h-screen bg-background text-foreground transition-colors duration-250">
       <div className="ambient-glow" aria-hidden="true" />
 
       <div className="relative z-10 flex flex-col">

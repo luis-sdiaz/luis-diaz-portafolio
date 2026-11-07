@@ -9,20 +9,22 @@ const config = {
   theme: {
     extend: {
       colors: {
-        background: "#09090b",
-        surface: "#121216",
-        surfaceLight: "#18181b",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        surface: "var(--surface)",
+        surfaceMuted: "var(--surface-muted)",
+        mutedForeground: "var(--muted-foreground)",
+        border: "var(--border)",
+        borderHover: "var(--border-hover)",
         accent: {
-          DEFAULT: "#10b981",
-          hover: "#059669",
-          glow: "rgba(16, 185, 129, 0.15)",
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
         },
-        border: "rgba(255, 255, 255, 0.08)",
-        borderHover: "rgba(255, 255, 255, 0.16)",
+        focusRing: "var(--focus-ring)",
       },
       boxShadow: {
-        glass: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
-        glow: "0 0 25px -5px rgba(16, 185, 129, 0.3)",
+        glass: "var(--shadow-glass)",
+        glow: "var(--shadow-glow)",
       },
       backdropBlur: {
         xs: "2px",

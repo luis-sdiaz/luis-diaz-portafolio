@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -58,9 +59,16 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-pt-20" suppressHydrationWarning>
       <body
-        className={`${inter.variable} min-h-screen bg-[#09090b] font-sans text-zinc-100 antialiased`}
+        className={`${inter.variable} min-h-screen bg-background font-sans text-foreground antialiased selection:bg-foreground selection:text-background transition-colors duration-300`}
       >
-        <SmoothScroll>{children}</SmoothScroll>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          storageKey="theme-preference"
+        >
+          <SmoothScroll>{children}</SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );
