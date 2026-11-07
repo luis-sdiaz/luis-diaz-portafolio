@@ -108,7 +108,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative border-t border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md overflow-hidden"
+      className="relative border-t border-border bg-surface text-foreground backdrop-blur-md overflow-hidden transition-colors duration-250"
       role="contentinfo"
     >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -118,35 +118,35 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <a
                 href="#inicio"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/10 font-mono text-base font-bold text-emerald-400 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted font-mono text-base font-bold text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label="Ir a la sección de inicio"
               >
                 LD
               </a>
               <div>
-                <span className="block text-base font-semibold tracking-tight text-zinc-100">
+                <span className="block text-base font-semibold tracking-tight text-foreground">
                   Luis Sebastián Díaz
                 </span>
-                <span className="block text-xs font-mono tracking-wider text-emerald-400">
+                <span className="block text-xs font-mono tracking-wider text-muted-foreground">
                   SOFTWARE ENGINEER
                 </span>
               </div>
             </div>
 
-            <p className="max-w-sm text-sm leading-relaxed text-zinc-400">
+            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
               Estudiante de Ingeniería de Software enfocado en soluciones Full-Stack,
               escritorio nativo e IoT.
             </p>
 
-            <div className="flex items-center gap-2 text-xs text-zinc-400">
-              <MapPin className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <MapPin className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
               <span>Pasto, Nariño, Colombia</span>
             </div>
           </div>
 
           {/* Columna 2: Enlaces Rápidos */}
           <div className="md:col-span-4">
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-200">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               Enlaces rápidos
             </h3>
             <ul className="mt-4 grid grid-cols-2 gap-2.5 text-sm" aria-label="Navegación del pie de página">
@@ -155,7 +155,7 @@ export default function Footer() {
                   <motion.a
                     href={link.href}
                     whileHover={{ x: 3 }}
-                    className="inline-block py-1 text-zinc-400 transition-colors hover:text-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded"
+                    className="inline-block py-1 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring rounded"
                   >
                     {link.label}
                   </motion.a>
@@ -166,7 +166,7 @@ export default function Footer() {
 
           {/* Columna 3: Conéctate y Volver Arriba */}
           <div className="space-y-4 md:col-span-3">
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-200">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               Conéctate
             </h3>
             <div className="flex items-center gap-3" aria-label="Canales sociales y de contacto">
@@ -180,7 +180,7 @@ export default function Footer() {
                     rel={channel.isExternal ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/60 text-zinc-400 transition-colors hover:border-emerald-500/40 hover:bg-zinc-900 hover:text-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                     aria-label={`${channel.name}${channel.isExternal ? " (se abre en una nueva pestaña)" : ""}`}
                   >
                     <IconComponent className="h-4 w-4" />
@@ -195,10 +195,10 @@ export default function Footer() {
                 onClick={scrollToTop}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-2.5 text-xs font-medium text-zinc-300 transition-colors hover:border-emerald-500/40 hover:bg-zinc-900 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2.5 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 aria-label="Volver al inicio de la página"
               >
-                <ArrowUp className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+                <ArrowUp className="h-4 w-4 text-foreground" aria-hidden="true" />
                 <span>Volver arriba</span>
               </motion.button>
             </div>
@@ -206,12 +206,12 @@ export default function Footer() {
         </div>
 
         {/* Barra inferior de créditos */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-zinc-900/80 pt-6 text-xs text-zinc-500 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
           <p>© {year} Luis Sebastián Díaz. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-2 text-zinc-400">
+          <div className="flex items-center gap-2 text-muted-foreground">
             <span>Hecho con Next.js + Tailwind CSS</span>
-            <Heart className="h-3.5 w-3.5 fill-rose-500/20 text-rose-500" aria-hidden="true" />
-            <Sparkles className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+            <Heart className="h-3.5 w-3.5 text-muted-foreground fill-muted-foreground/20" aria-hidden="true" />
+            <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           </div>
         </div>
       </div>

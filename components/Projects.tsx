@@ -129,17 +129,17 @@ export default function Projects() {
     >
       {/* Encabezado de Sección */}
       <div className="mx-auto max-w-3xl text-center">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-400 shadow-sm shadow-emerald-500/10">
-          <Sparkles className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold text-foreground shadow-sm">
+          <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           <span>Sistemas Distribuidos & Hardware</span>
         </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl">
+        <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
           <ScrambleText text="Proyectos de " trigger="view" />
-          <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             <ScrambleText text="Ingeniería" trigger="view" />
           </span>
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           Sistemas construidos con foco en rendimiento, arquitecturas distribuidas, hardware integrado y tipado seguro.
         </p>
       </div>
@@ -147,7 +147,7 @@ export default function Projects() {
       {/* Pestañas de Filtro de Categoría */}
       <div className="mt-8 flex justify-center">
         <nav
-          className="inline-flex rounded-2xl border border-zinc-800/80 bg-zinc-900/80 p-1.5 shadow-xl backdrop-blur-md"
+          className="inline-flex rounded-2xl border border-border bg-surface p-1.5 shadow-md backdrop-blur-md"
           role="tablist"
           aria-label="Filtrar proyectos por categoría"
         >
@@ -160,14 +160,14 @@ export default function Projects() {
                 aria-selected={isActive}
                 aria-controls="projects-stage"
                 onClick={() => handleCategorySelect(tab.id)}
-                className={`relative rounded-xl px-4 py-2 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 sm:text-sm cursor-pointer ${
-                  isActive ? "text-zinc-100" : "text-zinc-400 hover:text-zinc-200"
+                className={`relative rounded-xl px-4 py-2 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring sm:text-sm cursor-pointer ${
+                  isActive ? "text-background" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeProjectsFilter"
-                    className="absolute inset-0 rounded-xl border border-zinc-700/60 bg-zinc-800 shadow-inner"
+                    className="absolute inset-0 rounded-xl bg-foreground shadow-sm"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -237,10 +237,10 @@ export default function Projects() {
             <div
               key={project.id}
               onClick={() => setActiveIndex(i)}
-              className={`card group absolute flex h-[435px] w-[380px] md:w-[390px] cursor-pointer flex-col justify-between rounded-2xl border px-6 py-5 backdrop-blur-xl shadow-2xl transition-all duration-500 select-none ${
+              className={`card group absolute flex h-[435px] w-[380px] md:w-[390px] cursor-pointer flex-col justify-between rounded-2xl border px-6 py-5 backdrop-blur-xl shadow-xl transition-all duration-500 select-none ${
                 isCurrent
-                  ? "border-emerald-500/60 bg-gradient-to-b from-[#0f172a]/95 via-zinc-900/95 to-[#090d16] ring-2 ring-emerald-500/60 shadow-[0_15px_50px_rgba(16,185,129,0.2)]"
-                  : "border-white/10 bg-gradient-to-b from-[#0d121c]/90 via-zinc-950/90 to-[#080c14] hover:border-emerald-500/30 hover:opacity-90"
+                  ? "border-foreground bg-surface shadow-2xl ring-1 ring-foreground/20"
+                  : "border-border bg-surface/90 hover:border-border-hover hover:opacity-95 shadow-md"
               }`}
               style={{
                 transform: prefersReducedMotion
@@ -257,13 +257,11 @@ export default function Projects() {
               aria-label={`Seleccionar proyecto: ${project.title}`}
               aria-pressed={isCurrent}
             >
-              {/* Acento superior de brillo en la tarjeta */}
+              {/* Acento superior de brillo monocromático en la tarjeta */}
               <div
-                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r transition-opacity ${
-                  project.category === "desktop-iot"
-                    ? "from-emerald-500 via-teal-400 to-cyan-500"
-                    : "from-cyan-500 via-blue-400 to-emerald-400"
-                } ${isCurrent ? "opacity-100" : "opacity-40"}`}
+                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-foreground via-muted-foreground to-transparent transition-opacity ${
+                  isCurrent ? "opacity-100" : "opacity-30"
+                }`}
               />
 
               {/* Encabezado: Icono Temático y Badge de Estado */}
@@ -271,17 +269,17 @@ export default function Projects() {
                 <div
                   className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
                     isCurrent
-                      ? "border-emerald-500/40 bg-emerald-500/20 text-emerald-300"
-                      : "border-zinc-800 bg-zinc-900/80 text-zinc-400"
+                      ? "border-foreground/30 bg-surface-muted text-foreground"
+                      : "border-border bg-surface-muted text-muted-foreground"
                   }`}
                 >
                   <ProjectIcon className="h-5 w-5" aria-hidden="true" />
                 </div>
 
-                <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/60 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+                <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-foreground">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground opacity-30" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-foreground" />
                   </span>
                   <span>En producción</span>
                 </span>
@@ -289,22 +287,22 @@ export default function Projects() {
 
               {/* Categoría, Título y Métrica Técnica */}
               <div className="my-auto py-2">
-                <span className="inline-block rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                <span className="inline-block rounded-md border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
                   {project.category === "desktop-iot"
                     ? "Desktop & IoT"
                     : "Full-Stack Web"}
                 </span>
 
-                <h3 className="mt-1.5 text-xl font-bold tracking-tight text-zinc-100 line-clamp-1">
+                <h3 className="mt-1.5 text-xl font-bold tracking-tight text-foreground line-clamp-1">
                   {project.title}
                 </h3>
 
-                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-zinc-800 bg-zinc-950/80 px-2.5 py-1 font-mono text-xs text-cyan-400">
-                  <Activity className="h-3.5 w-3.5 text-cyan-400 shrink-0" aria-hidden="true" />
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground">
+                  <Activity className="h-3.5 w-3.5 text-foreground shrink-0" aria-hidden="true" />
                   <span className="truncate">{project.metrics}</span>
                 </div>
 
-                <p className="mt-2.5 text-xs leading-relaxed text-zinc-300 line-clamp-2 sm:line-clamp-3">
+                <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground line-clamp-2 sm:line-clamp-3">
                   {project.description}
                 </p>
 
@@ -313,7 +311,7 @@ export default function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md border border-zinc-800 bg-zinc-950/70 px-2 py-0.5 font-mono text-[10px] text-zinc-300"
+                      className="rounded-md border border-border bg-surface-muted px-2 py-0.5 font-mono text-[10px] text-foreground"
                     >
                       {tag}
                     </span>
@@ -321,59 +319,29 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Botones de Acción en la Base con Iluminación "Foot-Bloom" */}
-              <div className="border-t border-zinc-800/80 pt-3.5 flex items-center gap-3">
-                {/* Botón Código Fuente */}
+              {/* Botones de Acción */}
+              <div className="border-t border-border pt-3.5 flex items-center gap-3">
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
                   aria-label={`Ver código fuente de ${project.title} en GitHub`}
-                  className="group relative flex-1 h-10 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-zinc-700/60 bg-[#0a111d] px-4 text-xs sm:text-sm font-medium text-zinc-200 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:border-zinc-500 hover:text-white hover:shadow-cyan-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
-                  <span
-                    className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-400/20 to-transparent"
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="pointer-events-none absolute bottom-0 left-1/2 h-[18px] w-3/4 -translate-x-1/2 bg-[radial-gradient(ellipse_at_bottom,rgba(6,182,212,0.45)_0%,rgba(16,185,129,0.25)_45%,transparent_80%)] blur-[2px] opacity-70 transition-all duration-300 group-hover:h-[22px] group-hover:w-full group-hover:opacity-100"
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="pointer-events-none absolute inset-x-2 bottom-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent transition-all duration-300 group-hover:via-emerald-400"
-                    aria-hidden="true"
-                  />
-                  <GithubIcon className="relative z-10 w-4 h-4 shrink-0 text-zinc-300 group-hover:text-white" />
-                  <span className="relative z-10">Código</span>
+                  <GithubIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span>Código</span>
                 </a>
-
-                {/* Botón Demo en Vivo */}
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
                   aria-label={`Ver demo en vivo de ${project.title}`}
-                  className="group relative flex-1 h-10 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-emerald-500/30 bg-[#0a111d] px-4 text-xs sm:text-sm font-medium text-zinc-100 shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:shadow-emerald-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 text-xs font-semibold text-background transition-opacity hover:opacity-90 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
-                  <span
-                    className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent"
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="pointer-events-none absolute bottom-0 left-1/2 h-[18px] w-4/5 -translate-x-1/2 bg-[radial-gradient(ellipse_at_bottom,rgba(16,185,129,0.7)_0%,rgba(6,182,212,0.4)_45%,transparent_80%)] blur-[2px] opacity-80 transition-all duration-300 group-hover:h-[22px] group-hover:w-full group-hover:opacity-100"
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="pointer-events-none absolute inset-x-2 bottom-0 h-[1.5px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent transition-all duration-300 group-hover:via-cyan-300"
-                    aria-hidden="true"
-                  />
-                  <ExternalLink
-                    className="relative z-10 w-4 h-4 shrink-0 text-emerald-400 group-hover:text-cyan-300"
-                    aria-hidden="true"
-                  />
-                  <span className="relative z-10">Demo</span>
+                  <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <span>Demo</span>
                 </a>
               </div>
             </div>
@@ -381,36 +349,46 @@ export default function Projects() {
         })}
       </div>
 
-      {/* Controles Flotantes Inferiores de Navegación (Flechas e Indicador Paginador) */}
-      <div className="mt-8 hidden items-center justify-center gap-4 md:flex">
+      {/* Controles del Escenario: Paginación y Botones Prev/Next */}
+      <div className="mt-6 hidden md:flex items-center justify-center gap-6">
         <button
           type="button"
           onClick={handlePrev}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900/90 text-zinc-300 shadow-lg transition-all hover:border-emerald-500/50 hover:bg-zinc-800 hover:text-white hover:shadow-emerald-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
           aria-label="Proyecto anterior"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </button>
 
-        <div className="flex items-center gap-1.5 rounded-full border border-zinc-800 bg-zinc-900/90 px-4 py-2 font-mono text-xs font-semibold text-zinc-300 shadow-lg">
-          <span className="text-emerald-400">
-            {String(safeActiveIndex + 1).padStart(2, "0")}
-          </span>
-          <span className="text-zinc-600">/</span>
-          <span>{String(filteredProjects.length).padStart(2, "0")}</span>
+        <div className="flex items-center gap-2" role="tablist" aria-label="Seleccionar diapositiva">
+          {filteredProjects.map((_, dotIdx) => (
+            <button
+              key={dotIdx}
+              type="button"
+              role="tab"
+              aria-selected={dotIdx === safeActiveIndex}
+              onClick={() => setActiveIndex(dotIdx)}
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                dotIdx === safeActiveIndex
+                  ? "w-8 bg-foreground shadow-sm"
+                  : "w-2 bg-border hover:bg-muted-foreground"
+              }`}
+              aria-label={`Ir al proyecto ${dotIdx + 1}`}
+            />
+          ))}
         </div>
 
         <button
           type="button"
           onClick={handleNext}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900/90 text-zinc-300 shadow-lg transition-all hover:border-emerald-500/50 hover:bg-zinc-800 hover:text-white hover:shadow-emerald-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 cursor-pointer"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
           aria-label="Siguiente proyecto"
         >
           <ChevronRight className="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
 
-      {/* Vista Móvil y Tablet (<= 768px): Flujo Vertical Accesible sin Desbordamiento */}
+      {/* Vista Móvil y Tablet (<= 768px): Flujo Vertical Accesible */}
       <div className="mt-8 flex flex-col gap-6 md:hidden">
         {filteredProjects.map((project, idx) => {
           const isSelected = idx === safeActiveIndex;
@@ -422,19 +400,19 @@ export default function Projects() {
               onClick={() => setActiveIndex(idx)}
               className={`flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all ${
                 isSelected
-                  ? "border-emerald-500/60 bg-gradient-to-b from-[#0f172a] to-zinc-950 ring-1 ring-emerald-500/50 shadow-lg shadow-emerald-500/5"
-                  : "border-white/10 bg-gradient-to-b from-[#0d121c] to-zinc-950"
+                  ? "border-foreground bg-surface ring-1 ring-foreground/20 shadow-lg"
+                  : "border-border bg-surface"
               }`}
             >
               {/* Encabezado */}
               <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground">
                   <ProjectIcon className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/60 px-2.5 py-1 text-[11px] font-medium text-emerald-400">
+                <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-foreground">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground opacity-30" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-foreground" />
                   </span>
                   <span>En producción</span>
                 </span>
@@ -442,19 +420,19 @@ export default function Projects() {
 
               {/* Detalles */}
               <div className="my-4">
-                <span className="inline-block rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                <span className="inline-block rounded-md border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
                   {project.category === "desktop-iot"
                     ? "Desktop & IoT"
                     : "Full-Stack Web"}
                 </span>
-                <h3 className="mt-2 text-xl font-bold tracking-tight text-zinc-100">
+                <h3 className="mt-2 text-xl font-bold tracking-tight text-foreground">
                   {project.title}
                 </h3>
-                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-zinc-800 bg-zinc-950/80 px-2.5 py-1 font-mono text-xs text-cyan-400">
-                  <Activity className="h-3.5 w-3.5 text-cyan-400 shrink-0" aria-hidden="true" />
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground">
+                  <Activity className="h-3.5 w-3.5 text-foreground shrink-0" aria-hidden="true" />
                   <span className="truncate">{project.metrics}</span>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-300">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {project.description}
                 </p>
 
@@ -462,7 +440,7 @@ export default function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md border border-zinc-800 bg-zinc-950/70 px-2 py-0.5 font-mono text-xs text-zinc-300"
+                      className="rounded-md border border-border bg-surface-muted px-2 py-0.5 font-mono text-xs text-foreground"
                     >
                       {tag}
                     </span>
@@ -471,15 +449,15 @@ export default function Projects() {
               </div>
 
               {/* Botones */}
-              <div className="border-t border-zinc-800/80 pt-4 flex items-center gap-3">
+              <div className="border-t border-border pt-4 flex items-center gap-3">
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Ver código fuente de ${project.title} en GitHub`}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-700/60 bg-[#0a111d] px-4 text-xs sm:text-sm font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:text-white"
+                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs sm:text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover"
                 >
-                  <GithubIcon className="w-4 h-4 shrink-0 text-zinc-300" />
+                  <GithubIcon className="w-4 h-4 shrink-0 text-foreground" />
                   <span>Código</span>
                 </a>
                 <a
@@ -487,9 +465,9 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Ver demo en vivo de ${project.title}`}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-[#0a111d] px-4 text-xs sm:text-sm font-medium text-zinc-100 transition-colors hover:border-emerald-400/60"
+                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 text-xs sm:text-sm font-semibold text-background transition-opacity hover:opacity-90 shadow-sm"
                 >
-                  <ExternalLink className="w-4 h-4 shrink-0 text-emerald-400" aria-hidden="true" />
+                  <ExternalLink className="w-4 h-4 shrink-0 text-background" aria-hidden="true" />
                   <span>Demo</span>
                 </a>
               </div>

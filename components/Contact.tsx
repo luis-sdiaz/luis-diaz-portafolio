@@ -8,6 +8,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { toast, Toaster } from "sonner";
+import { useTheme } from "next-themes";
 import {
   Mail,
   MessageCircle,
@@ -150,6 +151,8 @@ const formTransitionVariants: Variants = {
 
 export default function Contact() {
   const shouldReduceMotion = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -191,23 +194,27 @@ export default function Contact() {
       className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 overflow-hidden"
       aria-labelledby="contact-heading"
     >
-      <Toaster position="bottom-right" theme="dark" richColors />
+      <Toaster
+        position="bottom-right"
+        theme={(resolvedTheme as "light" | "dark" | "system") || "light"}
+        richColors
+      />
 
       <div className="mx-auto max-w-3xl text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
           <span>Contacto</span>
         </span>
         <h2
           id="contact-heading"
-          className="mt-5 text-3xl font-extrabold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
         >
           Hablemos de tu{" "}
-          <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             próximo proyecto
           </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
           ¿Tienes una idea en mente, una oportunidad laboral o necesitas asesoría en desarrollo web, software de escritorio o IoT? Escríbeme y construyamos soluciones de alto impacto.
         </p>
       </div>
@@ -222,16 +229,16 @@ export default function Contact() {
           className="flex flex-col justify-between space-y-6 lg:col-span-5"
         >
           <div className="space-y-4">
-            <h3 className="text-xl font-bold tracking-tight text-zinc-100">
+            <h3 className="text-xl font-bold tracking-tight text-foreground">
               Canales directos
             </h3>
-            <p className="text-sm leading-relaxed text-zinc-400">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               ¿Prefieres una comunicación más ágil o consultar mis repositorios? Puedes contactarme a través de cualquiera de estos canales o revisar mi actividad profesional en línea.
             </p>
           </div>
 
           <div className="space-y-4">
-            {directChannels.map((channel, idx) => {
+            {directChannels.map((channel) => {
               const Icon = channel.icon;
               const isExternal = channel.href.startsWith("http");
 
@@ -241,71 +248,45 @@ export default function Contact() {
                   href={channel.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-2xl"
-                  aria-label={`${channel.title}: ${channel.value}${isExternal ? " (se abre en una nueva pestaña)" : ""}`}
+                  className="group flex items-center justify-between rounded-2xl border border-border bg-surface p-5 backdrop-blur-md transition-all duration-300 hover:border-border-hover hover:bg-surface-muted shadow-sm"
                 >
-                  <SpotlightCard
-                    delay={idx * 0.08}
-                    className="p-5"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-colors duration-300 group-hover:border-emerald-500/40 group-hover:bg-emerald-500/20">
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-medium text-zinc-400">
-                              {channel.title}
-                            </span>
-                            {channel.badge && (
-                              <span className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
-                                {channel.badge}
-                              </span>
-                            )}
-                          </div>
-                          <span className="mt-0.5 block text-sm font-semibold text-zinc-200 transition-colors group-hover:text-emerald-400">
-                            {channel.value}
-                          </span>
-                        </div>
-                      </div>
-
-                      <ArrowUpRight
-                        className="h-4 w-4 text-zinc-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-emerald-400"
-                        aria-hidden="true"
-                      />
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-transform group-hover:scale-105">
+                      <Icon className="h-5 w-5" />
                     </div>
-                  </SpotlightCard>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-foreground">
+                          {channel.title}
+                        </span>
+                        {channel.badge && (
+                          <span className="rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
+                            {channel.badge}
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-0.5 font-mono text-xs text-muted-foreground">
+                        {channel.value}
+                      </p>
+                    </div>
+                  </div>
+
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
                 </a>
               );
             })}
           </div>
-
-          <SpotlightCard className="p-5">
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
-              </span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
-                Disponibilidad Activa
-              </span>
-            </div>
-            <p className="mt-2 text-xs leading-relaxed text-zinc-400">
-              Respondo usualmente en menos de 24 horas. Disponible para colaborar en proyectos innovadores y nuevos retos tecnológicos.
-            </p>
-          </SpotlightCard>
         </motion.div>
 
-        {/* Contenedor del Formulario en SpotlightCard de gran formato */}
+        {/* Columna del Formulario de Contacto */}
         <motion.div
           variants={itemVariants}
           initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: false, margin: "-60px" }}
+          viewport={{ once: true, margin: "-60px" }}
           className="lg:col-span-7"
         >
-          <SpotlightCard className="p-6 sm:p-8">
+          <SpotlightCard className="rounded-3xl border border-border bg-surface p-8 sm:p-10 shadow-xl">
             <AnimatePresence mode="wait">
               {!isSuccess ? (
                 <motion.form
@@ -315,52 +296,59 @@ export default function Contact() {
                   animate="animate"
                   exit="exit"
                   onSubmit={handleSubmit}
-                  className="space-y-5"
+                  className="space-y-6"
                 >
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-bold tracking-tight text-foreground">
+                      Enviar un mensaje
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      Completa los campos a continuación y te responderé en breve.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div className="space-y-2">
                       <label
                         htmlFor="name"
-                        className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
+                        className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         Nombre completo{" "}
-                        <span className="text-emerald-400" aria-hidden="true">
+                        <span className="text-foreground" aria-hidden="true">
                           *
                         </span>
                       </label>
                       <input
-                        type="text"
                         id="name"
                         name="name"
+                        type="text"
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Ej. Carlos Pérez"
-                        autoComplete="name"
-                        className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                        placeholder="Ej. Alexander von Humboldt"
+                        className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                       />
                     </div>
 
                     <div className="space-y-2">
                       <label
                         htmlFor="email"
-                        className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
+                        className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         Correo electrónico{" "}
-                        <span className="text-emerald-400" aria-hidden="true">
+                        <span className="text-foreground" aria-hidden="true">
                           *
                         </span>
                       </label>
                       <input
-                        type="email"
                         id="email"
                         name="email"
+                        type="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="ejemplo@correo.com"
-                        autoComplete="email"
-                        className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                        placeholder="tu-correo@empresa.com"
+                        className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                       />
                     </div>
                   </div>
@@ -368,32 +356,28 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label
                       htmlFor="subject"
-                      className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
+                      className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                     >
-                      Asunto{" "}
-                      <span className="text-emerald-400" aria-hidden="true">
-                        *
-                      </span>
+                      Asunto
                     </label>
                     <input
-                      type="text"
                       id="subject"
                       name="subject"
-                      required
+                      type="text"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Ej. Propuesta de proyecto / Consultoría"
-                      className="w-full rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                      placeholder="Consulta de arquitectura, proyecto o propuesta laboral"
+                      className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label
                       htmlFor="message"
-                      className="block text-xs font-medium uppercase tracking-wider text-zinc-300"
+                      className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                     >
                       Mensaje{" "}
-                      <span className="text-emerald-400" aria-hidden="true">
+                      <span className="text-foreground" aria-hidden="true">
                         *
                       </span>
                     </label>
@@ -405,22 +389,16 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Describe tu proyecto, requerimientos técnicos o consulta..."
-                      className="w-full resize-y rounded-xl border border-zinc-800 bg-zinc-950/70 px-4 py-3 text-zinc-100 placeholder:text-zinc-500 transition-all duration-200 focus:border-emerald-500/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                      className="w-full resize-y rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                     />
                   </div>
 
-                  {/* Botón con efecto de barrido de luz (shimmer) */}
+                  {/* Botón de envío */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group relative overflow-hidden w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-zinc-950 font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    className="w-full py-3.5 px-6 rounded-xl bg-foreground text-background font-bold transition-all flex items-center justify-center gap-2 shadow-md hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                   >
-                    {/* Shimmer sweep */}
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -inset-full top-0 block -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-all duration-700 group-hover:inset-full group-hover:opacity-100"
-                    />
-
                     {isSubmitting ? (
                       <>
                         <Loader2
@@ -454,16 +432,16 @@ export default function Contact() {
                       stiffness: 260,
                       damping: 18,
                     }}
-                    className="flex h-16 w-16 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/20 text-emerald-400 shadow-xl shadow-emerald-500/10"
+                    className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-surface-muted text-foreground shadow-lg"
                   >
                     <CheckCircle2 className="h-8 w-8" aria-hidden="true" />
                   </motion.div>
 
-                  <h3 className="mt-6 text-2xl font-bold tracking-tight text-zinc-100">
+                  <h3 className="mt-6 text-2xl font-bold tracking-tight text-foreground">
                     ¡Mensaje recibido!
                   </h3>
 
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-400">
+                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
                     Gracias por ponerte en contacto. Tu mensaje ha sido recibido
                     con éxito y me pondré en contacto contigo a la brevedad.
                   </p>
@@ -471,7 +449,7 @@ export default function Contact() {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800/80 px-6 py-3 text-sm font-medium text-zinc-200 transition-colors hover:bg-zinc-800 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer"
+                    className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                   >
                     <RotateCcw className="h-4 w-4" aria-hidden="true" />
                     <span>Enviar otro mensaje</span>

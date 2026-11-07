@@ -18,7 +18,6 @@ interface QuickFact {
   label: string;
   value: string;
   icon: React.ComponentType<{ className?: string }>;
-  accent: string;
 }
 
 const QUICK_FACTS: readonly QuickFact[] = [
@@ -27,28 +26,24 @@ const QUICK_FACTS: readonly QuickFact[] = [
     label: "Ubicación",
     value: "Pasto, Nariño, Colombia",
     icon: MapPin,
-    accent: "from-emerald-500/20 to-emerald-500/5 text-emerald-400 border-emerald-500/30",
   },
   {
     id: "education",
     label: "Formación",
     value: "5° Semestre — Ing. de Software",
     icon: GraduationCap,
-    accent: "from-cyan-500/20 to-cyan-500/5 text-cyan-400 border-cyan-500/30",
   },
   {
     id: "focus",
     label: "Enfoque Técnico",
     value: "Web Escalable & Hardware IoT",
     icon: Cpu,
-    accent: "from-indigo-500/20 to-indigo-500/5 text-indigo-400 border-indigo-500/30",
   },
   {
     id: "status",
     label: "Disponibilidad",
     value: "Desarrollo de Soluciones de Impacto",
     icon: Terminal,
-    accent: "from-teal-500/20 to-teal-500/5 text-teal-400 border-teal-500/30",
   },
 ];
 
@@ -87,7 +82,7 @@ export default function About() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-96 w-full max-w-4xl -translate-x-1/2 bg-gradient-to-tr from-emerald-500/10 via-cyan-500/10 to-transparent blur-3xl"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-96 w-full max-w-4xl -translate-x-1/2 bg-foreground/3 blur-3xl"
       />
 
       <motion.div
@@ -99,22 +94,22 @@ export default function About() {
       >
         {/* Encabezado */}
         <motion.div variants={itemVariants} className="space-y-4 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-400">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm">
             <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
             <span>Perfil Profesional</span>
           </div>
 
           <h2
             id="about-title"
-            className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl"
+            className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl"
           >
             Trayectoria, vocación y{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
               pensamiento ingenieril
             </span>
           </h2>
 
-          <p className="mx-auto max-w-2xl text-base text-zinc-400 sm:text-lg">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Conectando el software de alto rendimiento con sistemas físicos y necesidades reales.
           </p>
         </motion.div>
@@ -132,14 +127,14 @@ export default function About() {
             className="space-y-6 lg:col-span-7"
           >
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold tracking-tight text-zinc-100 sm:text-3xl">
+              <h3 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                 Soluciones digitales fundamentadas en rigor, arquitectura y propósito.
               </h3>
-              <p className="text-base leading-relaxed text-zinc-300 sm:text-lg">
+              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
                 Soy Luis Sebastián Díaz, estudiante de 5° semestre de Ingeniería de Software en Pasto, Colombia.
                 Me especializo en diseñar arquitecturas web modulares y en integrar microcontroladores IoT mediante
                 sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con
-                acabados glassmorphism y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.
+                acabados de precisión y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.
               </p>
             </div>
 
@@ -157,17 +152,15 @@ export default function About() {
                     className="p-4"
                   >
                     <div className="flex items-start gap-3.5">
-                      <div
-                        className={`rounded-lg border p-2.5 shadow-sm transition-transform duration-300 group-hover:scale-110 ${fact.accent}`}
-                      >
+                      <div className="rounded-lg border border-border bg-surface-muted p-2.5 text-foreground shadow-sm transition-transform duration-300 group-hover:scale-110">
                         <Icon className="h-4 w-4" aria-hidden="true" />
                       </div>
 
                       <div className="space-y-0.5">
-                        <span className="block text-xs font-medium text-zinc-400">
+                        <span className="block text-xs font-medium text-muted-foreground">
                           {fact.label}
                         </span>
-                        <span className="block text-sm font-semibold text-zinc-200 transition-colors group-hover:text-white">
+                        <span className="block text-sm font-semibold text-foreground transition-colors">
                           {fact.value}
                         </span>
                       </div>
@@ -180,12 +173,12 @@ export default function About() {
         </div>
 
         {/* Cinta Infinita de Tecnologías (Continuous Marquee) */}
-        <motion.div variants={itemVariants} className="pt-6 border-t border-zinc-800/80">
+        <motion.div variants={itemVariants} className="pt-6 border-t border-border">
           <div className="text-center mb-6">
-            <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">
               Ecosistema Tecnológico de Producción
             </span>
-            <p className="mt-1 text-sm text-zinc-400">
+            <p className="mt-1 text-sm text-muted-foreground">
               Despliegue continuo de librerías, protocolos embebidos y frameworks modernos
             </p>
           </div>

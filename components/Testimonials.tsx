@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Terminal,
 } from "lucide-react";
 
 interface Testimonial {
@@ -116,25 +115,25 @@ export default function Testimonials() {
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-3xl text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400">
-          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
+          <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           <span>Recomendaciones</span>
         </div>
         <h2
           id="testimonials-heading"
-          className="mt-5 text-3xl font-extrabold tracking-tight text-zinc-100 sm:text-4xl lg:text-5xl"
+          className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
         >
           La experiencia de{" "}
-          <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             trabajar juntos
           </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
           Referencias técnicas y académicas de profesionales que han colaborado en proyectos de software y sistemas embebidos.
         </p>
       </div>
 
-      {/* Carrusel Deslizante de Vidrio Ahumado */}
+      {/* Carrusel Deslizante */}
       <div className="relative mt-14 max-w-4xl mx-auto">
         <div className="relative min-h-[380px] sm:min-h-[340px] flex items-center justify-center">
           <AnimatePresence mode="wait" custom={direction}>
@@ -142,34 +141,23 @@ export default function Testimonials() {
               key={current.id}
               custom={direction}
               variants={shouldReduceMotion ? undefined : slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
+              initial={shouldReduceMotion ? { opacity: 0 } : "enter"}
+              animate={shouldReduceMotion ? { opacity: 1 } : "center"}
+              exit={shouldReduceMotion ? { opacity: 0 } : "exit"}
               className="w-full"
             >
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/60 p-7 sm:p-10 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all">
-                {/* Resplandor ambiental de borde superior */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent"
-                />
+              <div className="relative rounded-3xl border border-border bg-surface p-7 sm:p-9 backdrop-blur-xl shadow-xl transition-all duration-300">
+                <Quote className="absolute right-6 top-6 h-16 w-16 text-foreground/5 pointer-events-none" />
 
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  {/* Cita vectorial esmeralda */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-sm">
-                      <Quote className="h-6 w-6" strokeWidth={1.75} />
-                    </div>
-                    <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg border border-zinc-800 bg-zinc-950/80 font-mono text-[10px] text-zinc-400">
-                      <Terminal className="w-3 h-3 text-cyan-400" />
-                      <span>{current.projectTag}</span>
-                    </div>
-                  </div>
+                {/* Cabecera del testimonio */}
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+                  <span className="rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+                    {current.projectTag}
+                  </span>
 
-                  {/* Insignia de verificación y Calificación */}
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/60 font-mono text-[11px] text-emerald-400 font-medium">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-surface-muted font-mono text-[11px] text-foreground font-medium">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-foreground" />
                       <span>Verificado</span>
                     </div>
 
@@ -177,7 +165,7 @@ export default function Testimonials() {
                       {Array.from({ length: current.rating }, (_, i) => (
                         <Star
                           key={i}
-                          className="h-4 w-4 fill-amber-400 text-amber-400"
+                          className="h-4 w-4 fill-foreground text-foreground"
                           strokeWidth={1.5}
                         />
                       ))}
@@ -186,24 +174,24 @@ export default function Testimonials() {
                 </div>
 
                 {/* Texto testimonial */}
-                <p className="mt-7 text-base sm:text-lg leading-relaxed text-zinc-200 font-normal">
+                <p className="mt-7 text-base sm:text-lg leading-relaxed text-foreground font-normal">
                   “{current.text}”
                 </p>
 
                 {/* Pie de autoría con avatar */}
-                <footer className="mt-8 flex items-center justify-between border-t border-zinc-800/80 pt-6">
+                <footer className="mt-8 flex items-center justify-between border-t border-border pt-6">
                   <div className="flex items-center gap-3.5">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 text-base font-bold text-white shadow-lg shadow-emerald-500/20">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-foreground text-base font-bold text-background shadow-md">
                       {current.avatar}
                     </div>
                     <div>
-                      <cite className="not-italic text-sm sm:text-base font-bold text-zinc-100">
+                      <cite className="not-italic text-sm sm:text-base font-bold text-foreground">
                         {current.name}
                       </cite>
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-muted-foreground">
                         {current.role}
                       </p>
-                      <p className="text-[11px] font-mono text-emerald-400/90">{current.relation}</p>
+                      <p className="text-[11px] font-mono text-muted-foreground">{current.relation}</p>
                     </div>
                   </div>
                 </footer>
@@ -215,21 +203,23 @@ export default function Testimonials() {
         {/* Controles de Navegación del Carrusel */}
         <div className="mt-8 flex items-center justify-between px-2">
           {/* Paginación con Píldoras Interactivas */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2" role="tablist" aria-label="Navegación de testimonios">
             {testimonials.map((t, idx) => {
               const isActive = idx === currentIndex;
               return (
                 <button
                   key={t.id}
                   type="button"
+                  role="tab"
+                  aria-selected={isActive}
                   onClick={() => {
                     setDirection(idx > currentIndex ? 1 : -1);
                     setCurrentIndex(idx);
                   }}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? "w-8 bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]"
-                      : "w-2 bg-zinc-700 hover:bg-zinc-500"
+                      ? "w-8 bg-foreground shadow-sm"
+                      : "w-2 bg-border hover:bg-muted-foreground"
                   }`}
                   aria-label={`Ir al testimonio de ${t.name}`}
                 />
@@ -239,8 +229,8 @@ export default function Testimonials() {
 
           {/* Flechas de Navegación y Contador */}
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-zinc-400">
-              <strong className="text-emerald-400">{String(currentIndex + 1).padStart(2, "0")}</strong>
+            <span className="font-mono text-xs text-muted-foreground">
+              <strong className="text-foreground">{String(currentIndex + 1).padStart(2, "0")}</strong>
               {" / "}
               {String(testimonials.length).padStart(2, "0")}
             </span>
@@ -249,7 +239,7 @@ export default function Testimonials() {
               <button
                 type="button"
                 onClick={handlePrev}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/90 text-zinc-300 shadow-md transition-all hover:border-emerald-500/50 hover:bg-zinc-800 hover:text-white cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label="Testimonio anterior"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -258,7 +248,7 @@ export default function Testimonials() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/90 text-zinc-300 shadow-md transition-all hover:border-emerald-500/50 hover:bg-zinc-800 hover:text-white cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label="Siguiente testimonio"
               >
                 <ChevronRight className="h-5 w-5" />
