@@ -111,7 +111,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonios"
-      className="mx-auto max-w-5xl px-4 py-24 sm:px-6 lg:px-8 overflow-hidden"
+      className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-3xl text-center">
@@ -165,7 +165,7 @@ export default function Testimonials() {
                       {Array.from({ length: current.rating }, (_, i) => (
                         <Star
                           key={i}
-                          className="h-4 w-4 fill-foreground text-foreground"
+                          className="h-4 w-4 fill-accent text-accent"
                           strokeWidth={1.5}
                         />
                       ))}
@@ -218,7 +218,7 @@ export default function Testimonials() {
                   }}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? "w-8 bg-foreground shadow-sm"
+                      ? "w-8 bg-accent shadow-sm"
                       : "w-2 bg-border hover:bg-muted-foreground"
                   }`}
                   aria-label={`Ir al testimonio de ${t.name}`}
@@ -239,7 +239,7 @@ export default function Testimonials() {
               <button
                 type="button"
                 onClick={handlePrev}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-muted hover:border-accent/50 hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label="Testimonio anterior"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -248,7 +248,7 @@ export default function Testimonials() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-muted hover:border-accent/50 hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label="Siguiente testimonio"
               >
                 <ChevronRight className="h-5 w-5" />

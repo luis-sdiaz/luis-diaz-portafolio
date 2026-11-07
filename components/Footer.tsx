@@ -155,7 +155,7 @@ export default function Footer() {
                   <motion.a
                     href={link.href}
                     whileHover={{ x: 3 }}
-                    className="inline-block py-1 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring rounded"
+                    className="inline-block py-1 text-muted-foreground transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring rounded"
                   >
                     {link.label}
                   </motion.a>
@@ -180,7 +180,7 @@ export default function Footer() {
                     rel={channel.isExternal ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                     aria-label={`${channel.name}${channel.isExternal ? " (se abre en una nueva pestaña)" : ""}`}
                   >
                     <IconComponent className="h-4 w-4" />

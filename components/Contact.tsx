@@ -191,7 +191,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 overflow-hidden"
+      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
       aria-labelledby="contact-heading"
     >
       <Toaster
@@ -271,7 +271,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
                 </a>
               );
             })}
@@ -314,7 +314,7 @@ export default function Contact() {
                         className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         Nombre completo{" "}
-                        <span className="text-foreground" aria-hidden="true">
+                        <span className="text-accent" aria-hidden="true">
                           *
                         </span>
                       </label>
@@ -336,7 +336,7 @@ export default function Contact() {
                         className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         Correo electrónico{" "}
-                        <span className="text-foreground" aria-hidden="true">
+                        <span className="text-accent" aria-hidden="true">
                           *
                         </span>
                       </label>
@@ -377,7 +377,7 @@ export default function Contact() {
                       className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                     >
                       Mensaje{" "}
-                      <span className="text-foreground" aria-hidden="true">
+                      <span className="text-accent" aria-hidden="true">
                         *
                       </span>
                     </label>
@@ -397,7 +397,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-xl bg-foreground text-background font-bold transition-all flex items-center justify-center gap-2 shadow-md hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    className="w-full py-3.5 px-6 rounded-xl bg-accent-action text-accent-action-foreground font-bold transition-colors flex items-center justify-center gap-2 shadow-md hover:bg-accent-action-hover disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                   >
                     {isSubmitting ? (
                       <>

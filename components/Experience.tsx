@@ -177,11 +177,11 @@ function ExperienceTimeline({
           scaleY: shouldReduceMotion ? 1 : scrollYProgress,
           transformOrigin: "top",
         }}
-        className="absolute left-2.5 sm:left-3.5 top-3 bottom-3 w-[2px] rounded-full bg-foreground shadow-sm"
+        className="absolute left-2.5 sm:left-3.5 top-3 bottom-3 w-[2px] rounded-full bg-accent shadow-sm"
         aria-hidden="true"
       >
         <div
-          className="absolute bottom-0 -left-[3px] h-2 w-2 rounded-full bg-foreground shadow-sm"
+          className="absolute bottom-0 -left-[3px] h-2 w-2 rounded-full bg-accent shadow-sm"
           aria-hidden="true"
         />
       </motion.div>
@@ -194,8 +194,8 @@ function ExperienceTimeline({
               className="absolute -left-[19px] sm:-left-[23px] top-5 h-4 w-4 rounded-full border-2 border-border bg-surface shadow-sm transition-transform duration-300 group-hover:scale-125"
               aria-hidden="true"
             >
-              <span className="absolute inset-0 rounded-full bg-foreground opacity-30 animate-ping" />
-              <span className="relative block h-full w-full rounded-full bg-foreground" />
+              <span className="absolute inset-0 rounded-full bg-accent opacity-30 animate-ping" />
+              <span className="relative block h-full w-full rounded-full bg-accent" />
             </span>
 
             {/* Tarjeta Spotlight */}
@@ -224,7 +224,7 @@ function ExperienceTimeline({
               <SpotlightCard className="p-6">
                 <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                   <Calendar
-                    className="h-4 w-4 text-foreground"
+                    className="h-4 w-4 text-accent"
                     aria-hidden="true"
                   />
                   <time>{item.period}</time>
@@ -249,7 +249,7 @@ function ExperienceTimeline({
                   {item.skills.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-full border border-border bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface"
+                      className="rounded-full border border-border bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent"
                     >
                       {skill}
                     </li>
@@ -270,7 +270,7 @@ export default function Experience() {
   return (
     <section
       id="experiencia"
-      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 overflow-hidden"
+      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
       aria-labelledby="experience-heading"
     >
       <motion.div

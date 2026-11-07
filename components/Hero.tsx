@@ -103,8 +103,8 @@ export default function Hero() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
         >
-          <div className="h-[360px] w-[360px] md:h-[500px] md:w-[500px] rounded-full bg-foreground/5 blur-[130px]" />
-          <div className="h-[280px] w-[280px] md:h-[400px] md:w-[400px] rounded-full bg-foreground/3 blur-[110px] -translate-y-12 translate-x-20" />
+          <div className="h-[360px] w-[360px] md:h-[500px] md:w-[500px] rounded-full bg-[var(--hero-glow-primary)] blur-[130px]" />
+          <div className="h-[280px] w-[280px] md:h-[400px] md:w-[400px] rounded-full bg-[var(--hero-glow-secondary)] blur-[110px] -translate-y-12 translate-x-20" />
         </div>
 
         <motion.div
@@ -125,8 +125,8 @@ export default function Hero() {
               <motion.div variants={itemVariants}>
                 <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-border bg-surface text-foreground backdrop-blur-md shadow-sm">
                   <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground opacity-30" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-foreground" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-30" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
                   </span>
                   <span className="text-xs font-medium tracking-wide text-muted-foreground">
                     Disponible para nuevos retos tecnológicos
@@ -168,7 +168,7 @@ export default function Hero() {
                   download="Luis_Sebastian_Diaz_CV.pdf"
                   onClick={handleDownloadCv}
                   aria-label="Descargar currículum vitae en formato PDF"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-foreground text-background font-semibold text-sm shadow-md hover:opacity-90 active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-sm shadow-md hover:bg-accent-action-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>Descargar CV</span>
@@ -177,7 +177,7 @@ export default function Hero() {
                 <a
                   href="#proyectos"
                   aria-label="Navegar a la sección de proyectos desarrollados"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border bg-surface hover:bg-surface-muted text-foreground text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border bg-surface hover:border-accent/50 hover:bg-accent-muted text-foreground text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
                   <span>Ver proyectos</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -194,7 +194,7 @@ export default function Hero() {
                 <motion.div
                   variants={badgeItemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-border-hover hover:text-foreground hover:shadow-sm cursor-default"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Terminal className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>5° Semestre de Ingeniería</span>
@@ -203,7 +203,7 @@ export default function Hero() {
                 <motion.div
                   variants={badgeItemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-border-hover hover:text-foreground hover:shadow-sm cursor-default"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Cpu className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>Tauri 2 + ESP32 IoT</span>
@@ -212,7 +212,7 @@ export default function Hero() {
                 <motion.div
                   variants={badgeItemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-border-hover hover:text-foreground hover:shadow-sm cursor-default"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Layers className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>Next.js 16 + React 19</span>
@@ -248,8 +248,8 @@ export default function Hero() {
                   {/* Insignia Flotante Superior */}
                   <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-surface/90 backdrop-blur-md shadow-md font-mono text-[10px] sm:text-[11px] text-foreground font-semibold tracking-wider uppercase whitespace-nowrap">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground opacity-30" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-foreground" />
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-30" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
                     </span>
                     <span>CORE DE ARQUITECTURA DISTRIBUIDA</span>
                   </div>

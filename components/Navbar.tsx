@@ -34,7 +34,7 @@ export default function Navbar() {
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
         <a
           href="#inicio"
-          className="text-lg font-bold tracking-tight text-foreground transition-opacity hover:opacity-75"
+          className="text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent"
           aria-label="Ir al inicio"
         >
           LD
@@ -45,7 +45,7 @@ export default function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
-                className="transition-colors hover:text-foreground"
+                className="transition-colors hover:text-accent"
               >
                 {item.label}
               </a>
@@ -60,7 +60,7 @@ export default function Navbar() {
             href="/cv.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-xl bg-foreground px-3.5 py-2 text-xs font-semibold text-background transition-opacity hover:opacity-90 shadow-sm md:inline-flex"
+            className="hidden items-center gap-2 rounded-xl bg-accent-action px-3.5 py-2 text-xs font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm md:inline-flex"
           >
             <FileDown className="h-4 w-4" />
             <span>Ver CV</span>
@@ -94,7 +94,7 @@ export default function Navbar() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-surface-muted hover:text-foreground"
+                    className="block rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent-muted hover:text-accent"
                     onClick={closeMenu}
                   >
                     {item.label}
@@ -106,7 +106,7 @@ export default function Navbar() {
                   href="/cv.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-foreground px-3 py-2.5 text-xs font-semibold text-background transition-opacity hover:opacity-90 shadow-sm"
+                  className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-accent-action px-3 py-2.5 text-xs font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm"
                   onClick={closeMenu}
                 >
                   <FileDown className="h-4 w-4" />
@@ -119,7 +119,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <motion.div
-        className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-foreground"
+        className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-accent"
         style={{ scaleX }}
         aria-hidden="true"
       />

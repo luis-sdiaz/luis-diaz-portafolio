@@ -78,11 +78,11 @@ export default function About() {
     <section
       id="sobre-mi"
       aria-labelledby="about-title"
-      className="relative mx-auto max-w-7xl overflow-hidden px-4 py-24 sm:px-6 sm:py-32 lg:px-8"
+      className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:px-8"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-96 w-full max-w-4xl -translate-x-1/2 bg-foreground/3 blur-3xl"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-96 w-full max-w-4xl -translate-x-1/2 bg-accent/5 blur-3xl"
       />
 
       <motion.div
@@ -95,7 +95,7 @@ export default function About() {
         {/* Encabezado */}
         <motion.div variants={itemVariants} className="space-y-4 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+            <Sparkles className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
             <span>Perfil Profesional</span>
           </div>
 
@@ -153,7 +153,7 @@ export default function About() {
                   >
                     <div className="flex items-start gap-3.5">
                       <div className="rounded-lg border border-border bg-surface-muted p-2.5 text-foreground shadow-sm transition-transform duration-300 group-hover:scale-110">
-                        <Icon className="h-4 w-4" aria-hidden="true" />
+                        <Icon className="h-4 w-4 transition-colors group-hover:text-accent" aria-hidden="true" />
                       </div>
 
                       <div className="space-y-0.5">

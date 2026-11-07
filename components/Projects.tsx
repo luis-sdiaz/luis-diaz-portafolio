@@ -161,13 +161,13 @@ export default function Projects() {
                 aria-controls="projects-stage"
                 onClick={() => handleCategorySelect(tab.id)}
                 className={`relative rounded-xl px-4 py-2 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring sm:text-sm cursor-pointer ${
-                  isActive ? "text-background" : "text-muted-foreground hover:text-foreground"
+                  isActive ? "text-accent-foreground" : "text-muted-foreground hover:text-accent"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeProjectsFilter"
-                    className="absolute inset-0 rounded-xl bg-foreground shadow-sm"
+                    className="absolute inset-0 rounded-xl bg-accent shadow-sm"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -239,7 +239,7 @@ export default function Projects() {
               onClick={() => setActiveIndex(i)}
               className={`card group absolute flex h-[435px] w-[380px] md:w-[390px] cursor-pointer flex-col justify-between rounded-2xl border px-6 py-5 backdrop-blur-xl shadow-xl transition-all duration-500 select-none ${
                 isCurrent
-                  ? "border-foreground bg-surface shadow-2xl ring-1 ring-foreground/20"
+                  ? "border-accent bg-surface shadow-2xl ring-1 ring-accent/30"
                   : "border-border bg-surface/90 hover:border-border-hover hover:opacity-95 shadow-md"
               }`}
               style={{
@@ -259,7 +259,7 @@ export default function Projects() {
             >
               {/* Acento superior de brillo monocromático en la tarjeta */}
               <div
-                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-foreground via-muted-foreground to-transparent transition-opacity ${
+                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-accent via-accent/40 to-transparent transition-opacity ${
                   isCurrent ? "opacity-100" : "opacity-30"
                 }`}
               />
@@ -269,7 +269,7 @@ export default function Projects() {
                 <div
                   className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
                     isCurrent
-                      ? "border-foreground/30 bg-surface-muted text-foreground"
+                      ? "border-accent/40 bg-accent-muted text-accent"
                       : "border-border bg-surface-muted text-muted-foreground"
                   }`}
                 >
@@ -278,8 +278,8 @@ export default function Projects() {
 
                 <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-foreground">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground opacity-30" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-foreground" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                   </span>
                   <span>En producción</span>
                 </span>
@@ -338,7 +338,7 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   aria-label={`Ver demo en vivo de ${project.title}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 text-xs font-semibold text-background transition-opacity hover:opacity-90 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
                   <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                   <span>Demo</span>
@@ -370,7 +370,7 @@ export default function Projects() {
               onClick={() => setActiveIndex(dotIdx)}
               className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                 dotIdx === safeActiveIndex
-                  ? "w-8 bg-foreground shadow-sm"
+                ? "w-8 bg-accent shadow-sm"
                   : "w-2 bg-border hover:bg-muted-foreground"
               }`}
               aria-label={`Ir al proyecto ${dotIdx + 1}`}
@@ -400,7 +400,7 @@ export default function Projects() {
               onClick={() => setActiveIndex(idx)}
               className={`flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all ${
                 isSelected
-                  ? "border-foreground bg-surface ring-1 ring-foreground/20 shadow-lg"
+                  ? "border-accent bg-surface ring-1 ring-accent/30 shadow-lg"
                   : "border-border bg-surface"
               }`}
             >
@@ -411,8 +411,8 @@ export default function Projects() {
                 </div>
                 <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-foreground">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground opacity-30" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-foreground" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                   </span>
                   <span>En producción</span>
                 </span>
@@ -465,7 +465,7 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Ver demo en vivo de ${project.title}`}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-foreground px-4 text-xs sm:text-sm font-semibold text-background transition-opacity hover:opacity-90 shadow-sm"
+                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs sm:text-sm font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm"
                 >
                   <ExternalLink className="w-4 h-4 shrink-0 text-background" aria-hidden="true" />
                   <span>Demo</span>

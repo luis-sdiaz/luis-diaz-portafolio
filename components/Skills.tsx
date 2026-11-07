@@ -67,13 +67,13 @@ export default function Skills() {
               {/* Barra superior de acento monocromático sutil */}
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-foreground via-muted-foreground to-transparent opacity-60"
+                className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-accent via-accent/40 to-transparent opacity-70"
               />
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm transition-transform duration-300 group-hover:scale-105">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                    <Icon className="h-5 w-5 transition-colors group-hover:text-accent" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-foreground transition-colors">
@@ -99,7 +99,7 @@ export default function Skills() {
                       shouldReduceMotion ? undefined : { y: -2, scale: 1.05 }
                     }
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="cursor-default rounded-lg border border-border bg-surface-muted px-3 py-1.5 font-mono text-xs text-foreground shadow-sm transition-all duration-200 hover:border-border-hover hover:bg-surface"
+                    className="cursor-default rounded-lg border border-border bg-surface-muted px-3 py-1.5 font-mono text-xs text-foreground shadow-sm transition-all duration-200 hover:border-accent/50 hover:bg-accent-muted hover:text-accent"
                   >
                     {skill}
                   </motion.span>
