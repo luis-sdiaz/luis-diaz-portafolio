@@ -59,8 +59,8 @@ export function BackgroundLines({
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="monochrome-lines" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="var(--foreground)" stopOpacity="0.16" />
+            <linearGradient id="accent-lines" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.14" />
               <stop offset="50%" stopColor="var(--muted-foreground)" stopOpacity="0.10" />
               <stop offset="100%" stopColor="var(--foreground)" stopOpacity="0.05" />
             </linearGradient>
@@ -69,7 +69,7 @@ export function BackgroundLines({
             <motion.path
               key={idx}
               d={path}
-              stroke="url(#monochrome-lines)"
+              stroke="url(#accent-lines)"
               strokeWidth="1.2"
               strokeDasharray="8 6"
               initial={{ pathLength: 0.3, pathOffset: 0 }}

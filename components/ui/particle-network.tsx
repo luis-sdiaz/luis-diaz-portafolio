@@ -38,9 +38,13 @@ export function ParticleNetwork({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { resolvedTheme } = useTheme();
   const isDarkRef = useRef<boolean>(resolvedTheme === "dark");
+  const accentColorRef = useRef("#ea580c");
 
   useEffect(() => {
     isDarkRef.current = resolvedTheme === "dark";
+    accentColorRef.current = getComputedStyle(document.documentElement)
+      .getPropertyValue("--accent")
+      .trim();
   }, [resolvedTheme]);
 
   const [metrics, setMetrics] = useState({
@@ -129,7 +133,9 @@ export function ParticleNetwork({
       ctx.clearRect(0, 0, width, height);
 
       const isDark = isDarkRef.current;
-      const palette = isDark ? DARK_COLORS : LIGHT_COLORS;
+      const palette = isDark
+        ? [accentColorRef.current, ...DARK_COLORS]
+        : [accentColorRef.current, ...LIGHT_COLORS];
       const lineBaseColor = isDark ? "255, 255, 255" : "9, 9, 11";
       const packetColor = isDark ? "#ffffff" : "#09090b";
 

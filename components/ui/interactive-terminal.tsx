@@ -163,7 +163,7 @@ export function InteractiveTerminal() {
             onClick={() => setActiveTab("daemon")}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] transition-colors cursor-pointer ${
               activeTab === "daemon"
-                ? "bg-[#1a1b26] text-white font-medium border border-zinc-700/60"
+                ? "bg-accent-muted text-accent font-medium border border-accent/30"
                 : "text-zinc-400 hover:text-zinc-200"
             }`}
           >
@@ -175,7 +175,7 @@ export function InteractiveTerminal() {
             onClick={() => setActiveTab("config")}
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] transition-colors cursor-pointer ${
               activeTab === "config"
-                ? "bg-[#1a1b26] text-white font-medium border border-zinc-700/60"
+                ? "bg-accent-muted text-accent font-medium border border-accent/30"
                 : "text-zinc-400 hover:text-zinc-200"
             }`}
           >

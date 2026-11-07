@@ -8,7 +8,6 @@ import {
   useReducedMotion,
   type HTMLMotionProps,
 } from "framer-motion";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 export interface SpotlightCardProps extends HTMLMotionProps<"div"> {
@@ -27,8 +26,6 @@ export function SpotlightCard({
 }: SpotlightCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
 
   const mouseX = useMotionValue(-1000);
   const mouseY = useMotionValue(-1000);
@@ -45,13 +42,10 @@ export function SpotlightCard({
     mouseY.set(-1000);
   };
 
-  const defaultSpotlight = isDark
-    ? "rgba(255, 255, 255, 0.05)"
-    : "rgba(0, 0, 0, 0.03)";
-
-  const defaultBorderSpotlight = isDark
-    ? "rgba(255, 255, 255, 0.22)"
-    : "rgba(0, 0, 0, 0.12)";
+  const defaultSpotlight =
+    "color-mix(in srgb, var(--accent) var(--spotlight-opacity), transparent)";
+  const defaultBorderSpotlight =
+    "color-mix(in srgb, var(--accent) var(--spotlight-border-opacity), transparent)";
 
   const activeSpotlight = spotlightColor || defaultSpotlight;
 

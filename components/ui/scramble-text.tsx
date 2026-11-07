@@ -114,12 +114,17 @@ export function ScrambleText({
       ref={elementRef}
       onMouseEnter={handleMouseEnter}
       className={className}
+      style={{ position: "relative", display: "inline-block" }}
       aria-label={text}
     >
-      {displayText}
+      <span aria-hidden="true" className="invisible">
+        {text}
+      </span>
+      <span aria-hidden="true" className="absolute inset-0">
+        {displayText}
+      </span>
     </Component>
   );
 }
 
 export default ScrambleText;
-
