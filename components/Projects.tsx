@@ -135,32 +135,32 @@ export default function Projects() {
   return (
     <section
       id="proyectos"
-      className="relative mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative mx-auto max-w-6xl scroll-mt-20 px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20 overflow-hidden"
       aria-label={t("sectionAriaLabel")}
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       {/* Encabezado de Sección */}
       <div className="mx-auto max-w-3xl text-center">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold text-foreground shadow-sm">
+        <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           <span>{t("sectionLabel")}</span>
         </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground">
           <ScrambleText text={t("titlePart1")} trigger="view" />
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             <ScrambleText text={t("titlePart2")} trigger="view" />
           </span>
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted-foreground">
           {t("subtitle")}
         </p>
       </div>
 
       {/* Pestañas de Filtro de Categoría */}
-      <div className="mt-8 flex justify-center">
+      <div className="mt-6 flex justify-center">
         <nav
-          className="inline-flex rounded-2xl border border-border bg-surface p-1.5 shadow-md backdrop-blur-md"
+          className="inline-flex rounded-2xl border border-border bg-surface p-1 shadow-md backdrop-blur-md"
           role="tablist"
           aria-label={t("filterLabel")}
         >
@@ -173,7 +173,7 @@ export default function Projects() {
                 aria-selected={isActive}
                 aria-controls="projects-stage"
                 onClick={() => handleCategorySelect(tab.id)}
-                className={`relative rounded-xl px-4 py-2 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring sm:text-sm cursor-pointer ${
+                className={`relative rounded-xl px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring sm:text-sm cursor-pointer ${
                   isActive ? "text-accent-foreground" : "text-muted-foreground hover:text-accent"
                 }`}
               >
@@ -194,7 +194,7 @@ export default function Projects() {
       {/* Escenario 3D Exclusivo de Tarjetas (Desktop > 768px) */}
       <div
         id="projects-stage"
-        className="relative mt-12 hidden h-[520px] w-full max-w-6xl mx-auto items-center justify-center overflow-visible md:flex"
+        className="relative mt-8 sm:mt-10 hidden h-[480px] w-full max-w-5xl mx-auto items-center justify-center overflow-visible md:flex"
         style={{
           perspective: "1200px",
           transformStyle: "preserve-3d",
@@ -221,22 +221,22 @@ export default function Projects() {
             opacity = 1;
             zIndex = 30;
           } else if (diff === -1) {
-            translateX = -365;
-            translateZ = -110;
-            rotateY = 22;
+            translateX = -335;
+            translateZ = -100;
+            rotateY = 20;
             scale = 0.9;
             opacity = 0.7;
             zIndex = 20;
           } else if (diff === 1) {
-            translateX = 365;
-            translateZ = -110;
-            rotateY = -22;
+            translateX = 335;
+            translateZ = -100;
+            rotateY = -20;
             scale = 0.9;
             opacity = 0.7;
             zIndex = 20;
           } else {
             translateX = 0;
-            translateZ = -220;
+            translateZ = -200;
             rotateY = 0;
             scale = 0.8;
             opacity = 0.4;
@@ -252,7 +252,7 @@ export default function Projects() {
             <div
               key={project.id}
               onClick={() => setActiveIndex(i)}
-              className={`card group absolute flex h-[435px] w-[380px] md:w-[390px] cursor-pointer flex-col justify-between rounded-2xl border px-6 py-5 backdrop-blur-xl shadow-xl transition-all duration-500 select-none ${
+              className={`card group absolute flex h-[415px] w-[340px] md:w-[365px] cursor-pointer flex-col justify-between rounded-2xl border px-5 py-4.5 backdrop-blur-xl shadow-xl transition-all duration-500 select-none ${
                 isCurrent
                   ? "border-accent bg-surface shadow-2xl ring-1 ring-accent/30"
                   : "border-border bg-surface/90 hover:border-border-hover hover:opacity-95 shadow-md"
@@ -402,7 +402,7 @@ export default function Projects() {
       </div>
 
       {/* Vista Móvil y Tablet (<= 768px): Flujo Vertical Accesible */}
-      <div className="mt-8 flex flex-col gap-6 md:hidden">
+      <div className="mt-6 flex flex-col gap-4 md:hidden">
         {filteredProjects.map((project, idx) => {
           const isSelected = idx === safeActiveIndex;
           const ProjectIcon = getProjectIcon(project.id);
@@ -413,7 +413,7 @@ export default function Projects() {
             <article
               key={project.id}
               onClick={() => setActiveIndex(idx)}
-              className={`flex flex-col justify-between rounded-2xl border p-6 backdrop-blur-md transition-all ${
+              className={`flex flex-col justify-between rounded-2xl border p-4.5 sm:p-5 backdrop-blur-md transition-all ${
                 isSelected
                   ? "border-accent bg-surface ring-1 ring-accent/30 shadow-lg"
                   : "border-border bg-surface"

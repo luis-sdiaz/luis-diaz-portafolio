@@ -102,31 +102,31 @@ export default function Testimonials() {
   return (
     <section
       id="testimonios"
-      className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
+      className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20 overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto max-w-3xl text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           <span>{t("sectionLabel")}</span>
         </div>
         <h2
           id="testimonials-heading"
-          className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+          className="mt-3.5 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground"
         >
           {t("titlePart1")}{" "}
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             {t("titlePart2")}
           </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
           {t("subtitle")}
         </p>
       </div>
 
       {/* Carrusel Deslizante */}
-      <div className="relative mt-14 max-w-4xl mx-auto">
-        <div className="relative min-h-[380px] sm:min-h-[340px] flex items-center justify-center">
+      <div className="relative mt-10 max-w-4xl mx-auto">
+        <div className="relative min-h-[340px] sm:min-h-[300px] flex items-center justify-center">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={current.id}
@@ -137,17 +137,17 @@ export default function Testimonials() {
               exit={shouldReduceMotion ? { opacity: 0 } : "exit"}
               className="w-full"
             >
-              <div className="relative rounded-3xl border border-border bg-surface p-7 sm:p-9 backdrop-blur-xl shadow-xl transition-all duration-300">
-                <Quote className="absolute right-6 top-6 h-16 w-16 text-foreground/5 pointer-events-none" />
+              <div className="relative rounded-2xl sm:rounded-3xl border border-border bg-surface p-6 sm:p-8 backdrop-blur-xl shadow-xl transition-all duration-300">
+                <Quote className="absolute right-6 top-6 h-14 w-14 text-foreground/5 pointer-events-none" />
 
                 {/* Cabecera del testimonio */}
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-                  <span className="rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3.5">
+                  <span className="rounded-md border border-border bg-surface-muted px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
                     {current.projectTag}
                   </span>
 
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border bg-surface-muted font-mono text-[11px] text-foreground font-medium">
+                    <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-border bg-surface-muted font-mono text-[10px] sm:text-[11px] text-foreground font-medium">
                       <CheckCircle2 className="w-3.5 h-3.5 text-foreground" />
                       <span>{t("verified")}</span>
                     </div>
@@ -156,7 +156,7 @@ export default function Testimonials() {
                       {Array.from({ length: current.rating }, (_, i) => (
                         <Star
                           key={i}
-                          className="h-4 w-4 fill-accent text-accent"
+                          className="h-3.5 w-3.5 fill-accent text-accent"
                           strokeWidth={1.5}
                         />
                       ))}
@@ -165,14 +165,14 @@ export default function Testimonials() {
                 </div>
 
                 {/* Texto testimonial */}
-                <p className="mt-7 text-base sm:text-lg leading-relaxed text-foreground font-normal">
+                <p className="mt-5 text-sm sm:text-base md:text-lg leading-relaxed text-foreground font-normal">
                   &ldquo;{current.text}&rdquo;
                 </p>
 
                 {/* Pie de autoría con avatar */}
-                <footer className="mt-8 flex items-center justify-between border-t border-border pt-6">
-                  <div className="flex items-center gap-3.5">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-foreground text-base font-bold text-background shadow-md">
+                <footer className="mt-6 flex items-center justify-between border-t border-border pt-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-foreground text-sm sm:text-base font-bold text-background shadow-md">
                       {current.avatar}
                     </div>
                     <div>
@@ -182,7 +182,7 @@ export default function Testimonials() {
                       <p className="text-xs text-muted-foreground">
                         {current.role}
                       </p>
-                      <p className="text-[11px] font-mono text-muted-foreground">{current.relation}</p>
+                      <p className="text-[10px] sm:text-[11px] font-mono text-muted-foreground">{current.relation}</p>
                     </div>
                   </div>
                 </footer>

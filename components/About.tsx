@@ -73,7 +73,7 @@ export default function About() {
     <section
       id="sobre-mi"
       aria-labelledby="about-title"
-      className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:px-8"
+      className="relative mx-auto max-w-6xl overflow-hidden px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20"
     >
       <div
         aria-hidden="true"
@@ -85,18 +85,18 @@ export default function About() {
         initial={shouldReduceMotion ? false : "hidden"}
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
-        className="space-y-16"
+        className="space-y-12 sm:space-y-14"
       >
         {/* Encabezado */}
-        <motion.div variants={itemVariants} className="space-y-4 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm">
+        <motion.div variants={itemVariants} className="space-y-3.5 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
             <span>{t("sectionLabel")}</span>
           </div>
 
           <h2
             id="about-title"
-            className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl"
+            className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground"
           >
             {t("title")}{" "}
             <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
@@ -104,13 +104,13 @@ export default function About() {
             </span>
           </h2>
 
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
+          <p className="mx-auto max-w-2xl text-sm sm:text-base text-muted-foreground">
             {t("subtitle")}
           </p>
         </motion.div>
 
         {/* Contenido Bento Grid */}
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-10">
           {/* Columna Izquierda: Consola de Telemetría Interactiva */}
           <div className="flex justify-center lg:col-span-5">
             <InteractiveTerminal />
@@ -119,19 +119,19 @@ export default function About() {
           {/* Columna Derecha: Resumen y Quick Facts con SpotlightCard */}
           <motion.div
             variants={itemVariants}
-            className="space-y-6 lg:col-span-7"
+            className="space-y-5 lg:col-span-7"
           >
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            <div className="space-y-3">
+              <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
                 {t("bioTitle")}
               </h3>
-              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+              <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
                 {t("bio")}
               </p>
             </div>
 
             {/* Quick Facts con SpotlightCard y Entrada Escalonada */}
-            <div className="grid grid-cols-1 gap-3.5 pt-2 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-2">
               {quickFacts.map((fact, idx) => {
                 const Icon = fact.icon;
                 return (
@@ -139,20 +139,20 @@ export default function About() {
                     key={fact.id}
                     delay={idx * 0.08}
                     whileHover={
-                      shouldReduceMotion ? undefined : { y: -4, scale: 1.01 }
+                      shouldReduceMotion ? undefined : { y: -3, scale: 1.01 }
                     }
-                    className="p-4"
+                    className="p-3.5"
                   >
-                    <div className="flex items-start gap-3.5">
-                      <div className="rounded-lg border border-border bg-surface-muted p-2.5 text-foreground shadow-sm transition-transform duration-300 group-hover:scale-110">
+                    <div className="flex items-start gap-3">
+                      <div className="rounded-lg border border-border bg-surface-muted p-2 text-foreground shadow-sm transition-transform duration-300 group-hover:scale-105">
                         <Icon className="h-4 w-4 transition-colors group-hover:text-accent" aria-hidden="true" />
                       </div>
 
                       <div className="space-y-0.5">
-                        <span className="block text-xs font-medium text-muted-foreground">
+                        <span className="block text-[11px] font-medium text-muted-foreground">
                           {fact.label}
                         </span>
-                        <span className="block text-sm font-semibold text-foreground transition-colors">
+                        <span className="block text-xs sm:text-sm font-semibold text-foreground transition-colors">
                           {fact.value}
                         </span>
                       </div>
@@ -165,12 +165,12 @@ export default function About() {
         </div>
 
         {/* Cinta Infinita de Tecnologías (Continuous Marquee) */}
-        <motion.div variants={itemVariants} className="pt-6 border-t border-border">
-          <div className="text-center mb-6">
+        <motion.div variants={itemVariants} className="pt-4 border-t border-border">
+          <div className="text-center mb-4">
             <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">
               {t("ecosystemTitle")}
             </span>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
               {t("ecosystemSubtitle")}
             </p>
           </div>

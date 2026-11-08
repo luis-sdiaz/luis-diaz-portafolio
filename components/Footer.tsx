@@ -113,20 +113,20 @@ export default function Footer() {
       className="relative border-t border-border bg-surface text-foreground backdrop-blur-md overflow-hidden transition-colors duration-250"
       role="contentinfo"
     >
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
           {/* Columna 1: Identidad y Ubicación */}
-          <div className="space-y-4 md:col-span-5">
+          <div className="space-y-3.5 md:col-span-5">
             <div className="flex items-center gap-3">
               <a
                 href="#inicio"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted font-mono text-base font-bold text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted font-mono text-sm font-bold text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label={t("homeAriaLabel")}
               >
                 LD
               </a>
               <div>
-                <span className="block text-base font-semibold tracking-tight text-foreground">
+                <span className="block text-sm sm:text-base font-semibold tracking-tight text-foreground">
                   Luis Sebastián Díaz
                 </span>
                 <span className="block text-xs font-mono tracking-wider text-muted-foreground">
@@ -135,7 +135,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-muted-foreground">
               {t("bio")}
             </p>
 
@@ -150,13 +150,13 @@ export default function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               {t("quickLinksTitle")}
             </h3>
-            <ul className="mt-4 grid grid-cols-2 gap-2.5 text-sm" aria-label={t("quickLinksAriaLabel")}>
+            <ul className="mt-3.5 grid grid-cols-2 gap-2 text-xs sm:text-sm" aria-label={t("quickLinksAriaLabel")}>
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <motion.a
                     href={link.href}
                     whileHover={{ x: 3 }}
-                    className="inline-block py-1 text-muted-foreground transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring rounded"
+                    className="inline-block py-0.5 text-muted-foreground transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring rounded"
                   >
                     {t(link.labelKey as Parameters<typeof t>[0])}
                   </motion.a>
@@ -166,11 +166,11 @@ export default function Footer() {
           </div>
 
           {/* Columna 3: Conéctate y Volver Arriba */}
-          <div className="space-y-4 md:col-span-3">
+          <div className="space-y-3.5 md:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               {t("connectTitle")}
             </h3>
-            <div className="flex items-center gap-3" aria-label={t("socialAriaLabel")}>
+            <div className="flex items-center gap-2.5" aria-label={t("socialAriaLabel")}>
               {socialChannels.map((channel) => {
                 const IconComponent = channel.icon;
                 // For fixed names like GitHub/LinkedIn, use them directly; for email use translated label
@@ -188,7 +188,7 @@ export default function Footer() {
                     rel={channel.isExternal ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                     aria-label={ariaLabel}
                   >
                     <IconComponent className="h-4 w-4" />
@@ -197,13 +197,13 @@ export default function Footer() {
               })}
             </div>
 
-            <div className="pt-2">
+            <div className="pt-1.5">
               <motion.button
                 type="button"
                 onClick={scrollToTop}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-4 py-2.5 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-3.5 py-2 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 aria-label={t("scrollTopAriaLabel")}
               >
                 <ArrowUp className="h-4 w-4 text-foreground" aria-hidden="true" />
@@ -214,7 +214,7 @@ export default function Footer() {
         </div>
 
         {/* Barra inferior de créditos */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-5 text-xs text-muted-foreground sm:flex-row">
           <p>{t("copyright", { year })}</p>
           <div className="flex items-center gap-2 text-muted-foreground">
             <span>{t("builtWith")}</span>

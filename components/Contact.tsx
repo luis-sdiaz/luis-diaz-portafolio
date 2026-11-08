@@ -193,7 +193,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
+      className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20 overflow-hidden"
       aria-labelledby="contact-heading"
     >
       <Toaster
@@ -203,43 +203,43 @@ export default function Contact() {
       />
 
       <div className="mx-auto max-w-3xl text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
           <span>{t("sectionLabel")}</span>
         </span>
         <h2
           id="contact-heading"
-          className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+          className="mt-3.5 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground"
         >
           {t("titlePart1")}{" "}
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             {t("titlePart2")}
           </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
           {t("subtitle")}
         </p>
       </div>
 
-      <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
+      <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
         {/* Columna de Canales Directos */}
         <motion.div
           variants={containerVariants}
           initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
           viewport={{ once: false, margin: "-60px" }}
-          className="flex flex-col justify-between space-y-6 lg:col-span-5"
+          className="flex flex-col justify-between space-y-5 lg:col-span-5"
         >
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold tracking-tight text-foreground">
+          <div className="space-y-3">
+            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
               {t("directChannelsTitle")}
             </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground">
               {t("directChannelsSubtitle")}
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {directChannels.map((channel) => {
               const Icon = channel.icon;
               const isExternal = channel.href.startsWith("http");
@@ -250,15 +250,15 @@ export default function Contact() {
                   href={channel.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  className="group flex items-center justify-between rounded-2xl border border-border bg-surface p-5 backdrop-blur-md transition-all duration-300 hover:border-border-hover hover:bg-surface-muted shadow-sm"
+                  className="group flex items-center justify-between rounded-2xl border border-border bg-surface p-4 backdrop-blur-md transition-all duration-300 hover:border-border-hover hover:bg-surface-muted shadow-sm"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-transform group-hover:scale-105">
-                      <Icon className="h-5 w-5" />
+                  <div className="flex items-center gap-3.5">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-transform group-hover:scale-105">
+                      <Icon className="h-4.5 w-4.5" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-foreground">
+                        <span className="text-xs sm:text-sm font-semibold text-foreground">
                           {t(channel.titleKey as Parameters<typeof t>[0])}
                         </span>
                         <span className="rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
@@ -286,7 +286,7 @@ export default function Contact() {
           viewport={{ once: true, margin: "-60px" }}
           className="lg:col-span-7"
         >
-          <SpotlightCard className="rounded-3xl border border-border bg-surface p-8 sm:p-10 shadow-xl">
+          <SpotlightCard className="rounded-2xl sm:rounded-3xl border border-border bg-surface p-6 sm:p-8 shadow-xl">
             <AnimatePresence mode="wait">
               {!isSuccess ? (
                 <motion.form
@@ -296,10 +296,10 @@ export default function Contact() {
                   animate="animate"
                   exit="exit"
                   onSubmit={handleSubmit}
-                  className="space-y-6"
+                  className="space-y-5"
                 >
                   <div className="space-y-1">
-                    <h3 className="text-xl font-bold tracking-tight text-foreground">
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
                       {t("formTitle")}
                     </h3>
                     <p className="text-xs text-muted-foreground">
@@ -307,11 +307,11 @@ export default function Contact() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="name"
-                        className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                        className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         {t("nameLabel")}{" "}
                         <span className="text-accent" aria-hidden="true">
@@ -326,14 +326,14 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder={t("namePlaceholder")}
-                        className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
+                        className="w-full rounded-xl border border-border bg-surface-muted px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                       />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="email"
-                        className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                        className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
                       >
                         {t("emailLabel")}{" "}
                         <span className="text-accent" aria-hidden="true">
@@ -348,15 +348,15 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder={t("emailPlaceholder")}
-                        className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
+                        className="w-full rounded-xl border border-border bg-surface-muted px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor="subject"
-                      className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                      className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
                     >
                       {t("subjectLabel")}
                     </label>
@@ -367,14 +367,14 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder={t("subjectPlaceholder")}
-                      className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
+                      className="w-full rounded-xl border border-border bg-surface-muted px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <label
                       htmlFor="message"
-                      className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                      className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
                     >
                       {t("messageLabel")}{" "}
                       <span className="text-accent" aria-hidden="true">
@@ -385,11 +385,11 @@ export default function Contact() {
                       id="message"
                       name="message"
                       required
-                      rows={5}
+                      rows={4}
                       value={formData.message}
                       onChange={handleChange}
                       placeholder={t("messagePlaceholder")}
-                      className="w-full resize-y rounded-xl border border-border bg-surface-muted px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
+                      className="w-full resize-y rounded-xl border border-border bg-surface-muted px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-focus-ring focus:outline-none focus:ring-2 focus:ring-focus-ring/20"
                     />
                   </div>
 
@@ -397,7 +397,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-xl bg-accent-action text-accent-action-foreground font-bold transition-colors flex items-center justify-center gap-2 shadow-md hover:bg-accent-action-hover disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    className="w-full py-3 px-6 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 shadow-md hover:bg-accent-action-hover disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                   >
                     {isSubmitting ? (
                       <>

@@ -131,15 +131,15 @@ export default function Hero() {
     >
       <BackgroundLines
         svgOptions={{ duration: 12 }}
-        className="w-full min-h-[calc(100vh-4rem)] py-16 md:py-24"
+        className="w-full min-h-[calc(100vh-4rem)] py-10 sm:py-12 md:py-16"
       >
         {/* Luces de fondo y atmósfera ambiental temática */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
         >
-          <div className="h-[360px] w-[360px] md:h-[500px] md:w-[500px] rounded-full bg-[var(--hero-glow-primary)] blur-[130px]" />
-          <div className="h-[280px] w-[280px] md:h-[400px] md:w-[400px] rounded-full bg-[var(--hero-glow-secondary)] blur-[110px] -translate-y-12 translate-x-20" />
+          <div className="h-[320px] w-[320px] md:h-[450px] md:w-[450px] rounded-full bg-[var(--hero-glow-primary)] blur-[120px]" />
+          <div className="h-[240px] w-[240px] md:h-[350px] md:w-[350px] rounded-full bg-[var(--hero-glow-secondary)] blur-[100px] -translate-y-12 translate-x-20" />
         </div>
 
         <motion.div
@@ -147,21 +147,21 @@ export default function Hero() {
             y: shouldReduceMotion ? 0 : yParallax,
             opacity: shouldReduceMotion ? 1 : opacityParallax,
           }}
-          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
+          className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
         >
           <motion.div
             variants={containerVariants}
             initial={initialVariant}
             animate="visible"
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center"
           >
             {/* Columna Izquierda: Información de Ingeniería */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
+            <div className="lg:col-span-7 flex flex-col items-start text-left space-y-5">
               <motion.div variants={itemVariants}>
-                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-border bg-surface text-foreground backdrop-blur-md shadow-sm">
-                  <span className="relative flex h-2.5 w-2.5">
+                <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full border border-border bg-surface text-foreground backdrop-blur-md shadow-sm">
+                  <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-30" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
                   </span>
                   <span className="text-xs font-medium tracking-wide text-muted-foreground">
                     {t("availability")}
@@ -169,14 +169,14 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              <motion.div variants={itemVariants} className="space-y-3">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
+              <motion.div variants={itemVariants} className="space-y-2.5">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15] sm:leading-[1.12]">
                   {t("greeting")}{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500">
                     Luis Sebastián Díaz
                   </span>
                 </h1>
-                <p className="text-lg sm:text-xl font-semibold text-muted-foreground tracking-normal">
+                <p className="text-base sm:text-lg lg:text-xl font-semibold text-muted-foreground tracking-normal">
                   <ScrambleText
                     text={t("subtitle")}
                     trigger="view"
@@ -186,7 +186,7 @@ export default function Hero() {
 
               <motion.p
                 variants={itemVariants}
-                className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed"
+                className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed"
               >
                 {t("description")}
               </motion.p>
@@ -194,14 +194,14 @@ export default function Hero() {
               {/* Botones de Acción */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto"
+                className="flex flex-wrap items-center gap-3.5 pt-1 w-full sm:w-auto"
               >
                 <a
                   href="/cv.pdf"
                   download="Luis_Sebastian_Diaz_CV.pdf"
                   onClick={handleDownloadCv}
                   aria-label={t("downloadCvLabel")}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-sm shadow-md hover:bg-accent-action-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-xs sm:text-sm shadow-md hover:bg-accent-action-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>{t("downloadCv")}</span>
@@ -210,7 +210,7 @@ export default function Hero() {
                 <a
                   href="#proyectos"
                   aria-label={t("projectsLabel")}
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border bg-surface hover:border-accent/50 hover:bg-accent-muted text-foreground text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl border border-border bg-surface hover:border-accent/50 hover:bg-accent-muted text-foreground text-xs sm:text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
                   <span>{t("projects")}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -222,12 +222,12 @@ export default function Hero() {
                 variants={badgesContainerVariants}
                 initial={initialVariant}
                 animate="visible"
-                className="pt-4 flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground"
+                className="pt-2 flex flex-wrap items-center gap-2.5 text-xs font-mono text-muted-foreground"
               >
                 <motion.div
                   variants={badgeItemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Terminal className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>{t("semester")}</span>
@@ -236,7 +236,7 @@ export default function Hero() {
                 <motion.div
                   variants={badgeItemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Cpu className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>{t("stack")}</span>
@@ -245,7 +245,7 @@ export default function Hero() {
                 <motion.div
                   variants={badgeItemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
                 >
                   <Layers className="w-3.5 h-3.5 text-foreground shrink-0" />
                   <span>{t("frameworks")}</span>
@@ -258,14 +258,14 @@ export default function Hero() {
               {/* Capa de partículas ambiental conectada en el fondo del marco fotográfico */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -inset-4 sm:-inset-8 z-0 overflow-hidden rounded-[32px] opacity-60 dark:opacity-75 transition-opacity"
+                className="pointer-events-none absolute -inset-4 sm:-inset-6 z-0 overflow-hidden rounded-[28px] opacity-60 dark:opacity-75 transition-opacity"
               >
-                <ParticleNetwork nodeCount={36} maxDistance={85} showMetrics={false} className="w-full h-full" />
+                <ParticleNetwork nodeCount={32} maxDistance={80} showMetrics={false} className="w-full h-full" />
               </div>
 
               <motion.div
                 variants={itemVariants}
-                className="group relative z-10 w-full max-w-[360px] sm:max-w-[400px] aspect-[3/4] sm:aspect-[4/5] rounded-3xl p-1.5 border border-border bg-surface/85 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-accent/40"
+                className="group relative z-10 w-full max-w-[310px] sm:max-w-[340px] lg:max-w-[360px] aspect-[3/4] sm:aspect-[4/5] rounded-3xl p-1.5 border border-border bg-surface/85 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-accent/40"
               >
                 {/* Marco fotográfico interno minimalista */}
                 <div className="relative w-full h-full rounded-[20px] sm:rounded-[22px] overflow-hidden border border-border/80 bg-surface-muted/50">
@@ -274,7 +274,7 @@ export default function Hero() {
                     src="/images/foto-perfil.png"
                     alt={t("photoAlt")}
                     fill
-                    sizes="(max-width: 640px) 340px, (max-width: 1024px) 380px, 410px"
+                    sizes="(max-width: 640px) 310px, (max-width: 1024px) 340px, 360px"
                     priority
                     quality={92}
                     className="object-cover object-[center_18%] sm:object-[center_20%] select-none transition-transform duration-700 ease-out group-hover:scale-[1.025]"
@@ -284,7 +284,7 @@ export default function Hero() {
                   {/* Gradiente viñeta inferior sutil para fundir armónicamente la silueta en la base */}
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/70 via-background/15 to-transparent dark:from-[#09090b]/80 dark:via-[#09090b]/20 z-10"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 via-background/15 to-transparent dark:from-[#09090b]/80 dark:via-[#09090b]/20 z-10"
                   />
                 </div>
               </motion.div>

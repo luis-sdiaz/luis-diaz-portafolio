@@ -76,7 +76,7 @@ function ExperienceTimeline({
         />
       </motion.div>
 
-      <ol className="space-y-8">
+      <ol className="space-y-6">
         {items.map((item, index) => (
           <li key={item.id} className="group relative pl-6 sm:pl-8">
             {/* Nodo circular monocromático */}
@@ -111,29 +111,29 @@ function ExperienceTimeline({
                 delay: index * 0.05,
               }}
             >
-              <SpotlightCard className="p-6">
+              <SpotlightCard className="p-4 sm:p-5">
                 <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                   <Calendar
-                    className="h-4 w-4 text-accent"
+                    className="h-3.5 w-3.5 text-accent"
                     aria-hidden="true"
                   />
                   <time>{item.period}</time>
                 </div>
 
-                <h4 className="mt-3.5 text-lg font-bold leading-snug text-foreground transition-colors">
+                <h4 className="mt-2.5 text-base sm:text-lg font-bold leading-snug text-foreground transition-colors">
                   {item.title}
                 </h4>
 
-                <p className="mt-1.5 text-sm font-semibold text-foreground">
+                <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground">
                   {item.organization}
                 </p>
 
-                <p className="mt-3.5 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                   {item.description}
                 </p>
 
                 <ul
-                  className="mt-5 flex flex-wrap gap-2"
+                  className="mt-4 flex flex-wrap gap-1.5"
                   aria-label={skillsAriaLabel}
                 >
                   {item.skills.map((skill) => (
@@ -239,7 +239,7 @@ export default function Experience() {
   return (
     <section
       id="experiencia"
-      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
+      className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20 overflow-hidden"
       aria-labelledby="experience-heading"
     >
       <motion.div
@@ -249,31 +249,31 @@ export default function Experience() {
         viewport={{ once: true, margin: "-60px" }}
         className="mx-auto max-w-3xl text-center"
       >
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-widest text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           <span>{t("sectionLabel")}</span>
         </div>
         <h2
           id="experience-heading"
-          className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+          className="mt-3.5 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground"
         >
           <ScrambleText text={t("titlePart1")} trigger="view" />
           <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
             <ScrambleText text={t("titlePart2")} trigger="view" />
           </span>
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
           {t("subtitle")}
         </p>
       </motion.div>
 
-      <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div>
-          <div className="mb-8 flex items-center gap-3 pl-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm">
-              <GraduationCap className="h-5 w-5" aria-hidden="true" />
+          <div className="mb-6 flex items-center gap-3 pl-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm">
+              <GraduationCap className="h-4.5 w-4.5" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold tracking-tight text-foreground">
+            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
               {t("educationTitle")}
             </h3>
           </div>
@@ -285,11 +285,11 @@ export default function Experience() {
         </div>
 
         <div>
-          <div className="mb-8 flex items-center gap-3 pl-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm">
-              <Briefcase className="h-5 w-5" aria-hidden="true" />
+          <div className="mb-6 flex items-center gap-3 pl-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm">
+              <Briefcase className="h-4.5 w-4.5" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold tracking-tight text-foreground">
+            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
               {t("workTitle")}
             </h3>
           </div>

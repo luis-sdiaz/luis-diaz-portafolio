@@ -32,7 +32,7 @@ export default async function LocalizedHomePage({
 
       <div className="relative z-10 flex flex-col">
         <Navbar />
-        <main className="flex-1 space-y-16">
+        <main className="flex-1">
           <Hero />
           <About />
           <Skills />
