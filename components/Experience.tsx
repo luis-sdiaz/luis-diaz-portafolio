@@ -139,7 +139,7 @@ function ExperienceTimeline({
                   {item.skills.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-full border border-border bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent"
+                      className="rounded-full border border-border bg-surface-muted px-2.5 py-0.5 text-xs font-medium text-foreground transition-all duration-200 hover:border-accent/40 hover:bg-accent-subtle hover:text-accent-hover dark:hover:text-accent"
                     >
                       {skill}
                     </li>

@@ -230,7 +230,7 @@ export default function Testimonials() {
               <button
                 type="button"
                 onClick={handlePrev}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-muted hover:border-accent/50 hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-subtle hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label={t("previousTestimonial")}
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -239,7 +239,7 @@ export default function Testimonials() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-muted hover:border-accent/50 hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-accent-subtle hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 aria-label={t("nextTestimonial")}
               >
                 <ChevronRight className="h-5 w-5" />

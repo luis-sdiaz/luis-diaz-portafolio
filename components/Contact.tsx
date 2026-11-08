@@ -250,15 +250,15 @@ export default function Contact() {
                   href={channel.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  className="group flex items-center justify-between rounded-2xl border border-border bg-surface p-4 backdrop-blur-md transition-all duration-300 hover:border-border-hover hover:bg-surface-muted shadow-sm"
+                  className="group flex items-center justify-between rounded-2xl border border-border bg-surface p-4 backdrop-blur-md transition-all duration-300 hover:border-accent/40 hover:bg-surface-muted shadow-sm"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-transform group-hover:scale-105">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-all group-hover:scale-105 group-hover:border-accent/40 group-hover:bg-accent-subtle group-hover:text-accent-hover dark:group-hover:text-accent">
                       <Icon className="h-4.5 w-4.5" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs sm:text-sm font-semibold text-foreground">
+                        <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-accent-hover dark:group-hover:text-accent transition-colors">
                           {t(channel.titleKey as Parameters<typeof t>[0])}
                         </span>
                         <span className="rounded-full border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
@@ -271,7 +271,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent-hover dark:group-hover:text-accent" />
                 </a>
               );
             })}
@@ -397,7 +397,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3 px-6 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 shadow-md hover:bg-accent-action-hover disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    className="w-full py-3 px-6 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-accent/20 hover:bg-accent-action-hover hover:shadow-lg active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                   >
                     {isSubmitting ? (
                       <>

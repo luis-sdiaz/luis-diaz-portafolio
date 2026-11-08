@@ -13,9 +13,6 @@ import { toast } from "sonner";
 import {
   Download,
   ArrowRight,
-  Terminal,
-  Cpu,
-  Layers,
 } from "lucide-react";
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { ScrambleText } from "@/components/ui/scramble-text";
@@ -40,29 +37,6 @@ const itemVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
-
-const badgesContainerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.25,
-    },
-  },
-};
-
-const badgeItemVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
       ease: [0.16, 1, 0.3, 1],
     },
   },
@@ -197,59 +171,24 @@ export default function Hero() {
                 className="flex flex-wrap items-center gap-3.5 pt-1 w-full sm:w-auto"
               >
                 <a
-                  href="/cv.pdf"
-                  download="Luis_Sebastian_Diaz_CV.pdf"
-                  onClick={handleDownloadCv}
-                  aria-label={t("downloadCvLabel")}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-xs sm:text-sm shadow-md hover:bg-accent-action-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>{t("downloadCv")}</span>
-                </a>
-
-                <a
                   href="#proyectos"
                   aria-label={t("projectsLabel")}
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl border border-border bg-surface hover:border-accent/50 hover:bg-accent-muted text-foreground text-xs sm:text-sm font-semibold backdrop-blur-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl bg-accent-action text-accent-action-foreground font-semibold text-xs sm:text-sm shadow-md shadow-accent/15 hover:bg-accent-action-hover active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
                   <span>{t("projects")}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
-              </motion.div>
 
-              {/* Insignias de Especialidad Escalonadas */}
-              <motion.div
-                variants={badgesContainerVariants}
-                initial={initialVariant}
-                animate="visible"
-                className="pt-2 flex flex-wrap items-center gap-2.5 text-xs font-mono text-muted-foreground"
-              >
-                <motion.div
-                  variants={badgeItemVariants}
-                  whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
+                <a
+                  href="/cv.pdf"
+                  download="Luis_Sebastian_Diaz_CV.pdf"
+                  onClick={handleDownloadCv}
+                  aria-label={t("downloadCvLabel")}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl border border-border bg-surface hover:border-accent/40 hover:bg-surface-muted hover:text-accent-hover text-foreground font-semibold text-xs sm:text-sm shadow-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 >
-                  <Terminal className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>{t("semester")}</span>
-                </motion.div>
-
-                <motion.div
-                  variants={badgeItemVariants}
-                  whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
-                >
-                  <Cpu className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>{t("stack")}</span>
-                </motion.div>
-
-                <motion.div
-                  variants={badgeItemVariants}
-                  whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.03 }}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border bg-surface transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-sm cursor-default"
-                >
-                  <Layers className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>{t("frameworks")}</span>
-                </motion.div>
+                  <Download className="w-4 h-4" />
+                  <span>{t("downloadCv")}</span>
+                </a>
               </motion.div>
             </div>
 

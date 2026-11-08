@@ -144,15 +144,15 @@ export default function About() {
                     className="p-3.5"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="rounded-lg border border-border bg-surface-muted p-2 text-foreground shadow-sm transition-transform duration-300 group-hover:scale-105">
-                        <Icon className="h-4 w-4 transition-colors group-hover:text-accent" aria-hidden="true" />
+                      <div className="rounded-lg border border-border bg-surface-muted p-2 text-foreground shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-accent/40 group-hover:bg-accent-subtle">
+                        <Icon className="h-4 w-4 transition-colors group-hover:text-accent-hover dark:group-hover:text-accent" aria-hidden="true" />
                       </div>
 
                       <div className="space-y-0.5">
                         <span className="block text-[11px] font-medium text-muted-foreground">
                           {fact.label}
                         </span>
-                        <span className="block text-xs sm:text-sm font-semibold text-foreground transition-colors">
+                        <span className="block text-xs sm:text-sm font-semibold text-foreground transition-colors group-hover:text-accent-hover dark:group-hover:text-accent">
                           {fact.value}
                         </span>
                       </div>

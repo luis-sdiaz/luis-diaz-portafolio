@@ -188,7 +188,7 @@ export default function Footer() {
                     rel={channel.isExternal ? "noopener noreferrer" : undefined}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-accent/50 hover:bg-accent-muted hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-all hover:border-accent/40 hover:bg-accent-subtle hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                     aria-label={ariaLabel}
                   >
                     <IconComponent className="h-4 w-4" />
@@ -203,7 +203,7 @@ export default function Footer() {
                 onClick={scrollToTop}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-3.5 py-2 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-muted px-3.5 py-2 text-xs font-medium text-foreground transition-all hover:border-accent/40 hover:bg-surface hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
                 aria-label={t("scrollTopAriaLabel")}
               >
                 <ArrowUp className="h-4 w-4 text-foreground" aria-hidden="true" />

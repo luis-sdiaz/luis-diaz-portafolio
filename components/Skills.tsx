@@ -68,11 +68,11 @@ export default function Skills() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm transition-transform duration-300 group-hover:scale-105">
-                    <Icon className="h-4.5 w-4.5 transition-colors group-hover:text-accent" aria-hidden="true" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-accent/40 group-hover:bg-accent-subtle">
+                    <Icon className="h-4.5 w-4.5 transition-colors group-hover:text-accent-hover dark:group-hover:text-accent" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="text-sm sm:text-base font-bold text-foreground transition-colors">
+                    <h3 className="text-sm sm:text-base font-bold text-foreground transition-colors group-hover:text-accent-hover dark:group-hover:text-accent">
                       {t(category.titleKey as Parameters<typeof t>[0])}
                     </h3>
                     <span className="font-mono text-[10px] text-muted-foreground">
@@ -95,7 +95,7 @@ export default function Skills() {
                       shouldReduceMotion ? undefined : { y: -2, scale: 1.05 }
                     }
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="cursor-default rounded-lg border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground shadow-sm transition-all duration-200 hover:border-accent/50 hover:bg-accent-muted hover:text-accent"
+                    className="cursor-default rounded-lg border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground shadow-sm transition-all duration-200 hover:border-accent/40 hover:bg-accent-subtle hover:text-accent-hover dark:hover:text-accent"
                   >
                     {skill}
                   </motion.span>

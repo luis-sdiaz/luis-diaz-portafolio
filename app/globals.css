@@ -7,6 +7,7 @@
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
+  --color-surface-warm: var(--surface-warm);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-border-hover: var(--border-hover);
@@ -14,6 +15,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-hover: var(--accent-hover);
   --color-accent-muted: var(--accent-muted);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-action: var(--accent-action);
+  --color-accent-action-foreground: var(--accent-action-foreground);
+  --color-accent-action-hover: var(--accent-action-hover);
   --color-focus-ring: var(--focus-ring);
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
@@ -22,43 +27,46 @@
 }
 
 :root {
-  /* Modo Claro (Predeterminado) */
+  /* Modo Claro (Premium Light Tech) */
   --background: #ffffff;
   --foreground: #18181b;
   --surface: #ffffff;
   --surface-muted: #fafaf9;
-  --muted-foreground: #57534e;
-  --border: #e7e5e4;
-  --border-hover: #d6d3d1;
+  --surface-warm: #fff7ed;
+  --muted-foreground: #52525b;
+  --border: #e4e4e7;
+  --border-hover: #d4d4d8;
   --accent: #ea580c;
-  --accent-foreground: #09090b;
+  --accent-foreground: #ffffff;
   --accent-hover: #c2410c;
-  --accent-muted: rgba(234, 88, 12, 0.1);
-  --accent-glow: rgba(234, 88, 12, 0.045);
-  --accent-action: #18181b;
+  --accent-muted: rgba(234, 88, 12, 0.08);
+  --accent-subtle: #fff7ed;
+  --accent-glow: rgba(234, 88, 12, 0.06);
+  --accent-action: #c2410c;
   --accent-action-foreground: #ffffff;
-  --accent-action-hover: #27272a;
-  --hero-glow-primary: rgba(234, 88, 12, 0.035);
-  --hero-glow-secondary: rgba(234, 88, 12, 0.02);
-  --spotlight-opacity: 4%;
-  --spotlight-border-opacity: 10%;
-  --focus-ring: #c2410c;
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(9, 9, 11, 0.08);
-  --shadow-glass: 0 8px 30px rgba(0, 0, 0, 0.06);
-  --shadow-glow: 0 0 25px -5px rgba(0, 0, 0, 0.08);
-  --scrollbar-track: #fafafa;
+  --accent-action-hover: #9a3412;
+  --hero-glow-primary: rgba(234, 88, 12, 0.06);
+  --hero-glow-secondary: rgba(249, 115, 22, 0.035);
+  --spotlight-opacity: 5%;
+  --spotlight-border-opacity: 16%;
+  --focus-ring: #ea580c;
+  --glass-bg: rgba(255, 255, 255, 0.90);
+  --glass-border: rgba(24, 24, 27, 0.08);
+  --shadow-glass: 0 4px 20px -2px rgba(24, 24, 27, 0.05), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+  --shadow-glow: 0 0 25px -5px rgba(234, 88, 12, 0.15);
+  --scrollbar-track: #fafaf9;
   --scrollbar-thumb: #d4d4d8;
   --scrollbar-thumb-hover: #a1a1aa;
   color-scheme: light;
 }
 
 .dark {
-  /* Modo Oscuro (Seleccionable) */
+  /* Modo Oscuro (Seleccionable - Intacto) */
   --background: #09090b;
   --foreground: #fafafa;
   --surface: #121216;
   --surface-muted: #18181b;
+  --surface-warm: rgba(251, 146, 60, 0.08);
   --muted-foreground: #a1a1aa;
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.16);
@@ -66,6 +74,7 @@
   --accent-foreground: #09090b;
   --accent-hover: #fdba74;
   --accent-muted: rgba(251, 146, 60, 0.14);
+  --accent-subtle: rgba(251, 146, 60, 0.08);
   --accent-glow: rgba(251, 146, 60, 0.1);
   --focus-ring: #fb923c;
   --accent-action: #fb923c;

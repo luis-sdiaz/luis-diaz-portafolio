@@ -174,13 +174,13 @@ export default function Projects() {
                 aria-controls="projects-stage"
                 onClick={() => handleCategorySelect(tab.id)}
                 className={`relative rounded-xl px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring sm:text-sm cursor-pointer ${
-                  isActive ? "text-accent-foreground" : "text-muted-foreground hover:text-accent"
+                  isActive ? "text-accent-action-foreground" : "text-muted-foreground hover:text-accent-hover dark:hover:text-accent"
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeProjectsFilter"
-                    className="absolute inset-0 rounded-xl bg-accent shadow-sm"
+                    className="absolute inset-0 rounded-xl bg-accent-action shadow-sm"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -340,7 +340,7 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   aria-label={t("viewSourceCode", { title: project.title })}
                   onClick={(e) => e.stopPropagation()}
-                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs font-medium text-foreground transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
                   <GithubIcon className="w-3.5 h-3.5 shrink-0" />
                   <span>{t("codeButton")}</span>
@@ -351,9 +351,9 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   aria-label={t("viewLiveDemo", { title: project.title })}
                   onClick={(e) => e.stopPropagation()}
-                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs font-semibold text-accent-action-foreground transition-all hover:bg-accent-action-hover shadow-sm shadow-accent/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
                 >
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <ExternalLink className="w-3.5 h-3.5 shrink-0 text-accent-action-foreground" aria-hidden="true" />
                   <span>{t("demoButton")}</span>
                 </a>
               </div>
@@ -367,7 +367,7 @@ export default function Projects() {
         <button
           type="button"
           onClick={handlePrev}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
           aria-label={t("previousProject")}
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
@@ -394,7 +394,7 @@ export default function Projects() {
         <button
           type="button"
           onClick={handleNext}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-border-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
           aria-label={t("nextProject")}
         >
           <ChevronRight className="h-5 w-5" aria-hidden="true" />
@@ -468,7 +468,7 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("viewSourceCode", { title: project.title })}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs sm:text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:border-border-hover"
+                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs sm:text-sm font-medium text-foreground transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent"
                 >
                   <GithubIcon className="w-4 h-4 shrink-0 text-foreground" />
                   <span>{t("codeButton")}</span>
@@ -478,9 +478,9 @@ export default function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t("viewLiveDemo", { title: project.title })}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs sm:text-sm font-semibold text-accent-action-foreground transition-colors hover:bg-accent-action-hover shadow-sm"
+                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs sm:text-sm font-semibold text-accent-action-foreground transition-all hover:bg-accent-action-hover shadow-sm shadow-accent/15"
                 >
-                  <ExternalLink className="w-4 h-4 shrink-0 text-background" aria-hidden="true" />
+                  <ExternalLink className="w-4 h-4 shrink-0 text-accent-action-foreground" aria-hidden="true" />
                   <span>{t("demoButton")}</span>
                 </a>
               </div>
