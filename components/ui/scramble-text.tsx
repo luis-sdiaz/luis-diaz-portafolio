@@ -103,6 +103,12 @@ export function ScrambleText({
     };
   }, [trigger, startScramble]);
 
+  useEffect(() => {
+    if (!isAnimatingRef.current) {
+      setDisplayText(text);
+    }
+  }, [text]);
+
   const handleMouseEnter = () => {
     if (trigger === "hover" || !isAnimatingRef.current) {
       startScramble();

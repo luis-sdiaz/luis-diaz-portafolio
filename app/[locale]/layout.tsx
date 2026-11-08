@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ThemeFlickerGuard } from "@/components/providers/ThemeFlickerGuard";
 import { routing, type Locale } from "@/i18n/routing";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import "./../globals.css";
 
@@ -117,13 +119,21 @@ export default async function LocalizedRootLayout({
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
+  setRequestLocale(locale);
   const messages = await getMessages();
 
+  // Leer preferencia de tema guardada en cookies para evitar desincronización de clase en HTML durante navegación
+  const cookieStore = await cookies();
+  const themePref = cookieStore.get("theme-preference")?.value;
+  const isDark = themePref === "dark";
+  const htmlClass = `scroll-pt-20 ${isDark ? "dark" : ""}`.trim();
+
   return (
-    <html lang={locale} className="scroll-pt-20" suppressHydrationWarning>
+    <html lang={locale} className={htmlClass} suppressHydrationWarning>
       <body
         className={`${inter.variable} min-h-screen bg-background font-sans text-foreground antialiased selection:bg-foreground selection:text-background transition-colors duration-300`}
       >
+        <ThemeFlickerGuard />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"

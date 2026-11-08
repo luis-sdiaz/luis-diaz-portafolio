@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useTransition } from "react";
-import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, getPathname } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
+import { syncThemeCookie } from "@/lib/theme-cookie";
 
 export interface LanguageSwitcherProps {
   className?: string;
@@ -25,16 +25,14 @@ export function LanguageSwitcher({
     if (nextLocale === currentLocale || isPending) return;
 
     onLocaleChange?.();
+    syncThemeCookie();
 
     const search = typeof window !== "undefined" ? window.location.search : "";
     const hash = typeof window !== "undefined" ? window.location.hash : "";
-
-    // Obtener ruta base oficial localizada según routing.ts
-    const targetPath = getPathname({ href: pathname, locale: nextLocale });
-    const fullTarget = `${targetPath}${search}${hash}`;
+    const target = `${pathname}${search}${hash}`;
 
     startTransition(() => {
-      router.replace(fullTarget);
+      router.replace(target, { locale: nextLocale });
     });
   };
 

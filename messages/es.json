@@ -25,6 +25,7 @@
     "frameworks": "Next.js 16 + React 19",
     "architecture": "CÓDIGO & ARQUITECTURA SOSTENIBLE",
     "distributedArchitecture": "CORE DE ARQUITECTURA DISTRIBUIDA",
+    "photoAlt": "Retrato de Luis Sebastián Díaz",
     "toast": {
       "title": "cv.pdf descargado",
       "description": "Hoja de vida descargada correctamente."

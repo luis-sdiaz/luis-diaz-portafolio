@@ -25,6 +25,7 @@ export interface ParticleNetworkProps {
   className?: string;
   nodeCount?: number;
   maxDistance?: number;
+  showMetrics?: boolean;
 }
 
 const DARK_COLORS = ["#fafafa", "#e4e4e7", "#d4d4d8", "#a1a1aa"];
@@ -34,6 +35,7 @@ export function ParticleNetwork({
   className = "w-full h-full",
   nodeCount = 48,
   maxDistance = 95,
+  showMetrics = true,
 }: ParticleNetworkProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { resolvedTheme } = useTheme();
@@ -302,17 +304,19 @@ export function ParticleNetwork({
       />
 
       {/* Indicadores de telemetría superpuestos en tiempo real */}
-      <div className="pointer-events-none absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <span className="flex h-2 w-2 rounded-full bg-foreground animate-pulse" />
-          <span>NODOS: {metrics.activeNodes}</span>
-          <span className="opacity-40">|</span>
-          <span className="text-foreground font-semibold">ENLACES: {metrics.linksCount}</span>
+      {showMetrics && (
+        <div className="pointer-events-none absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span className="flex h-2 w-2 rounded-full bg-foreground animate-pulse" />
+            <span>NODOS: {metrics.activeNodes}</span>
+            <span className="opacity-40">|</span>
+            <span className="text-foreground font-semibold">ENLACES: {metrics.linksCount}</span>
+          </div>
+          <div className="flex items-center gap-1.5 opacity-75">
+            <span>TX: 115200 BAUD</span>
+          </div>
         </div>
-        <div className="flex items-center gap-1.5 opacity-75">
-          <span>TX: 115200 BAUD</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useSyncExternalStore } from "react";
+import Image from "next/image";
 import {
   motion,
   useScroll,
@@ -15,8 +16,6 @@ import {
   Terminal,
   Cpu,
   Layers,
-  Sparkles,
-  Code2,
 } from "lucide-react";
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { ScrambleText } from "@/components/ui/scramble-text";
@@ -69,10 +68,44 @@ const badgeItemVariants: Variants = {
   },
 };
 
+// Estado persistente en la sesión de navegación del cliente para evitar destellos y reinicios de animación en cambio de idioma
+let hasHeroAnimatedInSession = false;
+const heroListeners = new Set<() => void>();
+
+function subscribeHero(callback: () => void) {
+  heroListeners.add(callback);
+  return () => {
+    heroListeners.delete(callback);
+  };
+}
+
+function getHeroSnapshot() {
+  return hasHeroAnimatedInSession;
+}
+
+function getServerSnapshot() {
+  return false;
+}
+
 export default function Hero() {
   const t = useTranslations("Hero");
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const hasAnimated = useSyncExternalStore(
+    subscribeHero,
+    getHeroSnapshot,
+    getServerSnapshot
+  );
+
+  useEffect(() => {
+    if (!hasHeroAnimatedInSession) {
+      hasHeroAnimatedInSession = true;
+      heroListeners.forEach((listener) => listener());
+    }
+  }, []);
+
+  // Si ya se ejecutó la animación de entrada en esta sesión (o reduced motion está activo), no esconder los elementos con initial="hidden"
+  const initialVariant = hasAnimated || shouldReduceMotion ? false : "hidden";
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -118,7 +151,7 @@ export default function Hero() {
         >
           <motion.div
             variants={containerVariants}
-            initial="hidden"
+            initial={initialVariant}
             animate="visible"
             className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
           >
@@ -187,7 +220,7 @@ export default function Hero() {
               {/* Insignias de Especialidad Escalonadas */}
               <motion.div
                 variants={badgesContainerVariants}
-                initial="hidden"
+                initial={initialVariant}
                 animate="visible"
                 className="pt-4 flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground"
               >
@@ -220,84 +253,40 @@ export default function Hero() {
               </motion.div>
             </div>
 
-            {/* Columna Derecha: Tarjeta Visual Interactiva */}
-            <div className="lg:col-span-5 flex justify-center items-center relative">
+            {/* Columna Derecha: Tarjeta Fotográfica Profesional & Fondo Ambiental */}
+            <div className="lg:col-span-5 flex justify-center items-center relative select-none">
+              {/* Capa de partículas ambiental conectada en el fondo del marco fotográfico */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-4 sm:-inset-8 z-0 overflow-hidden rounded-[32px] opacity-60 dark:opacity-75 transition-opacity"
+              >
+                <ParticleNetwork nodeCount={36} maxDistance={85} showMetrics={false} className="w-full h-full" />
+              </div>
+
               <motion.div
                 variants={itemVariants}
-                className="relative w-full max-w-[420px] aspect-[4/5] rounded-3xl p-1 border border-border bg-surface/75 backdrop-blur-xl shadow-2xl overflow-visible transition-colors duration-250"
+                className="group relative z-10 w-full max-w-[360px] sm:max-w-[400px] aspect-[3/4] sm:aspect-[4/5] rounded-3xl p-1.5 border border-border bg-surface/85 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-accent/40"
               >
-                {/* Marco de ingeniería */}
-                <div className="relative w-full h-full rounded-[22px] overflow-hidden border border-border/80 bg-background/50">
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-foreground/40 z-20"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-foreground/40 z-20"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-foreground/40 z-20"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-foreground/40 z-20"
+                {/* Marco fotográfico interno minimalista */}
+                <div className="relative w-full h-full rounded-[20px] sm:rounded-[22px] overflow-hidden border border-border/80 bg-surface-muted/50">
+                  {/* Fotografía profesional de Luis Sebastián Díaz */}
+                  <Image
+                    src="/images/foto-perfil.png"
+                    alt={t("photoAlt")}
+                    fill
+                    sizes="(max-width: 640px) 340px, (max-width: 1024px) 380px, 410px"
+                    priority
+                    quality={92}
+                    className="object-cover object-[center_18%] sm:object-[center_20%] select-none transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                    draggable={false}
                   />
 
-                  {/* Insignia Flotante Superior */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border bg-surface/90 backdrop-blur-md shadow-md font-mono text-[10px] sm:text-[11px] text-foreground font-semibold tracking-wider uppercase whitespace-nowrap">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-30" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-                    </span>
-                    <span>{t("distributedArchitecture")}</span>
-                  </div>
-
-                  {/* Lienzo de Nodos IoT */}
-                  <ParticleNetwork nodeCount={50} maxDistance={95} className="w-full h-full" />
+                  {/* Gradiente viñeta inferior sutil para fundir armónicamente la silueta en la base */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/70 via-background/15 to-transparent dark:from-[#09090b]/80 dark:via-[#09090b]/20 z-10"
+                  />
                 </div>
-
-                {/* Tarjetas Satélite Flotantes Perimetrales */}
-                <motion.div
-                  animate={shouldReduceMotion ? undefined : { y: [-5, 5, -5] }}
-                  transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                  className="absolute -top-3 -right-3 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-surface/95 text-[11px] font-mono text-foreground shadow-xl backdrop-blur-md transition-all duration-300 hover:border-border-hover cursor-default"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>Next.js 16</span>
-                </motion.div>
-
-                <motion.div
-                  animate={shouldReduceMotion ? undefined : { y: [5, -5, 5] }}
-                  transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                  className="absolute -bottom-3 -left-3 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-surface/95 text-[11px] font-mono text-foreground shadow-xl backdrop-blur-md transition-all duration-300 hover:border-border-hover cursor-default"
-                >
-                  <Cpu className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>ESP32 &amp; IoT</span>
-                </motion.div>
-
-                <motion.div
-                  animate={shouldReduceMotion ? undefined : { y: [4, -4, 4] }}
-                  transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                  className="absolute -top-3 -left-2 z-30 hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-surface/95 text-[11px] font-mono text-foreground shadow-xl backdrop-blur-md transition-all duration-300 hover:border-border-hover cursor-default"
-                >
-                  <Terminal className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>Tauri 2 + Rust</span>
-                </motion.div>
-
-                <motion.div
-                  animate={shouldReduceMotion ? undefined : { y: [-4, 4, -4] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                  className="absolute -bottom-3 -right-2 z-30 hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-surface/95 text-[11px] font-mono text-foreground shadow-xl backdrop-blur-md transition-all duration-300 hover:border-border-hover cursor-default"
-                >
-                  <Code2 className="w-3.5 h-3.5 text-foreground shrink-0" />
-                  <span>TypeScript 5</span>
-                </motion.div>
               </motion.div>
             </div>
           </motion.div>

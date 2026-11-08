@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useSyncExternalStore } from "react";
+import React, { useSyncExternalStore, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { syncThemeCookie } from "@/lib/theme-cookie";
 
 export interface ThemeToggleProps {
   className?: string;
@@ -27,8 +28,16 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
   const currentTheme = mounted ? (resolvedTheme || theme) : "light";
   const isDark = currentTheme === "dark";
 
+  useEffect(() => {
+    if (mounted) {
+      syncThemeCookie();
+    }
+  }, [mounted]);
+
   const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark");
+    const nextTheme = isDark ? "light" : "dark";
+    setTheme(nextTheme);
+    syncThemeCookie(nextTheme);
   };
 
   const label = !mounted
