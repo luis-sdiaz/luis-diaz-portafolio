@@ -76,15 +76,26 @@
   },
   "Skills": {
     "sectionLabel": "Capacidades Técnicas",
-    "title": "Stack de",
-    "titleHighlight": "Ingeniería",
-    "subtitle": "Ecosistema tecnológico modular enfocado en rendimiento, robustez de tipos y conectividad hardware.",
-    "activeTechnologies": "Tecnologías activas",
+    "title": "Tecnologías y",
+    "titleHighlight": "herramientas",
+    "subtitle": "Las herramientas que utilizo para crear interfaces, trabajar con datos y desarrollar soluciones conectadas.",
     "categories": {
-      "frontend": "Frontend & UI",
-      "desktop": "Desktop & IoT",
-      "backend": "Backend & Datos",
-      "quality": "Calidad & Entorno"
+      "frontend": {
+        "title": "Frontend & UI",
+        "description": "Interfaces web y experiencia de usuario."
+      },
+      "desktop": {
+        "title": "Desktop & IoT",
+        "description": "Software de escritorio y hardware conectado."
+      },
+      "backend": {
+        "title": "Backend & Datos",
+        "description": "Servicios, APIs y persistencia de datos."
+      },
+      "quality": {
+        "title": "Calidad & Entorno",
+        "description": "Pruebas y herramientas de desarrollo."
+      }
     }
   },
   "Projects": {

@@ -76,15 +76,26 @@
   },
   "Skills": {
     "sectionLabel": "Technical Capabilities",
-    "title": "Engineering",
-    "titleHighlight": "Stack",
-    "subtitle": "Modular technology ecosystem focused on performance, type robustness and hardware connectivity.",
-    "activeTechnologies": "Active technologies",
+    "title": "Technologies &",
+    "titleHighlight": "Tools",
+    "subtitle": "The tools I use to build interfaces, work with data, and develop connected solutions.",
     "categories": {
-      "frontend": "Frontend & UI",
-      "desktop": "Desktop & IoT",
-      "backend": "Backend & Data",
-      "quality": "Quality & Dev Tools"
+      "frontend": {
+        "title": "Frontend & UI",
+        "description": "Web interfaces and user experience."
+      },
+      "desktop": {
+        "title": "Desktop & IoT",
+        "description": "Desktop software and connected hardware."
+      },
+      "backend": {
+        "title": "Backend & Data",
+        "description": "Services, APIs, and data persistence."
+      },
+      "quality": {
+        "title": "Quality & Dev Tools",
+        "description": "Testing and development tools."
+      }
     }
   },
   "Projects": {
