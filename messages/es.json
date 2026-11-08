@@ -32,24 +32,47 @@
     }
   },
   "About": {
-    "sectionLabel": "Perfil Profesional",
-    "title": "Trayectoria, vocación y",
-    "titleHighlight": "pensamiento ingenieril",
-    "subtitle": "Conectando el software de alto rendimiento con sistemas físicos y necesidades reales.",
-    "bioTitle": "Soluciones digitales fundamentadas en rigor, arquitectura y propósito.",
-    "bio": "Soy Luis Sebastián Díaz, estudiante de 5° semestre de Ingeniería de Software en Pasto, Colombia. Me especializo en diseñar arquitecturas web modulares y en integrar microcontroladores IoT mediante sistemas embebidos como el ESP32. Aplico estándares estrictos de calidad, interfaces intuitivas con acabados de precisión y código tipado de extremo a extremo para resolver problemas reales con impacto comunitario.",
+    "sectionLabel": "Perfil profesional",
+    "title": "Sobre mí",
+    "subtitle": "Una mirada cercana a la persona, los intereses y las herramientas detrás de cada proyecto.",
+    "gallery": {
+      "roleDescription": "carrusel fotográfico",
+      "label": "Momentos personales de Luis Sebastián Díaz",
+      "instructions": "La galería avanza automáticamente. Usa las flechas izquierda y derecha para cambiar de fotografía.",
+      "pause": "Pausar galería",
+      "resume": "Reanudar galería",
+      "caption": "Más allá del código",
+      "description": "Familia, afectos, deporte y experiencias que también forman parte de mi historia.",
+      "alts": [
+        "Fotografía grupal de un equipo de fútbol en una cancha al aire libre",
+        "Gato blanco y negro descansando en su rascador",
+        "Dos jóvenes con uniforme de campaña en un entorno rural",
+        "Joven con uniforme de campaña sentado en un entorno boscoso",
+        "Dos gatos blancos y negros descansando juntos",
+        "Pareja compartiendo un momento durante una celebración",
+        "Pareja sonriendo junta frente a la cámara",
+        "Niña sonriendo con gafas rosadas en forma de flores"
+      ]
+    },
+    "introEyebrow": "Hola, soy Luis",
+    "bioTitle": "Construyo software con curiosidad, criterio y propósito.",
+    "bio": "Soy Luis Sebastián Díaz, estudiante de quinto semestre de Ingeniería de Software en Pasto. Disfruto convertir necesidades reales en productos digitales claros y funcionales, desde interfaces web hasta soluciones conectadas con ESP32. Me interesa aprender de cada reto, cuidar los detalles y construir tecnología útil para las personas.",
     "facts": {
       "locationLabel": "Ubicación",
       "locationValue": "Pasto, Nariño, Colombia",
-      "educationLabel": "Formación",
-      "educationValue": "5° Semestre — Ing. de Software",
-      "focusLabel": "Enfoque Técnico",
-      "focusValue": "Web Escalable & Hardware IoT",
-      "statusLabel": "Disponibilidad",
-      "statusValue": "Desarrollo de Soluciones de Impacto"
+      "semesterLabel": "Semestre",
+      "semesterValue": "5.º · Ingeniería de Software",
+      "interestsLabel": "Intereses",
+      "interestsValue": "Tecnología, fútbol y aprendizaje"
     },
-    "ecosystemTitle": "Ecosistema Tecnológico de Producción",
-    "ecosystemSubtitle": "Despliegue continuo de librerías, protocolos embebidos y frameworks modernos"
+    "frameworksTitle": "Frameworks que utilizo",
+    "frameworksSubtitle": "Herramientas base de mis proyectos actuales",
+    "frameworksAriaLabel": "Frameworks utilizados actualmente",
+    "frameworkCategories": {
+      "web": "Framework web",
+      "css": "Framework CSS",
+      "desktop": "Framework desktop"
+    }
   },
   "Skills": {
     "sectionLabel": "Capacidades Técnicas",
@@ -280,19 +303,6 @@
       "experience": "Experiencia",
       "contact": "Contacto"
     }
-  },
-  "Terminal": {
-    "telemetryTab": "Telemetría",
-    "architectureTab": "Arquitectura",
-    "pauseStreaming": "Pausar streaming",
-    "resumeStreaming": "Reanudar streaming",
-    "pause": "Pausar",
-    "resume": "Reanudar",
-    "resetLogs": "Reiniciar logs",
-    "resetConsole": "Reiniciar consola",
-    "copyJson": "Copiar JSON de arquitectura",
-    "copied": "Copiado",
-    "copy": "Copiar"
   },
   "ThemeToggle": {
     "toggleTheme": "Alternar tema visual",

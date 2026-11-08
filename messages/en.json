@@ -32,24 +32,47 @@
     }
   },
   "About": {
-    "sectionLabel": "Professional Profile",
-    "title": "Background, passion and",
-    "titleHighlight": "engineering mindset",
-    "subtitle": "Connecting high-performance software with physical systems and real-world needs.",
-    "bioTitle": "Digital solutions grounded in rigor, architecture and purpose.",
-    "bio": "I'm Luis Sebastián Díaz, a 5th-semester Software Engineering student based in Pasto, Colombia. I specialize in designing modular web architectures and integrating IoT microcontrollers through embedded systems like the ESP32. I apply strict quality standards, intuitive interfaces with precision-crafted UI, and end-to-end typed code to solve real problems with community impact.",
+    "sectionLabel": "Professional profile",
+    "title": "About me",
+    "subtitle": "A closer look at the person, interests, and tools behind each project.",
+    "gallery": {
+      "roleDescription": "photo carousel",
+      "label": "Personal moments from Luis Sebastián Díaz's life",
+      "instructions": "The gallery advances automatically. Use the left and right arrows to change photos.",
+      "pause": "Pause gallery",
+      "resume": "Resume gallery",
+      "caption": "Beyond the code",
+      "description": "Family, loved ones, sports, and experiences that are also part of my story.",
+      "alts": [
+        "Group photo of a soccer team on an outdoor field",
+        "Black and white cat resting in a cat tree",
+        "Two young people in field uniforms in a rural setting",
+        "Young person in a field uniform sitting in a forest setting",
+        "Two black and white cats resting together",
+        "A couple sharing a moment during a celebration",
+        "A couple smiling together at the camera",
+        "Young girl smiling in pink flower-shaped sunglasses"
+      ]
+    },
+    "introEyebrow": "Hi, I'm Luis",
+    "bioTitle": "I build software with curiosity, care, and purpose.",
+    "bio": "I'm Luis Sebastián Díaz, a fifth-semester Software Engineering student in Pasto. I enjoy turning real needs into clear, functional digital products, from web interfaces to ESP32-connected solutions. Every challenge is an opportunity to learn, refine the details, and build technology that is genuinely useful to people.",
     "facts": {
       "locationLabel": "Location",
       "locationValue": "Pasto, Nariño, Colombia",
-      "educationLabel": "Education",
-      "educationValue": "5th Semester — Software Eng.",
-      "focusLabel": "Technical Focus",
-      "focusValue": "Scalable Web & IoT Hardware",
-      "statusLabel": "Availability",
-      "statusValue": "Building High-Impact Solutions"
+      "semesterLabel": "Semester",
+      "semesterValue": "5th · Software Engineering",
+      "interestsLabel": "Interests",
+      "interestsValue": "Technology, football and learning"
     },
-    "ecosystemTitle": "Production Technology Ecosystem",
-    "ecosystemSubtitle": "Continuous deployment of libraries, embedded protocols and modern frameworks"
+    "frameworksTitle": "Frameworks I use",
+    "frameworksSubtitle": "Core tools in my current projects",
+    "frameworksAriaLabel": "Frameworks currently in use",
+    "frameworkCategories": {
+      "web": "Web framework",
+      "css": "CSS framework",
+      "desktop": "Desktop framework"
+    }
   },
   "Skills": {
     "sectionLabel": "Technical Capabilities",
@@ -280,19 +303,6 @@
       "experience": "Experience",
       "contact": "Contact"
     }
-  },
-  "Terminal": {
-    "telemetryTab": "Telemetry",
-    "architectureTab": "Architecture",
-    "pauseStreaming": "Pause streaming",
-    "resumeStreaming": "Resume streaming",
-    "pause": "Pause",
-    "resume": "Resume",
-    "resetLogs": "Reset logs",
-    "resetConsole": "Reset console",
-    "copyJson": "Copy architecture JSON",
-    "copied": "Copied",
-    "copy": "Copy"
   },
   "ThemeToggle": {
     "toggleTheme": "Toggle visual theme",
