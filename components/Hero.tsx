@@ -6,6 +6,8 @@ import {
   motion,
   useScroll,
   useTransform,
+  useMotionValue,
+  useSpring,
   useReducedMotion,
   type Variants,
 } from "framer-motion";
@@ -64,12 +66,37 @@ function getServerSnapshot() {
 export default function Hero() {
   const t = useTranslations("Hero");
   const sectionRef = useRef<HTMLElement>(null);
+  const photoCardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const hasAnimated = useSyncExternalStore(
     subscribeHero,
     getHeroSnapshot,
     getServerSnapshot
   );
+
+  // Inclinación 3D sutil (máximo ~5° por eje) inspirada en 3D Card
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 220, damping: 25, mass: 0.5 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), springConfig);
+
+  const handlePhotoMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion || !photoCardRef.current) return;
+    if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: none)").matches) return;
+    const rect = photoCardRef.current.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(xPct);
+    mouseY.set(yPct);
+  };
+
+  const handlePhotoMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   useEffect(() => {
     if (!hasHeroAnimatedInSession) {
@@ -202,30 +229,44 @@ export default function Hero() {
                 <ParticleNetwork nodeCount={32} maxDistance={80} showMetrics={false} className="w-full h-full" />
               </div>
 
+              {/* Contenedor con animación de entrada del Hero y perspectiva 3D */}
               <motion.div
                 variants={itemVariants}
-                className="group relative z-10 w-full max-w-[310px] sm:max-w-[340px] lg:max-w-[360px] aspect-[3/4] sm:aspect-[4/5] rounded-3xl p-1.5 border border-border bg-surface/85 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:border-accent/40"
+                className="relative z-10 w-full max-w-[310px] sm:max-w-[340px] lg:max-w-[360px] [perspective:1000px]"
               >
-                {/* Marco fotográfico interno minimalista */}
-                <div className="relative w-full h-full rounded-[20px] sm:rounded-[22px] overflow-hidden border border-border/80 bg-surface-muted/50">
-                  {/* Fotografía profesional de Luis Sebastián Díaz */}
-                  <Image
-                    src="/images/foto-perfil.png"
-                    alt={t("photoAlt")}
-                    fill
-                    sizes="(max-width: 640px) 310px, (max-width: 1024px) 340px, 360px"
-                    priority
-                    quality={92}
-                    className="object-cover object-[center_18%] sm:object-[center_20%] select-none transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-                    draggable={false}
-                  />
+                {/* Tarjeta fotográfica con efecto 3D sutil (inclinación suave máx 5°) */}
+                <motion.div
+                  ref={photoCardRef}
+                  onMouseMove={handlePhotoMouseMove}
+                  onMouseLeave={handlePhotoMouseLeave}
+                  style={{
+                    rotateX: shouldReduceMotion ? 0 : rotateX,
+                    rotateY: shouldReduceMotion ? 0 : rotateY,
+                    transformStyle: "preserve-3d",
+                  }}
+                  className="group relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-3xl p-1.5 border border-border bg-surface/85 backdrop-blur-xl shadow-2xl transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-accent/5 transform-gpu will-change-transform"
+                >
+                  {/* Marco fotográfico interno minimalista */}
+                  <div className="relative w-full h-full rounded-[20px] sm:rounded-[22px] overflow-hidden border border-border/80 bg-surface-muted/50 [transform:translateZ(0)]">
+                    {/* Fotografía profesional de Luis Sebastián Díaz */}
+                    <Image
+                      src="/images/foto-perfil.png"
+                      alt={t("photoAlt")}
+                      fill
+                      sizes="(max-width: 640px) 310px, (max-width: 1024px) 340px, 360px"
+                      priority
+                      quality={92}
+                      className="object-cover object-[center_18%] sm:object-[center_20%] select-none transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                      draggable={false}
+                    />
 
-                  {/* Gradiente viñeta inferior sutil para fundir armónicamente la silueta en la base */}
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 via-background/15 to-transparent dark:from-[#09090b]/80 dark:via-[#09090b]/20 z-10"
-                  />
-                </div>
+                    {/* Gradiente viñeta inferior sutil para fundir armónicamente la silueta en la base */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 via-background/15 to-transparent dark:from-[#09090b]/80 dark:via-[#09090b]/20 z-10"
+                    />
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>
