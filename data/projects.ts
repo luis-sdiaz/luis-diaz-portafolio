@@ -1,74 +1,117 @@
-export type ProjectCategory = "all" | "desktop-iot" | "fullstack-web";
+export type ProjectCategory =
+  | "desktop-iot"
+  | "mobile"
+  | "wearable"
+  | "game"
+  | "fullstack-game"
+  | "web-audio";
+
+export type RepositoryKind = "code" | "frontend" | "backend";
+
+export interface ProjectRepository {
+  kind: RepositoryKind;
+  url: string;
+}
 
 export interface Project {
   id: string;
   title: string;
   tags: string[];
-  githubUrl: string;
-  liveUrl: string;
+  repositories: ProjectRepository[];
+  liveUrl: string | null;
+  imageSrc: string | null;
   category: ProjectCategory;
-  featured: boolean;
+  collaborative?: boolean;
 }
-
-export const PROJECT_CATEGORY_IDS: readonly ProjectCategory[] = [
-  "all",
-  "desktop-iot",
-  "fullstack-web",
-];
 
 export const PROJECTS: Project[] = [
   {
     id: "ecoplaza-iot-desktop",
     title: "EcoPlaza IoT & Desktop",
     tags: ["Tauri 2", "Rust", "ESP32", "React", "TypeScript", "PostgreSQL"],
-    githubUrl: "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform",
-    liveUrl: "https://ecoplaza.luis-diaz.dev",
+    repositories: [
+      {
+        kind: "code",
+        url: "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform",
+      },
+    ],
+    liveUrl: null,
+    imageSrc: null,
     category: "desktop-iot",
-    featured: true,
   },
   {
     id: "visual-trace-mobile",
     title: "VisualTrace Mobile",
-    tags: [
-      "React Native",
-      "TypeScript",
-      "Mobile UX",
-      "Tailwind CSS",
-      "REST APIs",
+    tags: ["Expo", "React Native", "TypeScript", "Supabase", "PostgreSQL"],
+    repositories: [
+      {
+        kind: "code",
+        url: "https://github.com/luis-sdiaz/visual-trace-mobile",
+      },
     ],
-    githubUrl: "https://github.com/luis-sdiaz/visual-trace-mobile",
-    liveUrl: "https://github.com/luis-sdiaz/visual-trace-mobile",
-    category: "fullstack-web",
-    featured: true,
+    liveUrl: null,
+    imageSrc: null,
+    category: "mobile",
   },
   {
     id: "ridewake-platform",
     title: "RideWake",
-    tags: [
-      "TypeScript",
-      "Next.js 16",
-      "Geolocation",
-      "Tailwind CSS",
-      "PostgreSQL",
+    tags: ["Kotlin", "Jetpack Compose", "Wear OS", "Material 3", "Android SDK"],
+    repositories: [
+      {
+        kind: "code",
+        url: "https://github.com/luis-sdiaz/ridewake-ai-wearos",
+      },
     ],
-    githubUrl: "https://github.com/luis-sdiaz/ridewake-ai-wearos",
-    liveUrl: "https://github.com/luis-sdiaz/ridewake",
-    category: "fullstack-web",
-    featured: false,
+    liveUrl: null,
+    imageSrc: null,
+    category: "wearable",
   },
   {
     id: "lullaby-3d-game",
     title: "Lullaby 3D",
-    tags: [
-      "TypeScript",
-      "Three.js / WebGL",
-      "3D Physics",
-      "State Machines",
-      "Game Loop",
+    tags: ["Godot 4.7", "C#", "Blender", "Krita"],
+    repositories: [
+      {
+        kind: "code",
+        url: "https://github.com/AlePython-byte/LULLABY",
+      },
     ],
-    githubUrl: "https://github.com/AlePython-byte/LULLABY",
-    liveUrl: "https://github.com/AlePython-byte/LULLABY",
-    category: "desktop-iot",
-    featured: true,
+    liveUrl: null,
+    imageSrc: null,
+    category: "game",
+    collaborative: true,
+  },
+  {
+    id: "legado-de-valientes",
+    title: "Legado de Valientes",
+    tags: ["React", "TypeScript", "Phaser 3", "Java 21", "Spring Boot", "MongoDB"],
+    repositories: [
+      {
+        kind: "frontend",
+        url: "https://github.com/luis-sdiaz/Legado_de_valientes_frontend",
+      },
+      {
+        kind: "backend",
+        url: "https://github.com/luis-sdiaz/Legado_de_valientes_backend",
+      },
+    ],
+    liveUrl: "https://legado-de-valientes-frontend.vercel.app",
+    imageSrc: null,
+    category: "fullstack-game",
+  },
+  {
+    id: "music-player",
+    title: "Reproductor de Música",
+    tags: ["React", "TypeScript", "Vite", "CSS Modules", "HTML5 Audio"],
+    repositories: [
+      {
+        kind: "code",
+        url: "https://github.com/luis-sdiaz/Reproductor-de-musica",
+      },
+    ],
+    liveUrl: "https://musica.luis-diaz.dev",
+    imageSrc: null,
+    category: "web-audio",
   },
 ];

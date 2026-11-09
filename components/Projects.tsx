@@ -1,43 +1,44 @@
 "use client";
 
-import { useState, useMemo, useCallback, useSyncExternalStore } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import {
-  ExternalLink,
-  Terminal,
   Cpu,
-  Globe,
-  Sparkles,
-  Smartphone,
+  Eye,
   Gamepad2,
-  Activity,
-  ChevronLeft,
-  ChevronRight,
+  Music2,
+  Pause,
+  Play,
+  Smartphone,
+  Sparkles,
+  Swords,
+  Terminal,
+  Watch,
 } from "lucide-react";
 import {
-  PROJECTS,
-  type ProjectCategory,
-  type Project,
-} from "@/data/projects";
-import { ScrambleText } from "@/components/ui/scramble-text";
+  useCallback,
+  useState,
+  useSyncExternalStore,
+  type CSSProperties,
+} from "react";
+import { PROJECTS, type ProjectCategory } from "@/data/projects";
 import { useTranslations } from "next-intl";
+import ProjectDetailsModal from "@/components/ProjectDetailsModal";
 
-function GithubIcon({ className = "w-4 h-4 shrink-0" }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
-    </svg>
-  );
+type RingTrackStyle = CSSProperties & { "--quantity": number };
+type RingCardStyle = CSSProperties & { "--index": number };
+
+function subscribeToReducedMotion(callback: () => void) {
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mediaQuery.addEventListener("change", callback);
+  return () => mediaQuery.removeEventListener("change", callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
 }
 
 function getProjectIcon(id: string) {
@@ -47,447 +48,425 @@ function getProjectIcon(id: string) {
     case "visual-trace-mobile":
       return Smartphone;
     case "ridewake-platform":
-      return Globe;
+      return Watch;
     case "lullaby-3d-game":
       return Gamepad2;
+    case "legado-de-valientes":
+      return Swords;
+    case "music-player":
+      return Music2;
     default:
       return Terminal;
   }
 }
 
-function subscribeToReducedMotion(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  mediaQuery.addEventListener("change", callback);
-  return () => mediaQuery.removeEventListener("change", callback);
-}
-
-function getReducedMotionSnapshot(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function getReducedMotionServerSnapshot(): boolean {
-  return false;
-}
-
 export default function Projects() {
   const t = useTranslations("Projects");
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all");
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-
   const prefersReducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   );
+  const [isPausedByUser, setIsPausedByUser] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState(PROJECTS[0].id);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-  const projectCategories = [
-    { id: "all" as ProjectCategory, label: t("filterAll") },
-    { id: "desktop-iot" as ProjectCategory, label: t("filterDesktop") },
-    { id: "fullstack-web" as ProjectCategory, label: t("filterWeb") },
-  ];
+  const selectedProject =
+    PROJECTS.find((project) => project.id === selectedProjectId) ?? PROJECTS[0];
+  const isRingPaused =
+    isPausedByUser || prefersReducedMotion || isDetailsOpen;
 
-  const filteredProjects: Project[] = useMemo(() => {
-    if (activeCategory === "all") return PROJECTS;
-    return PROJECTS.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+  const getCategoryLabel = (category: ProjectCategory) =>
+    t(`categories.${category}` as Parameters<typeof t>[0]);
 
-  const safeActiveIndex =
-    activeIndex >= filteredProjects.length ? 0 : activeIndex;
+  const openProjectDetails = useCallback((projectId: string) => {
+    setSelectedProjectId(projectId);
+    setIsDetailsOpen(true);
+  }, []);
 
-  const handleCategorySelect = (categoryId: ProjectCategory) => {
-    setActiveCategory(categoryId);
-    setActiveIndex(0);
-  };
+  const closeProjectDetails = useCallback(() => {
+    setIsDetailsOpen(false);
+  }, []);
 
-  const handlePrev = useCallback(() => {
-    setActiveIndex((current) =>
-      current === 0 ? filteredProjects.length - 1 : current - 1
-    );
-  }, [filteredProjects.length]);
-
-  const handleNext = useCallback(() => {
-    setActiveIndex((current) =>
-      current === filteredProjects.length - 1 ? 0 : current + 1
-    );
-  }, [filteredProjects.length]);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        handlePrev();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        handleNext();
-      }
-    },
-    [handlePrev, handleNext]
-  );
-
-  const getCategoryLabel = (category: ProjectCategory) => {
-    return category === "desktop-iot"
-      ? t("categoryDesktop")
-      : t("categoryWeb");
-  };
+  const ringTrackStyle = {
+    "--quantity": PROJECTS.length,
+  } as RingTrackStyle;
 
   return (
     <section
-      id="proyectos"
-      className="relative mx-auto max-w-6xl scroll-mt-20 px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20 overflow-hidden"
+      className="relative mx-auto max-w-7xl overflow-hidden px-4 pb-12 pt-14 sm:px-6 sm:pb-16 sm:pt-18 lg:px-8 lg:pb-18 lg:pt-20"
       aria-label={t("sectionAriaLabel")}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
     >
-      {/* Encabezado de Sección */}
-      <div className="mx-auto max-w-3xl text-center">
+      {/* Encabezado y ancla conservados de la Fase 1 */}
+      <div id="proyectos" className="mx-auto max-w-3xl text-center">
         <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
           <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           <span>{t("sectionLabel")}</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground">
-          <ScrambleText text={t("titlePart1")} trigger="view" />
-          <span className="bg-gradient-to-r from-foreground via-zinc-600 to-muted-foreground dark:from-foreground dark:via-zinc-300 dark:to-zinc-500 bg-clip-text text-transparent">
-            <ScrambleText text={t("titlePart2")} trigger="view" />
-          </span>
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+          <span>{t("titlePart1")}</span>
+          <span className="text-accent">{t("titlePart2")}</span>
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
           {t("subtitle")}
         </p>
       </div>
 
-      {/* Pestañas de Filtro de Categoría */}
-      <div className="mt-6 flex justify-center">
-        <nav
-          className="inline-flex rounded-2xl border border-border bg-surface p-1 shadow-md backdrop-blur-md"
-          role="tablist"
-          aria-label={t("filterLabel")}
-        >
-          {projectCategories.map((tab) => {
-            const isActive = activeCategory === tab.id;
-            return (
-              <button
-                key={tab.id}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls="projects-stage"
-                onClick={() => handleCategorySelect(tab.id)}
-                className={`relative rounded-xl px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring sm:text-sm cursor-pointer ${
-                  isActive ? "text-accent-action-foreground" : "text-muted-foreground hover:text-accent-hover dark:hover:text-accent"
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeProjectsFilter"
-                    className="absolute inset-0 rounded-xl bg-accent-action shadow-sm"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.label}</span>
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-
-      {/* Escenario 3D Exclusivo de Tarjetas (Desktop > 768px) */}
-      <div
-        id="projects-stage"
-        className="relative mt-8 sm:mt-10 hidden h-[480px] w-full max-w-5xl mx-auto items-center justify-center overflow-visible md:flex"
-        style={{
-          perspective: "1200px",
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {filteredProjects.map((project, i) => {
-          const total = filteredProjects.length;
-          let diff = (i - safeActiveIndex) % total;
-          if (diff < -Math.floor(total / 2)) diff += total;
-          if (diff > Math.floor(total / 2)) diff -= total;
-
-          let translateX = 0;
-          let translateZ = 0;
-          let rotateY = 0;
-          let scale = 1;
-          let opacity = 1;
-          let zIndex = 30;
-
-          if (diff === 0) {
-            translateX = 0;
-            translateZ = 60;
-            rotateY = 0;
-            scale = 1.05;
-            opacity = 1;
-            zIndex = 30;
-          } else if (diff === -1) {
-            translateX = -335;
-            translateZ = -100;
-            rotateY = 20;
-            scale = 0.9;
-            opacity = 0.7;
-            zIndex = 20;
-          } else if (diff === 1) {
-            translateX = 335;
-            translateZ = -100;
-            rotateY = -20;
-            scale = 0.9;
-            opacity = 0.7;
-            zIndex = 20;
-          } else {
-            translateX = 0;
-            translateZ = -200;
-            rotateY = 0;
-            scale = 0.8;
-            opacity = 0.4;
-            zIndex = 10;
-          }
-
-          const isCurrent = diff === 0;
-          const ProjectIcon = getProjectIcon(project.id);
-          const description = t(`descriptions.${project.id}` as Parameters<typeof t>[0]);
-          const metric = t(`metrics.${project.id}` as Parameters<typeof t>[0]);
-
-          return (
-            <div
-              key={project.id}
-              onClick={() => setActiveIndex(i)}
-              className={`card group absolute flex h-[415px] w-[340px] md:w-[365px] cursor-pointer flex-col justify-between rounded-2xl border px-5 py-4.5 backdrop-blur-xl shadow-xl transition-all duration-500 select-none ${
-                isCurrent
-                  ? "border-accent bg-surface shadow-2xl ring-1 ring-accent/30"
-                  : "border-border bg-surface/90 hover:border-border-hover hover:opacity-95 shadow-md"
-              }`}
-              style={{
-                transform: prefersReducedMotion
-                  ? "none"
-                  : `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
-                transformStyle: "preserve-3d",
-                backfaceVisibility: "hidden",
-                WebkitBackfaceVisibility: "hidden",
-                opacity,
-                zIndex,
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={t("selectProject", { title: project.title })}
-              aria-pressed={isCurrent}
-            >
-              {/* Acento superior de brillo monocromático en la tarjeta */}
-              <div
-                className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-accent via-accent/40 to-transparent transition-opacity ${
-                  isCurrent ? "opacity-100" : "opacity-30"
-                }`}
-              />
-
-              {/* Encabezado: Icono Temático y Badge de Estado */}
-              <div className="flex items-center justify-between">
-                <div
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
-                    isCurrent
-                      ? "border-accent/40 bg-accent-muted text-accent"
-                      : "border-border bg-surface-muted text-muted-foreground"
-                  }`}
-                >
-                  <ProjectIcon className="h-5 w-5" aria-hidden="true" />
-                </div>
-
-                <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-foreground">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-                  </span>
-                  <span>{t("inProduction")}</span>
-                </span>
-              </div>
-
-              {/* Categoría, Título y Métrica Técnica */}
-              <div className="my-auto py-2">
-                <span className="inline-block rounded-md border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-                  {getCategoryLabel(project.category)}
-                </span>
-
-                <h3 className="mt-1.5 text-xl font-bold tracking-tight text-foreground line-clamp-1">
-                  {project.title}
-                </h3>
-
-                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground">
-                  <Activity className="h-3.5 w-3.5 text-foreground shrink-0" aria-hidden="true" />
-                  <span className="truncate">{metric}</span>
-                </div>
-
-                <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground line-clamp-2 sm:line-clamp-3">
-                  {description}
-                </p>
-
-                {/* Chips de Tecnologías */}
-                <div className="mt-3.5 flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-md border border-border bg-surface-muted px-2 py-0.5 font-mono text-[10px] text-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Botones de Acción */}
-              <div className="border-t border-border pt-3.5 flex items-center gap-3">
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("viewSourceCode", { title: project.title })}
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs font-medium text-foreground transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                >
-                  <GithubIcon className="w-3.5 h-3.5 shrink-0" />
-                  <span>{t("codeButton")}</span>
-                </a>
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("viewLiveDemo", { title: project.title })}
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex-1 h-9 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs font-semibold text-accent-action-foreground transition-all hover:bg-accent-action-hover shadow-sm shadow-accent/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0 text-accent-action-foreground" aria-hidden="true" />
-                  <span>{t("demoButton")}</span>
-                </a>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Controles del Escenario: Paginación y Botones Prev/Next */}
-      <div className="mt-6 hidden md:flex items-center justify-center gap-6">
-        <button
-          type="button"
-          onClick={handlePrev}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
-          aria-label={t("previousProject")}
-        >
-          <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-        </button>
-
-        <div className="flex items-center gap-2" role="tablist" aria-label={t("selectSlide")}>
-          {filteredProjects.map((_, dotIdx) => (
-            <button
-              key={dotIdx}
-              type="button"
-              role="tab"
-              aria-selected={dotIdx === safeActiveIndex}
-              onClick={() => setActiveIndex(dotIdx)}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                dotIdx === safeActiveIndex
-                ? "w-8 bg-accent shadow-sm"
-                  : "w-2 bg-border hover:bg-muted-foreground"
-              }`}
-              aria-label={t("goToProject", { number: dotIdx + 1 })}
-            />
-          ))}
+      <div className="ring-shell mx-auto mt-7 max-w-6xl rounded-3xl border border-accent/25 bg-surface/70 p-3 shadow-xl shadow-zinc-950/5 backdrop-blur-sm dark:shadow-black/25 sm:mt-8 sm:p-4">
+        <div className="flex flex-col gap-1 px-2 pt-1 text-center sm:px-4">
+          <h3 className="text-base font-bold text-foreground sm:text-lg">
+            {t("ringTitle")}
+          </h3>
+          <p className="mx-auto max-w-2xl text-xs leading-relaxed text-muted-foreground sm:text-sm">
+            {t("ringDescription")}
+          </p>
         </div>
 
-        <button
-          type="button"
-          onClick={handleNext}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground shadow-sm transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
-          aria-label={t("nextProject")}
+        <div className="ring-viewport relative mt-2 overflow-hidden">
+          <div
+            className="ring-track"
+            data-paused={isRingPaused}
+            style={ringTrackStyle}
+          >
+            {PROJECTS.map((project, index) => {
+              const ProjectIcon = getProjectIcon(project.id);
+              const cardStyle = { "--index": index } as RingCardStyle;
+
+              return (
+                <button
+                  key={project.id}
+                  type="button"
+                  className="ring-card"
+                  data-selected={project.id === selectedProjectId}
+                  style={cardStyle}
+                  onClick={() => openProjectDetails(project.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      openProjectDetails(project.id);
+                    }
+                  }}
+                  aria-label={t("ringCardAria", { title: project.title })}
+                  aria-haspopup="dialog"
+                  aria-controls="project-details-dialog"
+                >
+                  <div className="ring-card-media">
+                    {project.imageSrc ? (
+                      <Image
+                        src={project.imageSrc}
+                        alt=""
+                        fill
+                        sizes="160px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="ring-card-fallback">
+                        <ProjectIcon aria-hidden="true" />
+                        <span>{t("screenshotPending")}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="ring-card-copy">
+                    <span>{getCategoryLabel(project.category)}</span>
+                    <strong>{project.title}</strong>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div
+          className="ring-controls mx-auto flex max-w-4xl flex-col items-stretch justify-center gap-2 rounded-2xl border border-border bg-surface p-2.5 shadow-sm sm:flex-row sm:items-center sm:p-3"
+          role="group"
+          aria-label={t("ringTitle")}
         >
-          <ChevronRight className="h-5 w-5" aria-hidden="true" />
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={() => setIsPausedByUser((paused) => !paused)}
+            disabled={prefersReducedMotion}
+            aria-pressed={isRingPaused}
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent-muted px-3 text-xs font-semibold text-accent-hover transition-colors hover:border-accent/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring disabled:cursor-not-allowed disabled:opacity-65 dark:text-accent"
+          >
+            {isRingPaused ? (
+              <Play className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Pause className="h-4 w-4" aria-hidden="true" />
+            )}
+            <span>
+              {prefersReducedMotion
+                ? t("motionReduced")
+                : isPausedByUser
+                  ? t("resumeRing")
+                  : t("pauseRing")}
+            </span>
+          </button>
 
-      {/* Vista Móvil y Tablet (<= 768px): Flujo Vertical Accesible */}
-      <div className="mt-6 flex flex-col gap-4 md:hidden">
-        {filteredProjects.map((project, idx) => {
-          const isSelected = idx === safeActiveIndex;
-          const ProjectIcon = getProjectIcon(project.id);
-          const description = t(`descriptions.${project.id}` as Parameters<typeof t>[0]);
-          const metric = t(`metrics.${project.id}` as Parameters<typeof t>[0]);
-
-          return (
-            <article
-              key={project.id}
-              onClick={() => setActiveIndex(idx)}
-              className={`flex flex-col justify-between rounded-2xl border p-4.5 sm:p-5 backdrop-blur-md transition-all ${
-                isSelected
-                  ? "border-accent bg-surface ring-1 ring-accent/30 shadow-lg"
-                  : "border-border bg-surface"
-              }`}
+          <label className="flex min-h-10 min-w-0 flex-1 items-center gap-2 rounded-xl border border-border bg-surface-muted px-3 text-xs font-semibold text-foreground sm:max-w-sm">
+            <span className="shrink-0 text-muted-foreground">
+              {t("projectSelectorLabel")}
+            </span>
+            <select
+              value={selectedProjectId}
+              onChange={(event) => setSelectedProjectId(event.target.value)}
+              className="project-select min-w-0 flex-1 cursor-pointer rounded-md bg-surface px-2 py-2 text-xs font-semibold text-foreground outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
             >
-              {/* Encabezado */}
-              <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground">
-                  <ProjectIcon className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-foreground">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-                  </span>
-                  <span>{t("inProduction")}</span>
-                </span>
-              </div>
-
-              {/* Detalles */}
-              <div className="my-4">
-                <span className="inline-block rounded-md border border-border bg-surface-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-                  {getCategoryLabel(project.category)}
-                </span>
-                <h3 className="mt-2 text-xl font-bold tracking-tight text-foreground">
+              {PROJECTS.map((project) => (
+                <option key={project.id} value={project.id}>
                   {project.title}
-                </h3>
-                <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-muted px-2.5 py-1 font-mono text-xs text-foreground">
-                  <Activity className="h-3.5 w-3.5 text-foreground shrink-0" aria-hidden="true" />
-                  <span className="truncate">{metric}</span>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {description}
-                </p>
+                </option>
+              ))}
+            </select>
+          </label>
 
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-md border border-border bg-surface-muted px-2 py-0.5 font-mono text-xs text-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Botones */}
-              <div className="border-t border-border pt-4 flex items-center gap-3">
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("viewSourceCode", { title: project.title })}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-xs sm:text-sm font-medium text-foreground transition-all hover:bg-surface-muted hover:border-accent/40 hover:text-accent-hover dark:hover:text-accent"
-                >
-                  <GithubIcon className="w-4 h-4 shrink-0 text-foreground" />
-                  <span>{t("codeButton")}</span>
-                </a>
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("viewLiveDemo", { title: project.title })}
-                  className="flex-1 h-10 inline-flex items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs sm:text-sm font-semibold text-accent-action-foreground transition-all hover:bg-accent-action-hover shadow-sm shadow-accent/15"
-                >
-                  <ExternalLink className="w-4 h-4 shrink-0 text-accent-action-foreground" aria-hidden="true" />
-                  <span>{t("demoButton")}</span>
-                </a>
-              </div>
-            </article>
-          );
-        })}
+          <button
+            type="button"
+            onClick={() => openProjectDetails(selectedProject.id)}
+            aria-controls="project-details-dialog"
+            aria-haspopup="dialog"
+            aria-label={t("viewDetailsAria", { title: selectedProject.title })}
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-accent-action px-4 text-xs font-bold text-accent-action-foreground shadow-sm transition-colors hover:bg-accent-action-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          >
+            <span>{t("viewDetails")}</span>
+            <Eye className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
       </div>
+
+      <ProjectDetailsModal
+        isOpen={isDetailsOpen}
+        project={selectedProject}
+        onClose={closeProjectDetails}
+      />
+
+      <style jsx>{`
+        .ring-viewport {
+          height: 315px;
+          perspective: 1000px;
+          perspective-origin: 50% 46%;
+        }
+
+        .ring-track {
+          --ring-card-width: 142px;
+          --ring-card-height: 178px;
+          --ring-radius: 220px;
+          position: absolute;
+          left: 50%;
+          top: 44%;
+          width: var(--ring-card-width);
+          height: var(--ring-card-height);
+          transform-style: preserve-3d;
+          animation: engineering-ring-spin 40s linear infinite;
+          will-change: transform;
+        }
+
+        .ring-track[data-paused="true"],
+        .ring-shell:has(:focus-visible) .ring-track {
+          animation-play-state: paused;
+        }
+
+        .project-select {
+          color-scheme: light;
+          background-color: var(--surface);
+          color: var(--foreground);
+        }
+
+        :global(.dark) .project-select {
+          color-scheme: dark;
+        }
+
+        .project-select :global(option) {
+          background-color: var(--surface);
+          color: var(--foreground);
+        }
+
+        .ring-card {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent);
+          border-radius: 16px;
+          background: var(--surface);
+          box-shadow: 0 18px 38px -24px rgba(9, 9, 11, 0.62);
+          backface-visibility: hidden;
+          transform: rotateY(calc((360deg / var(--quantity)) * var(--index)))
+            translateZ(var(--ring-radius));
+          transform-style: preserve-3d;
+          cursor: pointer;
+          padding: 0;
+          text-align: left;
+          outline: none;
+        }
+
+        .ring-card:focus-visible {
+          border-color: var(--accent);
+          box-shadow:
+            0 0 0 3px color-mix(in srgb, var(--focus-ring) 40%, transparent),
+            0 22px 42px -24px color-mix(in srgb, var(--accent) 58%, transparent);
+        }
+
+        .ring-card[data-selected="true"] {
+          border-color: var(--accent);
+          box-shadow:
+            0 0 0 1px color-mix(in srgb, var(--accent) 42%, transparent),
+            0 22px 42px -24px color-mix(in srgb, var(--accent) 58%, transparent);
+        }
+
+        .ring-card-media {
+          position: relative;
+          flex: 1;
+          overflow: hidden;
+          border-bottom: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+          background: var(--surface-muted);
+        }
+
+        .ring-card-fallback {
+          display: flex;
+          height: 100%;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px;
+          color: var(--accent);
+          background:
+            radial-gradient(circle at 80% 18%, var(--accent-muted), transparent 34%),
+            linear-gradient(145deg, var(--surface-muted), var(--surface));
+        }
+
+        .ring-card-fallback :global(svg) {
+          width: 24px;
+          height: 24px;
+        }
+
+        .ring-card-fallback span {
+          color: var(--muted-foreground);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+
+        .ring-card-copy {
+          display: flex;
+          min-height: 50px;
+          flex-direction: column;
+          justify-content: center;
+          gap: 3px;
+          padding: 9px 10px 10px;
+        }
+
+        .ring-card-copy span {
+          overflow: hidden;
+          color: var(--accent);
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-overflow: ellipsis;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .ring-card-copy strong {
+          display: -webkit-box;
+          overflow: hidden;
+          color: var(--foreground);
+          font-size: 11px;
+          font-weight: 800;
+          line-height: 1.2;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        @keyframes engineering-ring-spin {
+          from {
+            transform: translate(-50%, -50%) rotateX(-11deg) rotateY(0deg);
+          }
+          to {
+            transform: translate(-50%, -50%) rotateX(-11deg) rotateY(360deg);
+          }
+        }
+
+        @media (max-width: 1024px) {
+          .ring-viewport {
+            height: 292px;
+            perspective: 900px;
+          }
+
+          .ring-track {
+            --ring-card-width: 126px;
+            --ring-card-height: 158px;
+            --ring-radius: 185px;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .ring-viewport {
+            height: 258px;
+            perspective: 820px;
+          }
+
+          .ring-track {
+            --ring-card-width: 108px;
+            --ring-card-height: 138px;
+            --ring-radius: 142px;
+          }
+
+          .ring-card-copy {
+            min-height: 44px;
+            padding: 7px 8px 8px;
+          }
+
+          .ring-card-copy strong {
+            font-size: 10px;
+          }
+        }
+
+        @media (max-width: 430px) {
+          .ring-viewport {
+            height: 228px;
+            perspective: 760px;
+          }
+
+          .ring-track {
+            --ring-card-width: 94px;
+            --ring-card-height: 122px;
+            --ring-radius: 108px;
+          }
+
+          .ring-card-fallback :global(svg) {
+            width: 20px;
+            height: 20px;
+          }
+
+          .ring-card-fallback span {
+            font-size: 7px;
+          }
+
+          .ring-card-copy {
+            min-height: 40px;
+          }
+
+          .ring-card-copy span {
+            font-size: 6px;
+          }
+
+          .ring-card-copy strong {
+            font-size: 9px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ring-track {
+            animation: none;
+            transform: translate(-50%, -50%) rotateX(-11deg) rotateY(0deg);
+            will-change: auto;
+          }
+
+        }
+      `}</style>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, type MouseEvent } from "react";
 import { FileDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -23,6 +23,8 @@ export default function Navbar() {
   ];
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("#inicio");
+  const navbarRef = useRef<HTMLElement | null>(null);
+  const pendingNavigationRef = useRef<string | null>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -32,27 +34,97 @@ export default function Navbar() {
 
   useEffect(() => {
     const sectionIds = ["inicio", "sobre-mi", "proyectos", "experiencia", "contacto"];
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + 140;
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(`#${sectionIds[i]}`);
-          return;
+    let animationFrameId: number | null = null;
+
+    const updateActiveSection = () => {
+      const navbarHeight = navbarRef.current?.getBoundingClientRect().height ?? 0;
+      const scrollPaddingTop = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).scrollPaddingTop
+      ) || 0;
+      const activationLine = Math.max(navbarHeight, scrollPaddingTop);
+      let currentSection = sectionIds[0];
+
+      for (const sectionId of sectionIds) {
+        const section = document.getElementById(sectionId);
+        if (
+          section &&
+          Math.round(section.getBoundingClientRect().top) <= Math.round(activationLine)
+        ) {
+          currentSection = sectionId;
+        } else {
+          break;
         }
       }
-      setActiveSection("#inicio");
+
+      setActiveSection(pendingNavigationRef.current ?? `#${currentSection}`);
+      animationFrameId = null;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const scheduleActiveSectionUpdate = () => {
+      if (animationFrameId === null) {
+        animationFrameId = window.requestAnimationFrame(updateActiveSection);
+      }
+    };
+
+    const handleScrollEnd = () => {
+      pendingNavigationRef.current = null;
+      scheduleActiveSectionUpdate();
+    };
+
+    if (sectionIds.some((sectionId) => window.location.hash === `#${sectionId}`)) {
+      setActiveSection(window.location.hash);
+    }
+
+    window.addEventListener("scroll", scheduleActiveSectionUpdate, { passive: true });
+    window.addEventListener("scrollend", handleScrollEnd);
+    window.addEventListener("resize", scheduleActiveSectionUpdate);
+    window.addEventListener("hashchange", scheduleActiveSectionUpdate);
+    scheduleActiveSectionUpdate();
+
+    return () => {
+      window.removeEventListener("scroll", scheduleActiveSectionUpdate);
+      window.removeEventListener("scrollend", handleScrollEnd);
+      window.removeEventListener("resize", scheduleActiveSectionUpdate);
+      window.removeEventListener("hashchange", scheduleActiveSectionUpdate);
+      if (animationFrameId !== null) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
 
   const closeMenu = () => setIsOpen(false);
 
+  const scrollToPendingSection = () => {
+    const href = pendingNavigationRef.current;
+    if (!href) return;
+
+    document.getElementById(href.slice(1))?.scrollIntoView({ block: "start" });
+  };
+
+  const handleNavigationClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    event.preventDefault();
+    pendingNavigationRef.current = href;
+    setActiveSection(href);
+
+    if (window.location.hash !== href) {
+      window.history.pushState(null, "", href);
+    }
+
+    if (isOpen) {
+      window.requestAnimationFrame(closeMenu);
+    } else {
+      window.requestAnimationFrame(scrollToPendingSection);
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-surface/85 backdrop-blur-md transition-colors duration-250">
+    <header
+      ref={navbarRef}
+      className="sticky top-0 z-50 border-b border-border bg-surface/85 backdrop-blur-md transition-colors duration-250"
+    >
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
         <a
           href="#inicio"
@@ -69,6 +141,8 @@ export default function Navbar() {
               <li key={item.href}>
                 <a
                   href={item.href}
+                  aria-current={isActive ? "location" : undefined}
+                  onClick={(event) => handleNavigationClick(event, item.href)}
                   className={`relative py-1 transition-colors ${
                     isActive
                       ? "text-accent-hover dark:text-accent font-semibold"
@@ -116,7 +190,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={scrollToPendingSection}>
         {isOpen && (
           <motion.div
             id="mobile-navigation"
@@ -133,12 +207,13 @@ export default function Navbar() {
                   <li key={item.href}>
                     <a
                       href={item.href}
+                      aria-current={isActive ? "location" : undefined}
                       className={`block rounded-lg px-3 py-2 transition-colors ${
                         isActive
                           ? "bg-accent-subtle text-accent-hover dark:text-accent font-semibold"
                           : "text-muted-foreground hover:bg-surface-muted hover:text-foreground"
                       }`}
-                      onClick={closeMenu}
+                      onClick={(event) => handleNavigationClick(event, item.href)}
                     >
                       {item.label}
                     </a>
