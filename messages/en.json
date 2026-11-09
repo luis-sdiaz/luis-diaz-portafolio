@@ -3,6 +3,7 @@
     "home": "Home",
     "about": "About me",
     "projects": "Projects",
+    "testimonials": "Testimonials",
     "experience": "Experience",
     "contact": "Contact",
     "goHome": "Go to home",
@@ -219,46 +220,17 @@
     }
   },
   "Testimonials": {
-    "sectionLabel": "Recommendations",
-    "titlePart1": "The experience of",
-    "titlePart2": "working together",
-    "subtitle": "Technical and academic references from professionals who have collaborated on software and embedded systems projects.",
-    "verified": "Verified",
-    "ratingAriaLabel": "Rating of {count} stars",
-    "navigationAriaLabel": "Testimonials navigation",
-    "goToTestimonial": "Go to testimonial by {name}",
-    "previousTestimonial": "Previous testimonial",
-    "nextTestimonial": "Next testimonial",
-    "items": {
-      "docente-ingenieria": {
-        "name": "Software Architecture Professor",
-        "role": "Faculty of Engineering — UCC Pasto",
-        "relation": "Lead Academic Evaluator",
-        "projectTag": "SOFTWARE ARCHITECTURE & PATTERNS",
-        "text": "Luis has demonstrated rigorous architectural judgment, discipline and the ability to solve complex problems with clean code, strict typing and solid patterns."
-      },
-      "colega-frontend": {
-        "name": "Alejandro M.",
-        "role": "Co-developer in Engineering",
-        "relation": "Lullaby 3D Project & Systems",
-        "projectTag": "FULL-STACK & INTERACTIVE 3D ENGINE",
-        "text": "His focus on user experience, 60 FPS micro-interactions and component solidity in Next.js and Tauri brings immense value to any technical team."
-      },
-      "evaluador-iot": {
-        "name": "Hardware Projects Committee",
-        "role": "Engineering Evaluation Panel",
-        "relation": "Embedded Systems & IoT Telemetry",
-        "projectTag": "ECOPLAZA IOT & ESP32 HARDWARE",
-        "text": "He presented an outstanding IoT architecture in EcoPlaza: seamless serial integration with ESP32, low latency and high-resilience persistence oriented toward production."
-      },
-      "operaciones-logistica": {
-        "name": "Process & Traceability Lead",
-        "role": "Supervision of Systematized Flows",
-        "relation": "Operational Chain Traceability",
-        "projectTag": "DATA MANAGEMENT & LOCAL RESILIENCE",
-        "text": "He structured relational databases and continuous weighing algorithms with great robustness, eliminating input bottlenecks and automating critical reports."
-      }
-    }
+    "sectionLabel": "Testimonials",
+    "title": "Testimonials",
+    "subtitle": "Section prepared to incorporate authentic recommendations and evaluations upon completion of technical and academic collaborations.",
+    "cardTitle": "Testimonial {number}",
+    "pendingBadge": "Pending receipt",
+    "namePlaceholder": "Space reserved for name",
+    "rolePlaceholder": "Professional role or title",
+    "relationPlaceholder": "Academic or project relationship",
+    "quotePlaceholder": "Visual space prepared to add an authentic recommendation later.",
+    "ratingPlaceholder": "Rating pending assignment",
+    "avatarAlt": "Space reserved for photo or avatar"
   },
   "Contact": {
     "sectionLabel": "Contact",

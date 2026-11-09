@@ -18,6 +18,7 @@ export default function Navbar() {
     { label: t("home"), href: "#inicio" },
     { label: t("about"), href: "#sobre-mi" },
     { label: t("projects"), href: "#proyectos" },
+    { label: t("testimonials"), href: "#testimonios" },
     { label: t("experience"), href: "#experiencia" },
     { label: t("contact"), href: "#contacto" },
   ];
@@ -33,7 +34,7 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    const sectionIds = ["inicio", "sobre-mi", "proyectos", "experiencia", "contacto"];
+    const sectionIds = ["inicio", "sobre-mi", "proyectos", "testimonios", "experiencia", "contacto"];
     let animationFrameId: number | null = null;
 
     const updateActiveSection = () => {
@@ -134,7 +135,7 @@ export default function Navbar() {
           LD
         </a>
 
-        <ul className="hidden items-center gap-6 text-sm font-medium md:flex">
+        <ul className="hidden items-center gap-3 text-xs font-medium md:flex lg:gap-5 lg:text-sm xl:gap-6">
           {navigationItems.map((item) => {
             const isActive = activeSection === item.href;
             return (
@@ -163,7 +164,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2 sm:gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-2.5">
           <LanguageSwitcher onLocaleChange={closeMenu} />
           <ThemeToggle />
 
@@ -171,7 +172,7 @@ export default function Navbar() {
             href="/cv.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-semibold text-foreground transition-all hover:border-accent/40 hover:bg-surface-muted hover:text-accent-hover dark:hover:text-accent shadow-sm md:inline-flex"
+            className="hidden items-center gap-2 rounded-xl border border-border bg-surface px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-accent/40 hover:bg-surface-muted hover:text-accent-hover dark:hover:text-accent shadow-sm md:inline-flex lg:px-3.5 lg:py-2"
           >
             <FileDown className="h-4 w-4" />
             <span>{t("viewCv")}</span>

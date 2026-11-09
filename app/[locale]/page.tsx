@@ -37,8 +37,8 @@ export default async function LocalizedHomePage({
           <About />
           <Skills />
           <Projects />
-          <Experience />
           <Testimonials />
+          <Experience />
           <Contact />
         </main>
         <Footer />

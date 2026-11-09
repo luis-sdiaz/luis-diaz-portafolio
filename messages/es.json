@@ -3,6 +3,7 @@
     "home": "Inicio",
     "about": "Sobre mí",
     "projects": "Proyectos",
+    "testimonials": "Testimonios",
     "experience": "Experiencia",
     "contact": "Contacto",
     "goHome": "Ir al inicio",
@@ -219,46 +220,17 @@
     }
   },
   "Testimonials": {
-    "sectionLabel": "Recomendaciones",
-    "titlePart1": "La experiencia de",
-    "titlePart2": "trabajar juntos",
-    "subtitle": "Referencias técnicas y académicas de profesionales que han colaborado en proyectos de software y sistemas embebidos.",
-    "verified": "Verificado",
-    "ratingAriaLabel": "Calificación de {count} estrellas",
-    "navigationAriaLabel": "Navegación de testimonios",
-    "goToTestimonial": "Ir al testimonio de {name}",
-    "previousTestimonial": "Testimonio anterior",
-    "nextTestimonial": "Siguiente testimonio",
-    "items": {
-      "docente-ingenieria": {
-        "name": "Ing. Docente de Arquitectura de Software",
-        "role": "Facultad de Ingeniería — UCC Pasto",
-        "relation": "Evaluador Académico Principal",
-        "projectTag": "ARQUITECTURA DE SOFTWARE & PATRONES",
-        "text": "Luis ha demostrado criterio arquitectónico riguroso, disciplina y capacidad para resolver problemas complejos con código limpio, tipado estricto y patrones sólidos."
-      },
-      "colega-frontend": {
-        "name": "Alejandro M.",
-        "role": "Co-desarrollador de Ingeniería",
-        "relation": "Proyecto Lullaby 3D & Sistemas",
-        "projectTag": "FULL-STACK & MOTOR 3D INTERACTIVO",
-        "text": "Su enfoque en la experiencia de usuario, microinteracciones a 60 FPS y solidez de componentes en Next.js y Tauri aporta un valor inmenso a cualquier equipo técnico."
-      },
-      "evaluador-iot": {
-        "name": "Comité de Proyectos de Hardware",
-        "role": "Jurado Evaluador de Ingeniería",
-        "relation": "Sistemas Embebidos & Telemetría IoT",
-        "projectTag": "ECOPLAZA IOT & HARDWARE ESP32",
-        "text": "Presentó una arquitectura IoT sobresaliente en EcoPlaza: integración serial fluida con ESP32, baja latencia y persistencia de alta resiliencia orientada a producción."
-      },
-      "operaciones-logistica": {
-        "name": "Líder de Procesos & Trazabilidad",
-        "role": "Supervisión de Flujos Sistematizados",
-        "relation": "Trazabilidad de Cadena Operativa",
-        "projectTag": "GESTIÓN DE DATOS & RESILIENCIA LOCAL",
-        "text": "Estructuró bases de datos relacionales y algoritmos de pesaje continuo con gran robustez, eliminando cuellos de botella de entrada y automatizando reportes críticos."
-      }
-    }
+    "sectionLabel": "Testimonios",
+    "title": "Testimonios",
+    "subtitle": "Espacio preparado para incorporar recomendaciones y valoraciones auténticas una vez concluidas las colaboraciones técnicas y académicas.",
+    "cardTitle": "Testimonio {number}",
+    "pendingBadge": "Pendiente de recibir",
+    "namePlaceholder": "Espacio para nombre y apellido",
+    "rolePlaceholder": "Cargo o rol profesional",
+    "relationPlaceholder": "Vínculo académico o laboral",
+    "quotePlaceholder": "Espacio visual preparado para añadir una recomendación auténtica más adelante.",
+    "ratingPlaceholder": "Calificación pendiente de asignación",
+    "avatarAlt": "Espacio reservado para foto o avatar"
   },
   "Contact": {
     "sectionLabel": "Contacto",
