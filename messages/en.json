@@ -152,8 +152,8 @@
   },
   "Experience": {
     "sectionLabel": "Background",
-    "titlePart1": "Experience & ",
-    "titlePart2": "Background",
+    "titlePart1": "Academic and Professional",
+    "titlePart2": "Experience",
     "subtitle": "A continuous journey through engineering education, embedded systems development and production software.",
     "educationTitle": "Education",
     "workTitle": "Work Experience & Projects",
@@ -162,7 +162,7 @@
       "ucc-ingenieria": {
         "title": "Software Engineering (5th Semester)",
         "organization": "Universidad Cooperativa de Colombia (UCC Pasto)",
-        "period": "2026 – Ongoing",
+        "period": "2026",
         "description": "Training in software architecture, agile methodologies, design patterns, full-stack development and quality assurance.",
         "skills": ["Software Architecture", "Design Patterns", "Testing", "Databases"]
       },
@@ -199,7 +199,7 @@
       "ecoplaza-lead": {
         "title": "Technical Lead & Desktop / IoT Developer",
         "organization": "EcoPlaza",
-        "period": "2026 – Present",
+        "period": "2026",
         "description": "Leading native architecture in Tauri 2 with Rust and React; synchronizing IoT telemetry with ESP32 microcontrollers and ultrasonic sensors to optimize collection routes.",
         "skills": ["Tauri 2", "Rust", "React", "TypeScript", "ESP32 / IoT"]
       },
