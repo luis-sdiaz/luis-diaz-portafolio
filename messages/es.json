@@ -270,6 +270,7 @@
     "sendAnotherButton": "Enviar otro mensaje",
     "validation": {
       "nameRequired": "Por favor, ingresa tu nombre completo.",
+      "nameMinLength": "El nombre debe contener al menos 2 caracteres.",
       "emailRequired": "Por favor, ingresa tu correo electrónico.",
       "emailInvalid": "Por favor, ingresa una dirección de correo válida.",
       "messageRequired": "Por favor, escribe un mensaje con contenido válido."

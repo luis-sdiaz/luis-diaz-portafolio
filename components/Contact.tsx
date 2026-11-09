@@ -189,8 +189,11 @@ export default function Contact() {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (!formData.name.trim()) {
+    const trimmedName = formData.name.trim();
+    if (!trimmedName) {
       newErrors.name = t("validation.nameRequired");
+    } else if (trimmedName.length < 2) {
+      newErrors.name = t("validation.nameMinLength");
     }
 
     if (!formData.email.trim()) {
@@ -466,6 +469,8 @@ export default function Contact() {
                         name="name"
                         type="text"
                         required
+                        minLength={2}
+                        maxLength={100}
                         value={formData.name}
                         onChange={handleChange}
                         placeholder={t("namePlaceholder")}
