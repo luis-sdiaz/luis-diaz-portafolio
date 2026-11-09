@@ -38,27 +38,55 @@ export default function Navbar() {
     let animationFrameId: number | null = null;
 
     const updateActiveSection = () => {
+      animationFrameId = null;
+
       const navbarHeight = navbarRef.current?.getBoundingClientRect().height ?? 0;
-      const scrollPaddingTop = Number.parseFloat(
-        window.getComputedStyle(document.documentElement).scrollPaddingTop
-      ) || 0;
-      const activationLine = Math.max(navbarHeight, scrollPaddingTop);
+      const rootStyle = window.getComputedStyle(document.documentElement);
+      const scrollPaddingTop = Number.parseFloat(rootStyle.scrollPaddingTop) || 0;
+      const baseOffset = Math.max(navbarHeight, scrollPaddingTop);
+
+      // Verificación de fin de documento: si el usuario ha llegado al fondo de la página,
+      // la sección activa debe ser necesariamente la última ("contacto")
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 24;
+
       let currentSection = sectionIds[0];
 
-      for (const sectionId of sectionIds) {
-        const section = document.getElementById(sectionId);
-        if (
-          section &&
-          Math.round(section.getBoundingClientRect().top) <= Math.round(activationLine)
-        ) {
-          currentSection = sectionId;
-        } else {
-          break;
+      if (isAtBottom) {
+        currentSection = sectionIds[sectionIds.length - 1];
+      } else {
+        for (const sectionId of sectionIds) {
+          const section = document.getElementById(sectionId);
+          if (!section) continue;
+
+          const rect = section.getBoundingClientRect();
+          const sectionScrollMargin =
+            Number.parseFloat(window.getComputedStyle(section).scrollMarginTop) || 0;
+
+          // El umbral efectivo de activación considera la barra fija / padding de scroll
+          // más el scroll-margin-top individual de cada sección, con un margen de tolerancia
+          // (8px) para compensar subpíxeles, escalado de DPI y paradas del scroll suave
+          const activationThreshold = baseOffset + sectionScrollMargin + 8;
+
+          if (rect.top <= activationThreshold) {
+            currentSection = sectionId;
+          } else {
+            break;
+          }
         }
       }
 
+      // Si teníamos una navegación pendiente hacia una sección y el scroll ya la alcanzó,
+      // liberamos la navegación pendiente para sincronizar el estado natural de scroll
+      if (
+        pendingNavigationRef.current &&
+        pendingNavigationRef.current === `#${currentSection}`
+      ) {
+        pendingNavigationRef.current = null;
+      }
+
       setActiveSection(pendingNavigationRef.current ?? `#${currentSection}`);
-      animationFrameId = null;
     };
 
     const scheduleActiveSectionUpdate = () => {
@@ -72,6 +100,34 @@ export default function Navbar() {
       scheduleActiveSectionUpdate();
     };
 
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (sectionIds.some((id) => hash === `#${id}`)) {
+        pendingNavigationRef.current = hash;
+        setActiveSection(hash);
+      } else {
+        pendingNavigationRef.current = null;
+      }
+      scheduleActiveSectionUpdate();
+    };
+
+    const handleUserInterrupt = () => {
+      if (pendingNavigationRef.current) {
+        pendingNavigationRef.current = null;
+        scheduleActiveSectionUpdate();
+      }
+    };
+
+    const handleDocumentClick = (event: globalThis.MouseEvent) => {
+      const target = (event.target as HTMLElement | null)?.closest?.("a");
+      if (!target) return;
+      const href = target.getAttribute("href");
+      if (href && sectionIds.some((id) => href === `#${id}`)) {
+        pendingNavigationRef.current = href;
+        setActiveSection(href);
+      }
+    };
+
     if (sectionIds.some((sectionId) => window.location.hash === `#${sectionId}`)) {
       setActiveSection(window.location.hash);
     }
@@ -79,14 +135,20 @@ export default function Navbar() {
     window.addEventListener("scroll", scheduleActiveSectionUpdate, { passive: true });
     window.addEventListener("scrollend", handleScrollEnd);
     window.addEventListener("resize", scheduleActiveSectionUpdate);
-    window.addEventListener("hashchange", scheduleActiveSectionUpdate);
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("wheel", handleUserInterrupt, { passive: true });
+    window.addEventListener("touchstart", handleUserInterrupt, { passive: true });
+    document.addEventListener("click", handleDocumentClick);
     scheduleActiveSectionUpdate();
 
     return () => {
       window.removeEventListener("scroll", scheduleActiveSectionUpdate);
       window.removeEventListener("scrollend", handleScrollEnd);
       window.removeEventListener("resize", scheduleActiveSectionUpdate);
-      window.removeEventListener("hashchange", scheduleActiveSectionUpdate);
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("wheel", handleUserInterrupt);
+      window.removeEventListener("touchstart", handleUserInterrupt);
+      document.removeEventListener("click", handleDocumentClick);
       if (animationFrameId !== null) {
         window.cancelAnimationFrame(animationFrameId);
       }

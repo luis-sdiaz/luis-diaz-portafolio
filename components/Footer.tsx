@@ -8,8 +8,10 @@ import {
   Heart,
   Sparkles,
   MapPin,
+  Check,
   type LucideIcon,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { CONTACT_DATA } from "@/data/contact";
 
@@ -19,10 +21,9 @@ interface FooterLink {
 }
 
 interface SocialChannel {
-  nameKey: string;
+  name: string;
   href: string;
   icon: LucideIcon | React.ComponentType<{ className?: string }>;
-  isExternal?: boolean;
 }
 
 function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
@@ -71,30 +72,23 @@ const quickLinks: readonly FooterLink[] = [
   { labelKey: "links.contact", href: "#contacto" },
 ];
 
-const socialChannels: readonly SocialChannel[] = [
+const socialLinks: readonly SocialChannel[] = [
   {
-    nameKey: "GitHub",
+    name: "GitHub",
     href: CONTACT_DATA.github.url,
     icon: GithubIcon,
-    isExternal: true,
   },
   {
-    nameKey: "LinkedIn",
+    name: "LinkedIn",
     href: CONTACT_DATA.linkedin.url,
     icon: LinkedinIcon,
-    isExternal: true,
-  },
-  {
-    nameKey: "emailLabel",
-    href: CONTACT_DATA.email.href,
-    icon: Mail,
-    isExternal: false,
   },
 ];
 
 export default function Footer() {
   const t = useTranslations("Footer");
   const [year, setYear] = useState<number>(2026);
+  const [hasCopiedEmail, setHasCopiedEmail] = useState(false);
 
   useEffect(() => {
     const frameId = requestAnimationFrame(() => {
@@ -102,6 +96,42 @@ export default function Footer() {
     });
     return () => cancelAnimationFrame(frameId);
   }, []);
+
+  useEffect(() => {
+    if (!hasCopiedEmail) return;
+    const timer = setTimeout(() => {
+      setHasCopiedEmail(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [hasCopiedEmail]);
+
+  const copyEmailToClipboard = async () => {
+    const email = CONTACT_DATA.email.address;
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = email;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const successful = document.execCommand("copy");
+        document.body.removeChild(textArea);
+        if (!successful) throw new Error("Copy failed");
+      }
+      setHasCopiedEmail(true);
+      toast.success(t("emailCopied"), {
+        description: email,
+      });
+    } catch {
+      toast.error(t("emailCopyError"), {
+        description: email,
+      });
+    }
+  };
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
@@ -130,7 +160,7 @@ export default function Footer() {
                 <span className="block text-sm sm:text-base font-semibold tracking-tight text-foreground">
                   Luis Sebastián Díaz
                 </span>
-                <span className="block text-xs font-mono tracking-wider text-muted-foreground">
+                <span className="mt-0.5 block text-xs font-medium text-muted-foreground">
                   {t("role")}
                 </span>
               </div>
@@ -172,30 +202,44 @@ export default function Footer() {
               {t("connectTitle")}
             </h3>
             <div className="flex items-center gap-2.5" aria-label={t("socialAriaLabel")}>
-              {socialChannels.map((channel) => {
+              {socialLinks.map((channel) => {
                 const IconComponent = channel.icon;
-                // For fixed names like GitHub/LinkedIn, use them directly; for email use translated label
-                const channelName = channel.nameKey === "emailLabel"
-                  ? t("emailLabel")
-                  : channel.nameKey;
-                const ariaLabel = channel.isExternal
-                  ? `${channelName} ${t("externalTab")}`
-                  : channelName;
                 return (
                   <motion.a
-                    key={channel.nameKey}
+                    key={channel.name}
                     href={channel.href}
-                    target={channel.isExternal ? "_blank" : undefined}
-                    rel={channel.isExternal ? "noopener noreferrer" : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-all hover:border-accent/40 hover:bg-accent-subtle hover:text-accent-hover dark:hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-                    aria-label={ariaLabel}
+                    aria-label={`${channel.name} ${t("externalTab")}`}
+                    title={channel.name}
                   >
                     <IconComponent className="h-4 w-4" />
                   </motion.a>
                 );
               })}
+
+              <motion.button
+                type="button"
+                onClick={copyEmailToClipboard}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer ${
+                  hasCopiedEmail
+                    ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 dark:border-emerald-500/40"
+                    : "border-border bg-surface-muted text-foreground hover:border-accent/40 hover:bg-accent-subtle hover:text-accent-hover dark:hover:text-accent"
+                }`}
+                aria-label={hasCopiedEmail ? t("copied") : t("copyEmailAria")}
+                title={hasCopiedEmail ? t("copied") : `${t("copyEmail")} (${CONTACT_DATA.email.address})`}
+              >
+                {hasCopiedEmail ? (
+                  <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+                ) : (
+                  <Mail className="h-4 w-4" aria-hidden="true" />
+                )}
+              </motion.button>
             </div>
 
             <div className="pt-1.5">
