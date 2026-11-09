@@ -234,48 +234,56 @@
   },
   "Contact": {
     "sectionLabel": "Contact",
-    "titlePart1": "Let's talk about your",
-    "titlePart2": "next project",
-    "subtitle": "Have an idea in mind, a job opportunity or need advice on web development, desktop software or IoT? Write to me and let's build high-impact solutions together.",
+    "title": "Get in touch",
+    "subtitle": "Have a project, a job opportunity, or an idea? Drop me a message and let's talk.",
     "directChannelsTitle": "Direct channels",
     "directChannelsSubtitle": "Prefer a faster conversation or want to browse my repositories? You can reach me through any of these channels or check my professional activity online.",
     "channels": {
       "email": {
-        "title": "Email",
-        "badge": "Primary"
+        "title": "Email"
       },
       "github": {
-        "title": "GitHub",
-        "badge": "Open source"
+        "title": "GitHub"
       },
       "linkedin": {
-        "title": "LinkedIn",
-        "badge": "Professional profile"
+        "title": "LinkedIn"
       },
       "whatsapp": {
-        "title": "WhatsApp",
-        "badge": "Direct chat"
+        "title": "WhatsApp"
       }
     },
     "formTitle": "Send a message",
     "formSubtitle": "Fill in the fields below and I'll get back to you shortly.",
     "nameLabel": "Full name",
-    "namePlaceholder": "e.g. Alexander von Humboldt",
+    "namePlaceholder": "Your full name",
     "emailLabel": "Email address",
     "emailPlaceholder": "your-email@company.com",
-    "subjectLabel": "Subject",
+    "subjectLabel": "Subject (optional)",
     "subjectPlaceholder": "Architecture inquiry, project or job proposal",
     "messageLabel": "Message",
     "messagePlaceholder": "Describe your project, technical requirements or inquiry...",
     "requiredField": "*",
     "submitButton": "Send message",
     "sendingButton": "Sending message...",
-    "successTitle": "Message received!",
-    "successMessage": "Thank you for getting in touch. Your message has been received successfully and I will contact you shortly.",
+    "successTitle": "Message sent!",
+    "successMessage": "Thank you for getting in touch. Your message has been received successfully and I will get back to you as soon as possible.",
     "sendAnotherButton": "Send another message",
+    "validation": {
+      "nameRequired": "Please enter your full name.",
+      "emailRequired": "Please enter your email address.",
+      "emailInvalid": "Please enter a valid email address.",
+      "messageRequired": "Please enter a message with valid content."
+    },
+    "errors": {
+      "submitError": "An error occurred while sending the message. Please try again or reach out to me directly by email.",
+      "unconfiguredService": "The contact service (Formspree) is not yet configured in environment variables. You can send me an email directly with your details:",
+      "directEmailFallback": "Open in your email client (bastiandev88@gmail.com)"
+    },
     "toast": {
       "title": "Message sent successfully!",
-      "description": "I will get back to you shortly."
+      "description": "I will get back to you shortly.",
+      "errorTitle": "Could not send message",
+      "errorDescription": "Please try again or use direct channels."
     },
     "externalTab": "(opens in a new tab)"
   },

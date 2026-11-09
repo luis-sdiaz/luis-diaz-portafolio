@@ -234,48 +234,56 @@
   },
   "Contact": {
     "sectionLabel": "Contacto",
-    "titlePart1": "Hablemos de tu",
-    "titlePart2": "próximo proyecto",
-    "subtitle": "¿Tienes una idea en mente, una oportunidad laboral o necesitas asesoría en desarrollo web, software de escritorio o IoT? Escríbeme y construyamos soluciones de alto impacto.",
+    "title": "Contáctame",
+    "subtitle": "¿Tienes un proyecto, una oportunidad laboral o una idea? Escríbeme y conversemos.",
     "directChannelsTitle": "Canales directos",
     "directChannelsSubtitle": "¿Prefieres una comunicación más ágil o consultar mis repositorios? Puedes contactarme a través de cualquiera de estos canales o revisar mi actividad profesional en línea.",
     "channels": {
       "email": {
-        "title": "Correo Electrónico",
-        "badge": "Principal"
+        "title": "Correo Electrónico"
       },
       "github": {
-        "title": "GitHub",
-        "badge": "Código abierto"
+        "title": "GitHub"
       },
       "linkedin": {
-        "title": "LinkedIn",
-        "badge": "Perfil profesional"
+        "title": "LinkedIn"
       },
       "whatsapp": {
-        "title": "WhatsApp",
-        "badge": "Chat directo"
+        "title": "WhatsApp"
       }
     },
     "formTitle": "Enviar un mensaje",
     "formSubtitle": "Completa los campos a continuación y te responderé en breve.",
     "nameLabel": "Nombre completo",
-    "namePlaceholder": "Ej. Alexander von Humboldt",
+    "namePlaceholder": "Tu nombre completo",
     "emailLabel": "Correo electrónico",
     "emailPlaceholder": "tu-correo@empresa.com",
-    "subjectLabel": "Asunto",
+    "subjectLabel": "Asunto (opcional)",
     "subjectPlaceholder": "Consulta de arquitectura, proyecto o propuesta laboral",
     "messageLabel": "Mensaje",
     "messagePlaceholder": "Describe tu proyecto, requerimientos técnicos o consulta...",
     "requiredField": "*",
     "submitButton": "Enviar mensaje",
     "sendingButton": "Enviando mensaje...",
-    "successTitle": "¡Mensaje recibido!",
-    "successMessage": "Gracias por ponerte en contacto. Tu mensaje ha sido recibido con éxito y me pondré en contacto contigo a la brevedad.",
+    "successTitle": "¡Mensaje enviado!",
+    "successMessage": "Gracias por escribir. He recibido tu mensaje correctamente y te responderé lo antes posible.",
     "sendAnotherButton": "Enviar otro mensaje",
+    "validation": {
+      "nameRequired": "Por favor, ingresa tu nombre completo.",
+      "emailRequired": "Por favor, ingresa tu correo electrónico.",
+      "emailInvalid": "Por favor, ingresa una dirección de correo válida.",
+      "messageRequired": "Por favor, escribe un mensaje con contenido válido."
+    },
+    "errors": {
+      "submitError": "Ocurrió un error al enviar el mensaje. Por favor intenta de nuevo o contáctame directamente por correo.",
+      "unconfiguredService": "El servicio de envío (Formspree) aún no está configurado en las variables de entorno. Puedes enviarme un correo directamente con tus datos:",
+      "directEmailFallback": "Abrir en tu cliente de correo (bastiandev88@gmail.com)"
+    },
     "toast": {
       "title": "¡Mensaje enviado con éxito!",
-      "description": "Me pondré en contacto contigo a la brevedad."
+      "description": "Me pondré en contacto contigo a la brevedad.",
+      "errorTitle": "No se pudo enviar el mensaje",
+      "errorDescription": "Por favor intenta de nuevo o utiliza los canales directos."
     },
     "externalTab": "(se abre en una nueva pestaña)"
   },

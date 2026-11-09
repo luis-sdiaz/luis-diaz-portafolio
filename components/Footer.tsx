@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { CONTACT_DATA } from "@/data/contact";
 
 interface FooterLink {
   labelKey: string;
@@ -73,19 +74,19 @@ const quickLinks: readonly FooterLink[] = [
 const socialChannels: readonly SocialChannel[] = [
   {
     nameKey: "GitHub",
-    href: "https://github.com/luis-sdiaz",
+    href: CONTACT_DATA.github.url,
     icon: GithubIcon,
     isExternal: true,
   },
   {
     nameKey: "LinkedIn",
-    href: "https://linkedin.com/in/luis-sdiaz",
+    href: CONTACT_DATA.linkedin.url,
     icon: LinkedinIcon,
     isExternal: true,
   },
   {
     nameKey: "emailLabel",
-    href: "mailto:contacto@luis-diaz.dev",
+    href: CONTACT_DATA.email.href,
     icon: Mail,
     isExternal: false,
   },
