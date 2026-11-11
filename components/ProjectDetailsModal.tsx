@@ -2,10 +2,18 @@
 
 import Image from "next/image";
 import { createPortal } from "react-dom";
-import { useEffect, useRef } from "react";
-import { ExternalLink, ImageOff, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Apple,
+  ChevronDown,
+  Download,
+  ExternalLink,
+  ImageOff,
+  X,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import type {
+  DownloadPlatform,
   Project,
   ProjectCategory,
   RepositoryKind,
@@ -25,6 +33,41 @@ const FOCUSABLE_ELEMENTS = [
   "input:not([disabled])",
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
+
+function PlatformIcon({
+  platform,
+  className = "h-4 w-4",
+}: {
+  platform: DownloadPlatform;
+  className?: string;
+}) {
+  switch (platform) {
+    case "windows":
+      return (
+        <svg
+          className={className}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M2.5 3.5 10 2.4v8.8H2.5V3.5zm8.7-1.4L21.5 0v11.2h-10.3V2.1zm-8.7 10.3H10v8.8L2.5 19.7v-7.3zm8.7 0H21.5V23.2l-10.3-1.6V12.4z" />
+        </svg>
+      );
+    case "macos":
+      return <Apple className={className} aria-hidden="true" />;
+    case "linux":
+      return (
+        <svg
+          className={className}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M12.001 2c-2.38 0-4.31 1.93-4.31 4.31 0 .42.06.83.17 1.22-1.32.75-2.22 2.18-2.22 3.82 0 1.09.4 2.09 1.06 2.85-.31.78-.5 1.63-.5 2.53 0 3.31 2.69 6 6 6s6-2.69 6-6c0-.9-.19-1.75-.5-2.53.66-.76 1.06-1.76 1.06-2.85 0-1.64-.9-3.07-2.22-3.82.11-.39.17-.8.17-1.22 0-2.38-1.93-4.31-4.31-4.31zm-1.8 4.31c0-.99.81-1.8 1.8-1.8s1.8.81 1.8 1.8c0 .24-.05.47-.14.68-.45-.11-.92-.18-1.41-.18-.58 0-1.14.1-1.66.27-.24-.29-.39-.61-.39-.97zm-1.7 6.44c.48 0 .87.39.87.87s-.39.87-.87.87-.87-.39-.87-.87.39-.87.87-.87zm7.4 0c.48 0 .87.39.87.87s-.39.87-.87.87-.87-.39-.87-.87.39-.87.87-.87z" />
+        </svg>
+      );
+  }
+}
 
 function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -52,6 +95,20 @@ export default function ProjectDetailsModal({
   const t = useTranslations("Projects");
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const downloadTriggerRef = useRef<HTMLButtonElement>(null);
+  const downloadsContainerRef = useRef<HTMLDivElement>(null);
+  const [isDownloadsOpen, setIsDownloadsOpen] = useState(false);
+  const [prevProjectId, setPrevProjectId] = useState(project.id);
+
+  if (project.id !== prevProjectId) {
+    setPrevProjectId(project.id);
+    setIsDownloadsOpen(false);
+  }
+
+  const handleClose = useCallback(() => {
+    setIsDownloadsOpen(false);
+    onClose();
+  }, [onClose]);
 
   const categoryLabel = t(
     `categories.${project.category}` as `categories.${ProjectCategory}`
@@ -61,6 +118,26 @@ export default function ProjectDetailsModal({
   );
   const getRepositoryLabel = (kind: RepositoryKind) =>
     t(`repositoryLabels.${kind}` as Parameters<typeof t>[0]);
+
+  useEffect(() => {
+    if (!isDownloadsOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        downloadsContainerRef.current &&
+        !downloadsContainerRef.current.contains(event.target as Node) &&
+        downloadTriggerRef.current &&
+        !downloadTriggerRef.current.contains(event.target as Node)
+      ) {
+        setIsDownloadsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDownloadsOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -76,7 +153,12 @@ export default function ProjectDetailsModal({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onClose();
+        if (isDownloadsOpen) {
+          setIsDownloadsOpen(false);
+          downloadTriggerRef.current?.focus();
+          return;
+        }
+        handleClose();
         return;
       }
 
@@ -116,7 +198,7 @@ export default function ProjectDetailsModal({
       document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus();
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, isDownloadsOpen, handleClose]);
 
   if (!isOpen) return null;
 
@@ -124,7 +206,7 @@ export default function ProjectDetailsModal({
     <div
       className="project-dialog-backdrop fixed inset-0 z-[100] flex items-center justify-center bg-zinc-950/65 p-4 backdrop-blur-sm sm:p-6"
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
+        if (event.target === event.currentTarget) handleClose();
       }}
     >
       <div
@@ -152,7 +234,7 @@ export default function ProjectDetailsModal({
           <button
             ref={closeButtonRef}
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             aria-label={t("closeDetailsAria", { title: project.title })}
             className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-muted text-foreground transition-colors hover:border-accent/45 hover:bg-accent-muted hover:text-accent-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring dark:hover:text-accent"
           >
@@ -168,7 +250,7 @@ export default function ProjectDetailsModal({
                 alt={t("projectImageAlt", { title: project.title })}
                 fill
                 sizes="(min-width: 768px) 40vw, 100vw"
-                className="object-cover"
+                className="object-contain"
               />
             ) : (
               <div
@@ -252,25 +334,128 @@ export default function ProjectDetailsModal({
                 );
               })}
 
-              {project.liveUrl ? (
+              {project.downloads && project.downloads.length > 0 ? (
+                <button
+                  ref={downloadTriggerRef}
+                  type="button"
+                  id="ecoplaza-download-trigger"
+                  onClick={() => setIsDownloadsOpen((prev) => !prev)}
+                  aria-expanded={isDownloadsOpen}
+                  aria-controls="ecoplaza-downloads-menu"
+                  aria-label={t("downloadAppAria", { title: project.title })}
+                  className="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-xl bg-accent-action px-3 text-xs font-bold text-accent-action-foreground transition-colors hover:bg-accent-action-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-center"
+                >
+                  <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{t("downloadAppButton")}</span>
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${
+                      isDownloadsOpen ? "rotate-180" : ""
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
+              ) : project.downloadUrl ? (
+                <a
+                  href={project.downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("downloadApkAria", { title: project.title })}
+                  className="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-xl bg-accent-action px-3 text-xs font-bold text-accent-action-foreground transition-colors hover:bg-accent-action-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-center"
+                >
+                  <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{t("downloadApkButton")}</span>
+                </a>
+              ) : project.liveUrl ? (
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={t("viewLiveDemo", { title: project.title })}
-                  className="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-xl bg-accent-action px-3 text-xs font-bold text-accent-action-foreground transition-colors hover:bg-accent-action-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                  aria-label={
+                    project.interactiveDemo
+                      ? t("viewInteractiveDemoAria", { title: project.title })
+                      : t("viewLiveDemo", { title: project.title })
+                  }
+                  className="inline-flex min-h-10 flex-1 items-center justify-center gap-2 rounded-xl bg-accent-action px-3 text-xs font-bold text-accent-action-foreground transition-colors hover:bg-accent-action-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring text-center"
                 >
-                  <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                  <span>{t("demoButton")}</span>
+                  <ExternalLink className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>
+                    {project.interactiveDemo
+                      ? t("interactiveDemoButton")
+                      : t("demoButton")}
+                  </span>
                 </a>
               ) : (
                 <span
                   aria-disabled="true"
-                  className="inline-flex min-h-10 flex-1 cursor-not-allowed items-center justify-center gap-2 rounded-xl border border-border bg-surface-muted px-3 text-xs font-semibold text-muted-foreground opacity-80"
+                  className="inline-flex min-h-10 flex-1 cursor-not-allowed items-center justify-center gap-2 rounded-xl border border-border bg-surface-muted px-3 text-xs font-semibold text-muted-foreground opacity-80 text-center"
                 >
-                  <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                   <span>{t("demoUnavailable")}</span>
                 </span>
+              )}
+
+              {isDownloadsOpen && project.downloads && project.downloads.length > 0 && (
+                <div
+                  id="ecoplaza-downloads-menu"
+                  ref={downloadsContainerRef}
+                  role="region"
+                  aria-label={t("downloadAppAria", { title: project.title })}
+                  className="mt-1 w-full rounded-2xl border border-accent/30 bg-surface-muted p-2 shadow-lg backdrop-blur-sm"
+                >
+                  <div className="flex flex-col gap-1.5">
+                    {project.downloads.map((item) => (
+                      <a
+                        key={item.platform}
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={t(`platformDownloads.${item.platform}.ariaLabel`, {
+                          title: project.title,
+                        })}
+                        className="group flex items-center justify-between gap-3 rounded-xl border border-transparent bg-surface/60 px-3 py-2 text-xs transition-colors hover:border-accent/40 hover:bg-accent-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-surface text-accent group-hover:border-accent/60 group-hover:text-accent-hover dark:group-hover:text-accent">
+                            <PlatformIcon platform={item.platform} className="h-4 w-4" />
+                          </span>
+                          <div className="flex flex-col text-left truncate">
+                            <span className="font-bold text-foreground">
+                              {t(`platformDownloads.${item.platform}.title`)}
+                            </span>
+                            <span className="text-[10px] text-muted-foreground">
+                              {t(`platformDownloads.${item.platform}.subtitle`)}
+                            </span>
+                          </div>
+                        </div>
+                        <Download
+                          className="h-3.5 w-3.5 shrink-0 text-muted-foreground group-hover:text-accent"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    ))}
+
+                    {project.allReleasesUrl && (
+                      <>
+                        <div className="my-1 border-t border-border/80" />
+                        <a
+                          href={project.allReleasesUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={t("viewAllReleasesAria", {
+                            title: project.title,
+                          })}
+                          className="flex items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-[11px] font-semibold text-accent-hover hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring dark:text-accent text-center"
+                        >
+                          <span>{t("viewAllReleases")}</span>
+                          <ExternalLink
+                            className="h-3 w-3 shrink-0"
+                            aria-hidden="true"
+                          />
+                        </a>
+                      </>
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           </div>

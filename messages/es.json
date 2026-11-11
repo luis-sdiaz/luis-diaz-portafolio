@@ -134,20 +134,47 @@
     "repositoryLabels": {
       "code": "Código",
       "frontend": "Frontend",
-      "backend": "Backend"
+      "backend": "Backend",
+      "zeppos": "Código Zepp OS",
+      "wearos": "Versión Wear OS"
     },
     "viewRepository": "Ver repositorio {repository} de {title} en GitHub",
     "demoButton": "Demo",
+    "interactiveDemoButton": "Ver demo interactiva",
+    "downloadApkButton": "Descargar APK",
+    "downloadAppButton": "Descargar aplicación",
+    "downloadAppAria": "Opciones de descarga de la aplicación para {title}",
+    "viewAllReleases": "Ver todas las versiones",
+    "viewAllReleasesAria": "Ver todas las versiones publicadas de {title} en GitHub Releases",
+    "platformDownloads": {
+      "windows": {
+        "title": "Windows x64",
+        "subtitle": "Instalador EXE",
+        "ariaLabel": "Descargar instalador EXE para Windows x64 de {title}"
+      },
+      "macos": {
+        "title": "macOS Apple Silicon",
+        "subtitle": "Archivo DMG",
+        "ariaLabel": "Descargar archivo DMG para macOS Apple Silicon de {title}"
+      },
+      "linux": {
+        "title": "Linux x64",
+        "subtitle": "AppImage",
+        "ariaLabel": "Descargar paquete AppImage para Linux x64 de {title}"
+      }
+    },
     "demoUnavailable": "Demo no disponible",
     "viewLiveDemo": "Ver demo en vivo de {title}",
+    "viewInteractiveDemoAria": "Ver demo interactiva de {title}",
+    "downloadApkAria": "Descargar APK para Android de {title}",
     "sectionAriaLabel": "Proyectos de Ingeniería de Software",
     "descriptions": {
       "ecoplaza-iot-desktop": "Plataforma de escritorio multiplataforma para registrar, telemedir y gestionar residuos aprovechables, con telemetría ESP32 y persistencia en Supabase/PostgreSQL.",
       "visual-trace-mobile": "Aplicación móvil para documentar el estado de espacios u objetos mediante fotografías de antes y después, con almacenamiento privado y backend en Supabase.",
-      "ridewake-platform": "Aplicación para relojes Wear OS que guía un flujo de viaje y presenta alertas visuales; su estado actual utiliza datos simulados para validar la experiencia.",
+      "ridewake-platform": "Aplicación para Xiaomi Smart Band 7 desarrollada con Zepp OS. Permite seleccionar destinos, simular recorridos y estimar el tiempo de llegada mediante un modelo de Machine Learning, con alertas de proximidad. Incluye una demostración web interactiva.",
       "lullaby-3d-game": "Videojuego 3D roguelike de terror psicológico desarrollado en colaboración, donde Noah atraviesa una pesadilla entre juguetes y recuerdos convertidos en criaturas.",
       "legado-de-valientes": "RPG por turnos para criar, entrenar y enfrentar mascotas fantásticas, con combates en Phaser y una API REST en Spring Boot conectada a MongoDB.",
-    "music-player": "Reproductor web que gestiona una lista local de canciones, reproducción de audio, búsqueda, vistas de álbum y playlist, y temas claro y oscuro."
+      "music-player": "Reproductor web que gestiona una lista local de canciones, reproducción de audio, búsqueda, vistas de álbum y playlist, y temas claro y oscuro."
     }
   },
   "Experience": {
@@ -222,15 +249,25 @@
   "Testimonials": {
     "sectionLabel": "Testimonios",
     "title": "Testimonios",
-    "subtitle": "Espacio preparado para incorporar recomendaciones y valoraciones auténticas una vez concluidas las colaboraciones técnicas y académicas.",
+    "subtitle": "Experiencias y recomendaciones de personas con quienes he compartido proyectos y espacios de aprendizaje.",
     "cardTitle": "Testimonio {number}",
-    "pendingBadge": "Pendiente de recibir",
-    "namePlaceholder": "Espacio para nombre y apellido",
-    "rolePlaceholder": "Cargo o rol profesional",
-    "relationPlaceholder": "Vínculo académico o laboral",
-    "quotePlaceholder": "Espacio visual preparado para añadir una recomendación auténtica más adelante.",
-    "ratingPlaceholder": "Calificación pendiente de asignación",
-    "avatarAlt": "Espacio reservado para foto o avatar"
+    "cards": {
+      "01": {
+        "name": "Sara Noguera",
+        "role": "Compañera de estudios",
+        "quote": "Luis es dedicado y responsable con sus proyectos. Siempre busca soluciones y aporta buenas ideas cuando trabajamos en equipo."
+      },
+      "02": {
+        "name": "Lesly Johana Getial Acosta",
+        "role": "Jefe de prácticas",
+        "quote": "Durante su tiempo en nuestra organización, demostró un fuerte compromiso, habilidades excepcionales y una actitud proactiva."
+      },
+      "03": {
+        "name": "Edwin Ordonez",
+        "role": "Compañero de estudios",
+        "quote": "Luis se toma en serio cada proyecto, escucha a sus compañeros y busca mejorar los resultados con soluciones prácticas."
+      }
+    }
   },
   "Contact": {
     "sectionLabel": "Contacto",
@@ -308,6 +345,9 @@
     "copyright": "© {year} Luis Sebastián Díaz. Todos los derechos reservados.",
     "builtWith": "Hecho con Next.js + Tailwind CSS",
     "externalTab": "(se abre en una nueva pestaña)",
+    "avatarAttribution": "Avatares: Toon Head de Johan Melin, vía DiceBear",
+    "avatarSource": "fuente original",
+    "avatarLicense": "CC BY 4.0",
     "links": {
       "home": "Inicio",
       "about": "Sobre mí",

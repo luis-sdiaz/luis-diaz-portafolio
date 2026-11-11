@@ -6,10 +6,22 @@ export type ProjectCategory =
   | "fullstack-game"
   | "web-audio";
 
-export type RepositoryKind = "code" | "frontend" | "backend";
+export type RepositoryKind =
+  | "code"
+  | "frontend"
+  | "backend"
+  | "zeppos"
+  | "wearos";
 
 export interface ProjectRepository {
   kind: RepositoryKind;
+  url: string;
+}
+
+export type DownloadPlatform = "windows" | "macos" | "linux";
+
+export interface PlatformDownload {
+  platform: DownloadPlatform;
   url: string;
 }
 
@@ -19,6 +31,10 @@ export interface Project {
   tags: string[];
   repositories: ProjectRepository[];
   liveUrl: string | null;
+  downloadUrl?: string | null;
+  downloads?: PlatformDownload[];
+  allReleasesUrl?: string | null;
+  interactiveDemo?: boolean;
   imageSrc: string | null;
   category: ProjectCategory;
   collaborative?: boolean;
@@ -36,7 +52,23 @@ export const PROJECTS: Project[] = [
       },
     ],
     liveUrl: null,
-    imageSrc: null,
+    downloads: [
+      {
+        platform: "windows",
+        url: "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform/releases/download/v1.0.0/EcoPlaza.Smart.Waste.and.IoT.Platform_1.0.0_x64-setup.exe",
+      },
+      {
+        platform: "macos",
+        url: "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform/releases/download/v1.0.0/EcoPlaza.Smart.Waste.and.IoT.Platform_1.0.0_aarch64.dmg",
+      },
+      {
+        platform: "linux",
+        url: "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform/releases/download/v1.0.0/EcoPlaza.Smart.Waste.and.IoT.Platform_1.0.0_amd64.AppImage",
+      },
+    ],
+    allReleasesUrl:
+      "https://github.com/luis-sdiaz/ecoplaza-smart-waste-platform/releases/tag/v1.0.0",
+    imageSrc: "/projects/ecoplaza.png",
     category: "desktop-iot",
   },
   {
@@ -50,21 +82,34 @@ export const PROJECTS: Project[] = [
       },
     ],
     liveUrl: null,
-    imageSrc: null,
+    downloadUrl:
+      "https://github.com/luis-sdiaz/visual-trace-mobile/releases/download/v1.0.0/VisualTrace-v1.0.0-android-arm64.apk.apk",
+    imageSrc: "/projects/visualtrace.png",
     category: "mobile",
   },
   {
     id: "ridewake-platform",
-    title: "RideWake",
-    tags: ["Kotlin", "Jetpack Compose", "Wear OS", "Material 3", "Android SDK"],
+    title: "RideWake AI",
+    tags: [
+      "Zepp OS",
+      "JavaScript",
+      "Xiaomi Smart Band 7",
+      "Machine Learning",
+      "Vite",
+    ],
     repositories: [
       {
-        kind: "code",
+        kind: "zeppos",
+        url: "https://github.com/luis-sdiaz/ridewake-zeppos",
+      },
+      {
+        kind: "wearos",
         url: "https://github.com/luis-sdiaz/ridewake-ai-wearos",
       },
     ],
-    liveUrl: null,
-    imageSrc: null,
+    liveUrl: "https://ridewake-web.vercel.app",
+    interactiveDemo: true,
+    imageSrc: "/projects/ridewake.png",
     category: "wearable",
   },
   {
@@ -78,7 +123,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     liveUrl: null,
-    imageSrc: null,
+    imageSrc: "/projects/lullaby.png",
     category: "game",
     collaborative: true,
   },
@@ -97,7 +142,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     liveUrl: "https://legado-de-valientes-frontend.vercel.app",
-    imageSrc: null,
+    imageSrc: "/projects/legado-de-valientes.png",
     category: "fullstack-game",
   },
   {
@@ -111,7 +156,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     liveUrl: "https://musica.luis-diaz.dev",
-    imageSrc: null,
+    imageSrc: "/projects/reproductor-musica.png",
     category: "web-audio",
   },
 ];

@@ -267,6 +267,26 @@ export default function Footer() {
             <Sparkles className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
           </div>
         </div>
+        <p className="mt-3 text-center text-[10px] leading-relaxed text-muted-foreground/80">
+          {t("avatarAttribution")}{" "}
+          <a
+            href="https://www.dicebear.com/styles/toon-head/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          >
+            {t("avatarSource")}
+          </a>{" "}
+          ·{" "}
+          <a
+            href="https://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 transition-colors hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
+          >
+            {t("avatarLicense")}
+          </a>
+        </p>
       </div>
     </footer>
   );

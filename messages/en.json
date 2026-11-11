@@ -134,20 +134,47 @@
     "repositoryLabels": {
       "code": "Code",
       "frontend": "Frontend",
-      "backend": "Backend"
+      "backend": "Backend",
+      "zeppos": "Zepp OS Code",
+      "wearos": "Wear OS Version"
     },
     "viewRepository": "View the {repository} repository for {title} on GitHub",
     "demoButton": "Demo",
+    "interactiveDemoButton": "View interactive demo",
+    "downloadApkButton": "Download APK",
+    "downloadAppButton": "Download application",
+    "downloadAppAria": "Application download options for {title}",
+    "viewAllReleases": "View all releases",
+    "viewAllReleasesAria": "View all published releases for {title} on GitHub Releases",
+    "platformDownloads": {
+      "windows": {
+        "title": "Windows x64",
+        "subtitle": "EXE installer",
+        "ariaLabel": "Download EXE installer for Windows x64 of {title}"
+      },
+      "macos": {
+        "title": "macOS Apple Silicon",
+        "subtitle": "DMG disk image",
+        "ariaLabel": "Download DMG disk image for macOS Apple Silicon of {title}"
+      },
+      "linux": {
+        "title": "Linux x64",
+        "subtitle": "AppImage",
+        "ariaLabel": "Download AppImage package for Linux x64 of {title}"
+      }
+    },
     "demoUnavailable": "Demo unavailable",
     "viewLiveDemo": "View live demo of {title}",
+    "viewInteractiveDemoAria": "View interactive demo of {title}",
+    "downloadApkAria": "Download Android APK for {title}",
     "sectionAriaLabel": "Software Engineering Projects",
     "descriptions": {
       "ecoplaza-iot-desktop": "Cross-platform desktop software for registering, monitoring and managing recyclable waste, with ESP32 telemetry and persistence in Supabase/PostgreSQL.",
       "visual-trace-mobile": "Mobile application for documenting the state of spaces or objects with before-and-after photographs, private storage and a Supabase backend.",
-      "ridewake-platform": "Wear OS application that guides a travel flow and presents visual alerts; its current stage uses simulated data to validate the experience.",
+      "ridewake-platform": "Application for Xiaomi Smart Band 7 developed with Zepp OS. Allows selecting destinations, simulating routes, and estimating arrival time using a Machine Learning model, featuring proximity alerts. Includes an interactive web demo.",
       "lullaby-3d-game": "Collaborative 3D psychological-horror roguelike in which Noah moves through a nightmare of toys and memories transformed into creatures.",
       "legado-de-valientes": "Turn-based RPG for raising, training and battling fantasy pets, with Phaser combat and a Spring Boot REST API connected to MongoDB.",
-    "music-player": "Web music player with local playlist management, audio playback, search, album and playlist views, and light and dark themes."
+      "music-player": "Web music player with local playlist management, audio playback, search, album and playlist views, and light and dark themes."
     }
   },
   "Experience": {
@@ -222,15 +249,25 @@
   "Testimonials": {
     "sectionLabel": "Testimonials",
     "title": "Testimonials",
-    "subtitle": "Section prepared to incorporate authentic recommendations and evaluations upon completion of technical and academic collaborations.",
+    "subtitle": "Experiences and recommendations from people I have worked and learned with.",
     "cardTitle": "Testimonial {number}",
-    "pendingBadge": "Pending receipt",
-    "namePlaceholder": "Space reserved for name",
-    "rolePlaceholder": "Professional role or title",
-    "relationPlaceholder": "Academic or project relationship",
-    "quotePlaceholder": "Visual space prepared to add an authentic recommendation later.",
-    "ratingPlaceholder": "Rating pending assignment",
-    "avatarAlt": "Space reserved for photo or avatar"
+    "cards": {
+      "01": {
+        "name": "Sara Noguera",
+        "role": "Study partner",
+        "quote": "Luis is dedicated and responsible with his projects. He always looks for solutions and contributes good ideas when we work as a team."
+      },
+      "02": {
+        "name": "Lesly Johana Getial Acosta",
+        "role": "Internship supervisor",
+        "quote": "During his time in our organization, he demonstrated a strong commitment, exceptional skills, and a proactive attitude."
+      },
+      "03": {
+        "name": "Edwin Ordonez",
+        "role": "Study partner",
+        "quote": "Luis takes every project seriously, listens to his peers, and seeks to improve results with practical solutions."
+      }
+    }
   },
   "Contact": {
     "sectionLabel": "Contact",
@@ -308,6 +345,9 @@
     "copyright": "© {year} Luis Sebastián Díaz. All rights reserved.",
     "builtWith": "Built with Next.js + Tailwind CSS",
     "externalTab": "(opens in a new tab)",
+    "avatarAttribution": "Avatars: Toon Head by Johan Melin, via DiceBear",
+    "avatarSource": "original source",
+    "avatarLicense": "CC BY 4.0",
     "links": {
       "home": "Home",
       "about": "About me",
